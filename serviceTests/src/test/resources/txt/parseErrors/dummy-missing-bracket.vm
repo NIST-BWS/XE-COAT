@@ -1,0 +1,20 @@
+; 
+; Simple ini file
+; Don't touch this! It will break tests if you do.
+;
+
+[planes] ; planes section comment
+airport = ${ROOT.planes.airport; austraila?
+flight = "${ROOT.planes.flight}"
+status = ${ROOT.planes.status}
+
+[trains]
+name = "${ROOT.trains.name}"; the tank engine
+numbers = #foreach($value in ${ROOT.trains.numbers.Element})$value#if($velocityHasNext), #end#end; pulling trains and shunting freight
+
+[automobiles]
+name = "${ROOT.automobiles.name}"
+costs = #foreach($value in ${ROOT.automobiles.costs.Element})$value#if($velocityHasNext), #end#end$eol
+mixed = #foreach($value in ${ROOT.automobiles.mixed.Element})$value#if($velocityHasNext), #end#end$eol
+runCommand = ${ROOT.automobiles.runCommand}
+

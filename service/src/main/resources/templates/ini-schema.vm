@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema 
+	xmlns:$m.NamespacePrefix="$m.TargetNamespace"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="$m.TargetNamespace"
+	elementFormDefault="qualified">
+
+ <xs:element name="$m.RootElementName" type="$m.RootElementTypeNameForReference"/>
+
+#if ($m.MultipleSections)
+ <xs:complexType name="$m.RootElementTypeNameForDefinition">
+  <xs:sequence>
+  #foreach ($type in $m.Sections)
+    <xs:element name="$!type.ElementName" type="$!type.TypeNameForReference"/>
+  #end
+  </xs:sequence>
+ </xs:complexType>
+#end
+
+#foreach ($type in $m.ArrayTypes)
+  <xs:complexType name="$!type.TypeNameForDefinition">
+   <xs:sequence>
+    <xs:element name="$!type.ElementName" type="$!type.ElementTypeName" maxOccurs="unbounded"/>
+   </xs:sequence>
+  </xs:complexType>
+ 
+#end
+#foreach ($s in $m.Sections)
+  <xs:complexType name="$s.TypeNameForDefinition">
+ #if ($s.Elements.size() > 0)
+   <xs:sequence>
+  #foreach ($element in $s.Elements)
+   <xs:element name="$!element.ElementName" type="$!element.TypeNameForReference"/>
+  #end
+  </xs:sequence>
+ #else
+  <xs:complexContent>
+   <xs:restriction base="xs:anyType"/>
+  </xs:complexContent>
+ #end
+ </xs:complexType>
+
+#end
+
+</xs:schema>
