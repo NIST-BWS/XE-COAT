@@ -1,5 +1,6 @@
 package gov.nist.ixe.templates.templateservices.tests.schema;
 
+import static gov.nist.ixe.templates.TemplateServicesUtil.setConfig;
 import static gov.nist.ixe.templates.TemplateServicesUtil.setSchema;
 import static org.junit.Assert.assertEquals;
 import gov.nist.ixe.stringsource.StringSource;
@@ -137,5 +138,12 @@ public abstract class Tests extends TemplateServicesTests {
 		StringSource rt = StringSourceConverters.fromResponse(ts.getSchema(serviceName, "schema0"));		
 		assertEquals(Examples.SCHEMA.getCharset(), rt.getCharset());		
 	}
+	
+	@Test (expected=IllegalResourceNameException.class)
+	public void settingASchemaWithABadNameIsForbidden() {
+		ts.createService(serviceName);
+		setSchema(ts, serviceName, "***", Examples.SCHEMA);	
+	}
+	
 	
 }

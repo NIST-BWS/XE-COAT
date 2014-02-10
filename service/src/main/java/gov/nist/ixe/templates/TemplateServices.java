@@ -134,7 +134,7 @@ public class TemplateServices implements ITemplateServices {
 			throws ResourceNotFoundException {
 		trace();
 
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
 
 		return new ServiceResources(getStorageProvider(), getRootUri(),
 				serviceName);
@@ -144,7 +144,7 @@ public class TemplateServices implements ITemplateServices {
 		trace();
 
 		serviceName = serviceName.trim();
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
 
 		getStorageProvider().addService(serviceName);
 
@@ -366,7 +366,7 @@ public class TemplateServices implements ITemplateServices {
 	public Response getTemplate(String serviceName) {
 
 		trace();
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
 		return StringSourceConverters.toResponse(getStorageProvider()
 				.getTemplate(serviceName), Constants.ContentType.SubType.PLAIN, Constants.Rel.TEMPLATE);
 	}
@@ -375,7 +375,7 @@ public class TemplateServices implements ITemplateServices {
 			String contentType) {
 		trace();
 
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
 		requireSpecificContentType(contentType, "text/plain");
 		// forbidEmptyPayload(payload, contentType);
 
@@ -388,7 +388,7 @@ public class TemplateServices implements ITemplateServices {
 	public void deleteTemplate(String serviceName) {
 		trace();
 
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
 
 		getStorageProvider().deleteTemplate(serviceName);
 
@@ -399,7 +399,7 @@ public class TemplateServices implements ITemplateServices {
 	public Response getSchema(String serviceName, String schemaName) {
 		trace();
 
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
 		forbidEmptyName(schemaName);
 		return StringSourceConverters.toResponse(getStorageProvider()
 				.getSchema(serviceName, schemaName), "xml", Constants.Rel.SCHEMA);
@@ -409,7 +409,8 @@ public class TemplateServices implements ITemplateServices {
 			byte[] payload, String contentType) {
 		trace();
 
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
+		validateServiceOrResourceName(schemaName);
 		forbidEmptyName(schemaName);
 		forbidReservedName(schemaName);
 		requireSpecificContentType(contentType, "text/xml");
@@ -423,7 +424,7 @@ public class TemplateServices implements ITemplateServices {
 	public void deleteSchema(String serviceName, String schemaName) {
 		trace();
 
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
 		forbidEmptyName(schemaName);
 
 		getStorageProvider().deleteSchema(serviceName, schemaName);
@@ -435,7 +436,7 @@ public class TemplateServices implements ITemplateServices {
 	public Response getConfig(String serviceName, String configName) {
 		trace();
 
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);		
 		forbidEmptyName(configName);
 
 		return StringSourceConverters.toResponse(getStorageProvider()
@@ -446,7 +447,8 @@ public class TemplateServices implements ITemplateServices {
 			byte[] payload, String contentType) {
 		trace();
 
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
+		validateServiceOrResourceName(configName);
 		forbidEmptyName(configName);
 		forbidReservedName(configName);
 		requireSpecificContentType(contentType, "text/xml");
@@ -460,7 +462,7 @@ public class TemplateServices implements ITemplateServices {
 	public void deleteConfig(String serviceName, String configName) {
 		trace();
 
-		validateServiceName(serviceName);
+		validateServiceOrResourceName(serviceName);
 		forbidEmptyName(configName);
 
 		getStorageProvider().deleteConfig(serviceName, configName);
@@ -479,12 +481,12 @@ public class TemplateServices implements ITemplateServices {
 		storageProviderFactory.CleanStorage();
 	}
 
-	private static void validateServiceName(String name)
+	private static void validateServiceOrResourceName(String name)
 			throws IllegalResourceNameException {
 		forbidEmptyName(name);
 		forbidReservedName(name);
 		if (!name.matches("^[a-zA-Z0-9_. ()][a-zA-Z0-9_. ()\\- ]*$")) {
-			IllegalResourceNameException.IllegalFormat(name);
+			throw IllegalResourceNameException.IllegalFormat(name);
 		}
 	}
 
@@ -617,6 +619,8 @@ public class TemplateServices implements ITemplateServices {
 		forbidEmptyName(serviceName);
 		forbidEmptyName(newName);
 		forbidReservedName(newName);
+		
+		validateServiceOrResourceName(newName);
 
 		getStorageProvider().renameService(serviceName, newName);
 		info(String.format("Serivce '%s' renamed to '%s'.", serviceName,
@@ -639,6 +643,8 @@ public class TemplateServices implements ITemplateServices {
 		forbidEmptyName(serviceName);
 		forbidEmptyName(schemaName);
 		forbidEmptyName(newName);
+		
+		validateServiceOrResourceName(newName);
 
 		forbidReservedName(newName);
 		getStorageProvider().renameSchema(serviceName, schemaName, newName);
@@ -664,6 +670,8 @@ public class TemplateServices implements ITemplateServices {
 		forbidEmptyName(serviceName);
 		forbidEmptyName(configName);
 		forbidEmptyName(newName);
+		
+		validateServiceOrResourceName(newName);
 
 		forbidReservedName(newName);
 		getStorageProvider().renameConfig(serviceName, configName, newName);

@@ -28,12 +28,10 @@ public abstract class Tests extends TemplateServicesTests {
 	 String serviceName = "service0";
 	
 	@Test (expected=IllegalResourceNameException.class) 
-	public void servicesCannotBeRenamedToAnExistingServiceName() {
-		
+	public void servicesCannotBeRenamedToAnExistingServiceName() {	
 		ts.createService("service0");
 		ts.createService("service1");
-		ts.renameService("service0", "service1");
-		
+		ts.renameService("service0", "service1");		
 	}
 	
 	@Test (expected=IllegalResourceNameException.class) 
@@ -54,6 +52,30 @@ public abstract class Tests extends TemplateServicesTests {
 		setSchema(ts, "service0", "s2", Examples.SCHEMA);
 		ts.renameSchema("service0", "s1", "s2");		
 	}
+	
+	
+	@Test (expected=IllegalResourceNameException.class) 
+	public void servicesCannotBeRenamedToABadServiceName() {	
+		ts.createService("service0");
+		ts.renameService("service0", "service;;;");		
+	}
+	
+	@Test (expected=IllegalResourceNameException.class) 
+	public void configsCannotBeRenamedToABadName() {
+		String s = "service0";		
+		ts.createService(s);
+		setConfig(ts, s, "c1", Examples.CONFIG);
+		ts.renameConfig(s, "c1", "*!*!");		
+	}
+	
+	@Test (expected=IllegalResourceNameException.class) 
+	public void schemasCannotBeRenamedToABadName() {		
+		ts.createService("service0");
+		setSchema(ts, "service0", "s1", Examples.SCHEMA);
+		ts.renameSchema("service0", "s1", "~^~^~");		
+	}
+	
+	
 	
 	@Test public void servicesCanBeRenamedCorrectly() {
 		

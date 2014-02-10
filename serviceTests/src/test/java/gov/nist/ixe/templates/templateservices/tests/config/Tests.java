@@ -9,6 +9,7 @@ import gov.nist.ixe.stringsource.StringSourceConverters;
 import gov.nist.ixe.templates.BuildUri;
 import gov.nist.ixe.templates.Constants;
 import gov.nist.ixe.templates.exception.IllegalContentTypeException;
+import gov.nist.ixe.templates.exception.IllegalResourceNameException;
 import gov.nist.ixe.templates.exception.ResourceNotFoundException;
 import gov.nist.ixe.templates.jaxb.Link;
 import gov.nist.ixe.templates.templateservices.tests.TemplateServicesTests;
@@ -142,6 +143,12 @@ public abstract class Tests extends TemplateServicesTests {
 		ts.setConfig(serviceName, configName, Examples.CONFIG.getData(), "text/xml");
 		StringSource rt = StringSourceConverters.fromResponse(ts.getConfig(serviceName, configName));
 		assertEquals(Examples.CONFIG.getCharset(), rt.getCharset());		
+	}
+	
+	@Test (expected=IllegalResourceNameException.class)
+	public void settingAConfigWithABadNameIsForbidden() {
+		ts.createService(serviceName);
+		setConfig(ts, serviceName, "***", Examples.CONFIG);	
 	}
 	
 }

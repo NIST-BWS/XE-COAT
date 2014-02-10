@@ -5,7 +5,6 @@ import gov.nist.ixe.templates.Constants;
 import gov.nist.ixe.templates.HistoryInfo;
 import gov.nist.ixe.templates.IStorageProvider;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
