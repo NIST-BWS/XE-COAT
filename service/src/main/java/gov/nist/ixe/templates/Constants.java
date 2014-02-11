@@ -99,7 +99,7 @@ public class Constants {
 	}
 	
 	public static final String[] DOCUMENT_RESOURCE_TYPES = {
-		Rel.CONFIG, Rel.SCHEMA, Rel.TEMPLATE
+		Rel.CONFIG, Rel.SCHEMA, Rel.TEMPLATE, Rel.INI_SPLITTER
 	};
 	
 

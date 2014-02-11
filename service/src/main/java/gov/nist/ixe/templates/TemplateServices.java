@@ -725,48 +725,15 @@ public class TemplateServices implements ITemplateServices {
 			result.getResources().add(
 					Link.Schema(storage, getRootUri(), serviceName, name));
 		}
+		
+		if (Constants.Rel.INI_SPLITTER.equals(rel)) {			
+			splitInf(payload, contentType, name);
+		}
 
 		return result;
 	}
 
-	private List<Link> splitIni(StringSource ini, String serviceName)
-			throws IOException, NullPointerException,
-			ParserConfigurationException, SAXException {
-
-		String newline = EncodingUtil.detectNewline(ini.getString());
-		List<String> iniText = ini.getLines(newline);
-
-		List<IniSection> iniSections = IniSection.parse(iniText, false);
-		List<Link> links = new ArrayList<Link>();
-
-		Generator g = new Generator(serviceName);
-		StringSource config = g.genXmlInstance(iniSections);
-		StringSource schema = g.genXsdSchema(iniSections);
-		StringSource template = g
-				.genVelocityTemplate(ini, iniSections, newline);
-
-		XmlUtil.ValidateXml(StringSourceUriPair.InputSource(schema, "schema"),
-				StringSourceUriPair.InputSource(config, "config"));
-
-		createService(serviceName);
-
-		setSchema(serviceName, Constants.PRIMARY_SCHEMA_NAME, schema.getData(),
-				schema.getContentType("xml"));
-		links.add(Link.Schema(storage, getRootUri(), serviceName,
-				Constants.PRIMARY_SCHEMA_NAME));
-
-		setTemplate(serviceName, template.getData(),
-				template.getContentType("plain"));
-
-		links.add(Link.Template(storage, getRootUri(), serviceName));
-
-		setConfig(serviceName, "default.xml", config.getData(),
-				config.getContentType("xml"));
-		links.add(Link
-				.Config(storage, getRootUri(), serviceName, "default.xml"));
-
-		return links;
-	}
+	
 
 	@Override
 	public ServiceResources splitInf(byte[] payload, String contentType,
@@ -811,6 +778,7 @@ public class TemplateServices implements ITemplateServices {
 		return getServiceResources(serviceName);
 
 	}
+	
 
 	@Override
 	public String testConnectionViaGet() {

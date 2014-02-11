@@ -375,8 +375,7 @@ public interface ITemplateServices {
 	// Calling GET on the 'schema history' resource returns a list of historic schemas
 	//
 	@GET
-	@Produces("text/xml")
-	
+	@Produces("text/xml")	
 	@Path(Constants.Uri.SCHEMA_HISTORY)
 	public ResourceHistory getSchemaHistory(
 			@PathParam(Constants.Uri.Param.SERVICE_NAME) String serviceName,
