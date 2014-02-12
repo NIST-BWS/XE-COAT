@@ -1,6 +1,5 @@
 package gov.nist.ixe.templates.templateservices.tests.schema;
 
-import static gov.nist.ixe.templates.TemplateServicesUtil.setConfig;
 import static gov.nist.ixe.templates.TemplateServicesUtil.setSchema;
 import static org.junit.Assert.assertEquals;
 import gov.nist.ixe.stringsource.StringSource;

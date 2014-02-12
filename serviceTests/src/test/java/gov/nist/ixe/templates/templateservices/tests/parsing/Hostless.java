@@ -5,8 +5,8 @@ import gov.nist.ixe.templates.templateservices.tests.ITemplateServicesTestFixtur
 
 public class Hostless extends Tests {
 
-	public Hostless(ProcessStyle style) {
-		super(style);
+	public Hostless(ProcessStyle style, String resourceName) {
+		super(style, resourceName);
 	}
 
 	private HostlessTemplateServicesTestFixture fixture;

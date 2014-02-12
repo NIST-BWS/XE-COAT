@@ -74,8 +74,10 @@ public class Constants {
 	};
 	
 	public static class HttpHeader {
-		public static final String REL = "X-COAT-Rel";
 		public static final String HISTORIC_VERSION_OF = "X-COAT-Historic-Version-Of";
+		public static final String SERVICE_NAME = "X-COAT-ServiceName";
+		public static final String RESOURCE_NAME = "X-COAT-ResourceName";
+		public static final String REL = "X-COAT-Rel";
 		
 	}
 	

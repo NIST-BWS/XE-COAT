@@ -160,7 +160,9 @@ public class TemplateServicesClient implements ITemplateServices {
 				try {
 					TemplateGenerationError tge = 
 							this.unmarshall(TemplateGenerationError.class, response.readEntity(InputStream.class));
-					throw new TemplateGenerationException(tge);
+					String serviceName = response.getHeaderString(Constants.HttpHeader.SERVICE_NAME);
+					String resourceName = response.getHeaderString(Constants.HttpHeader.RESOURCE_NAME);
+					throw new TemplateGenerationException(serviceName, resourceName, tge);
 				} catch (JAXBException je) {
 					throw new TemplateServiceClientException(message);
 				}

@@ -56,16 +56,18 @@ public abstract class Tests extends TemplateServicesTests {
 	@Parameters
 	public static Collection<Object[]> testParameters() {
 		Object[][] data = new Object[][] {
-				{ProcessStyle.Default},
-				{ProcessStyle.Named},
-				{ProcessStyle.Posted},
+				{ProcessStyle.Default, "process/default.xml"},
+				{ProcessStyle.Named, "process/default.xml"},
+				{ProcessStyle.Posted, "process/process"}
 		};
 		return Arrays.asList(data);
 	}
 	
 	public ProcessStyle style;
-	public Tests(ProcessStyle style) {
+	public String resourceName;
+	public Tests(ProcessStyle style, String resourceName) {
 		this.style = style;
+		this.resourceName = resourceName;
 	}
 	
 	@Test
@@ -75,15 +77,16 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(expected.getString().trim(), result.getString().trim());
 	}
 	
-	private List<ParseError> getErrors(String templateFilename, 
+	
+	private TemplateGenerationException getTemplateGenerationException(String templateFilename, 
 			String schemaFilename, 
 			String configFilename,
 			ProcessStyle style) throws IOException, URISyntaxException {
-		List<ParseError> result = null;
+		TemplateGenerationException result = null;
 		try {
 			getTemplate(templateFilename, schemaFilename, configFilename, style);			
 		} catch (TemplateGenerationException tge) {
-			result = tge.getParseErrors();
+			result = tge;
 		} 
 		return result;
 	}
@@ -122,7 +125,11 @@ public abstract class Tests extends TemplateServicesTests {
 	
 	@Test
 	public void AEmptySchemaFileGivesTheExpectedParseError() throws IOException, URISyntaxException {
-		List<ParseError> errors = getErrors(okTemplate, empty, okConfig, style);
+		TemplateGenerationException tge = getTemplateGenerationException(okTemplate, empty, okConfig, style);
+		List<ParseError> errors = tge.getParseErrors();
+		
+		assertEquals(serviceName, tge.getServiceName());
+		assertEquals(resourceName, tge.getResourceName());
 		
 		assertEquals(1, errors.size());
 		assertEquals("Premature end of file.", errors.get(0).getMessage());
@@ -138,7 +145,13 @@ public abstract class Tests extends TemplateServicesTests {
 	
 	@Test
 	public void ASchemaWithAMissingAngleBracketGivesTheExpectedParseError() throws IOException, URISyntaxException {
-		List<ParseError> errors = getErrors(okTemplate, schemaMissingBracket, okConfig, style);
+		
+		TemplateGenerationException tge = getTemplateGenerationException(okTemplate, schemaMissingBracket, okConfig, style);
+		List<ParseError> errors = tge.getParseErrors();
+		
+		assertEquals(serviceName, tge.getServiceName());
+		assertEquals(resourceName, tge.getResourceName());
+		
 		
 		assertEquals(1, errors.size());
 		assertEquals("Element type \"xs:element\" must be followed by either attribute specifications, \">\" or \"/>\".",
@@ -155,7 +168,13 @@ public abstract class Tests extends TemplateServicesTests {
 	
 	@Test
 	public void ASchemaWithAMissingTypeDefinitionGivesTheExpectedParseError() throws IOException, URISyntaxException {
-		List<ParseError> errors = getErrors(okTemplate, schemaMissingTypeDef, okConfig, style);
+		TemplateGenerationException tge = getTemplateGenerationException(okTemplate, schemaMissingTypeDef, okConfig, style);
+		List<ParseError> errors = tge.getParseErrors();
+		
+		assertEquals(serviceName, tge.getServiceName());
+		assertEquals(resourceName, tge.getResourceName());
+		
+		//List<ParseError> errors = getErrors(okTemplate, schemaMissingTypeDef, okConfig, style);
 		
 		assertEquals(1, errors.size());
 		assertEquals("undefined simple or complex type 'coat:automobilesType'",
@@ -172,7 +191,12 @@ public abstract class Tests extends TemplateServicesTests {
 
 	@Test
 	public void AnEmptyConfigFileGivesTheExpectedParseError() throws IOException, URISyntaxException {
-		List<ParseError> errors = getErrors(okTemplate, okSchema, empty, style);
+		TemplateGenerationException tge = getTemplateGenerationException(okTemplate, okSchema, empty, style);
+		List<ParseError> errors = tge.getParseErrors();
+		
+		assertEquals(serviceName, tge.getServiceName());
+		assertEquals(resourceName, tge.getResourceName());
+		//List<ParseError> errors = getErrors(okTemplate, okSchema, empty, style);
 		
 		assertEquals(1, errors.size());
 		assertEquals(1, errors.get(0).getLineNumber());
@@ -192,7 +216,13 @@ public abstract class Tests extends TemplateServicesTests {
 	
 	@Test
 	public void AConfigFileWithAMissingBracketGivesTheExpectedParseError() throws IOException, URISyntaxException {
-		List<ParseError> errors = getErrors(okTemplate, okSchema, configMissingBracket, style);
+		
+		TemplateGenerationException tge = getTemplateGenerationException(okTemplate, okSchema, configMissingBracket, style);
+		List<ParseError> errors = tge.getParseErrors();
+		
+		assertEquals(serviceName, tge.getServiceName());
+		assertEquals(resourceName, tge.getResourceName());
+		//List<ParseError> errors = getErrors(okTemplate, okSchema, configMissingBracket, style);
 		
 		assertEquals(1, errors.size());
 		
@@ -214,7 +244,13 @@ public abstract class Tests extends TemplateServicesTests {
 	
 	@Test
 	public void AConfigFileWithAMissingTypeGivesTheExpectedParseError() throws IOException, URISyntaxException {
-		List<ParseError> errors = getErrors(okTemplate, okSchema, configMissingType, style);
+		
+		TemplateGenerationException tge = getTemplateGenerationException(okTemplate, okSchema, configMissingType, style);
+		List<ParseError> errors = tge.getParseErrors();
+		
+		assertEquals(serviceName, tge.getServiceName());
+		assertEquals(resourceName, tge.getResourceName());
+		//List<ParseError> errors = getErrors(okTemplate, okSchema, configMissingType, style);
 		
 		String expectedMessage = "cvc-complex-type.2.4.a: Invalid content was found starting with element 'automobiles'. One of '{\"http://xe.nist.gov/coat\":trains}' is expected.";
 		
@@ -240,7 +276,12 @@ public abstract class Tests extends TemplateServicesTests {
 	
 	@Test
 	public void ATemplateWithAMissingBracketGivesTheExpectedParseError() throws IOException, URISyntaxException {
-		List<ParseError> errors = getErrors(templateMissingBracket, okSchema, okConfig, style);
+		TemplateGenerationException tge = getTemplateGenerationException(templateMissingBracket, okSchema, okConfig, style);
+		List<ParseError> errors = tge.getParseErrors();
+		
+		assertEquals(serviceName, tge.getServiceName());
+		assertEquals(resourceName, tge.getResourceName());
+	//	List<ParseError> errors = getErrors(templateMissingBracket, okSchema, okConfig, style);
 		
 		assertEquals(1, errors.size());
 		assertEquals(7, errors.get(0).getLineNumber());
@@ -249,14 +290,25 @@ public abstract class Tests extends TemplateServicesTests {
 	
 	@Test
 	public void MultipleRootElementsInTheMainSchemaGivesTheExpectedParseError()  throws IOException, URISyntaxException {
-		List<ParseError> errors = getErrors(okTemplate, schemaMultiRoot, okConfig, style);
+		TemplateGenerationException tge = getTemplateGenerationException(okTemplate, schemaMultiRoot, okConfig, style);
+		List<ParseError> errors = tge.getParseErrors();
+		
+		assertEquals(serviceName, tge.getServiceName());
+		assertEquals(resourceName, tge.getResourceName());
+		//List<ParseError> errors = getErrors(okTemplate, schemaMultiRoot, okConfig, style);
 		assertEquals(1, errors.size());
 		assertEquals(56, errors.get(0).getLineNumber());
 	}
 	
 	@Test
 	public void NoRootElementInTheMainSchemaGivesExpectedParseError() throws IOException, URISyntaxException {
-		List<ParseError> errors = getErrors(okTemplate, schemaNoRoot, okConfig, style);
+		TemplateGenerationException tge = getTemplateGenerationException(okTemplate, schemaNoRoot, okConfig, style);
+		List<ParseError> errors = tge.getParseErrors();
+		
+		assertEquals(serviceName, tge.getServiceName());
+		assertEquals(resourceName, tge.getResourceName());
+		
+		//List<ParseError> errors = getErrors(okTemplate, schemaNoRoot, okConfig, style);
 		assertEquals(1, errors.size());
 		assertEquals(6, errors.get(0).getLineNumber());
 		assertTrue(errors.get(0).getMessage().contains("Cannot find the declaration of element 'dummy'"));

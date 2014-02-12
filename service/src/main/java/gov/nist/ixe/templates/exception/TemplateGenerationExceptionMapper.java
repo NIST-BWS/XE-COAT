@@ -42,6 +42,7 @@
 package gov.nist.ixe.templates.exception;
 
 import gov.nist.ixe.StringUtil;
+import gov.nist.ixe.templates.Constants;
 import gov.nist.ixe.templates.jaxb.TemplateGenerationError;
 
 import javax.ws.rs.core.Response;
@@ -55,11 +56,13 @@ extends TemplateServiceExceptionMapper<TemplateGenerationException> {
 
 	public Response toResponse(TemplateGenerationException tge) {
 
-		return Response.status(getStatusCode()).
-				header(COAT_EXCEPTION_TYPE, getClassLiteral().getSimpleName()).
-				header(COAT_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(tge.getMessage())).
-				entity(new TemplateGenerationError(tge)).
-				build();
+		return Response.status(getStatusCode())
+				.header(COAT_EXCEPTION_TYPE, getClassLiteral().getSimpleName())
+				.header(COAT_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(tge.getMessage()))
+				.header(Constants.HttpHeader.SERVICE_NAME, tge.getServiceName())
+				.header(Constants.HttpHeader.RESOURCE_NAME, tge.getResourceName())
+				.entity(new TemplateGenerationError(tge))
+				.build();
 	}
 
 }

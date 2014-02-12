@@ -8,8 +8,8 @@ import gov.nist.ixe.templates.templateservices.tests.ITemplateServicesTestFixtur
 
 public class Hosted extends Tests {
 
-	public Hosted(ProcessStyle style) {
-		super(style);
+	public Hosted(ProcessStyle style, String resourceName) {
+		super(style, resourceName);
 	}
 
 

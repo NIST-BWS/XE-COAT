@@ -7,10 +7,14 @@ import javax.ws.rs.core.Response;
 
 public class StringSourceConverters {
 
-	public static Response toResponse(StringSource ss, String contentSubtype, String rel) {
+	public static Response toResponse(StringSource ss, String contentSubtype, String serviceName, String rel, String resourceName) {
 		String contentType = EncodingUtil.charsetToTextContentType(
 				contentSubtype, ss.getCharset());
-		Response result = Response.ok(ss.getData()).type(contentType).header(Constants.HttpHeader.REL,  rel).build();
+		Response result = Response.ok(ss.getData()).type(contentType)
+				.header(Constants.HttpHeader.REL, rel)
+				.header(Constants.HttpHeader.SERVICE_NAME, serviceName)
+				.header(Constants.HttpHeader.RESOURCE_NAME, resourceName)
+				.build();
 		return result;
 	}
 

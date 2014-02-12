@@ -5,7 +5,6 @@ import gov.nist.ixe.StringUtil;
 import gov.nist.ixe.stringsource.StringSource;
 import gov.nist.ixe.stringsource.StringSourcePersistence;
 import gov.nist.ixe.templates.exception.MissingCompilerException;
-import gov.nist.ixe.templates.exception.TemplateGenerationException;
 import gov.nist.ixe.templates.jaxb.Link;
 
 import java.io.File;
@@ -50,7 +49,7 @@ public class CodeGen {
 
 	public static File generateCodeFromSchema(
 			String packageName, String schemaName, StringSource schema, 
-			File schemaDir, File compilationDir, Link schemaLink) throws IOException {
+			File schemaDir, File compilationDir, Link schemaLink) throws IOException, CodeGenException {
 		
 		trace();
 		
@@ -70,12 +69,12 @@ public class CodeGen {
 		
 		sc.parseSchema(is);		
 		if (scel.getErrors().size() > 0) {
-			throw new TemplateGenerationException(scel, true);
+			throw new CodeGenException(schemaLink, scel, true);
 		}
 		
 		S2JJAXBModel model = sc.bind();
 		if (scel.getErrors().size() > 0) {
-			throw new TemplateGenerationException(scel, true);
+			throw new CodeGenException(schemaLink, scel, true);
 		}
 		
 		JCodeModel codeModel = model.generateCode(null, null);

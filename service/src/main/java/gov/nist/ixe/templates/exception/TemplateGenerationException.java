@@ -1,6 +1,6 @@
 package gov.nist.ixe.templates.exception;
 
-import gov.nist.ixe.templates.SchemaCompilerErrorListener;
+import gov.nist.ixe.templates.CodeGenException;
 import gov.nist.ixe.templates.jaxb.Link;
 import gov.nist.ixe.templates.jaxb.ParseError;
 import gov.nist.ixe.templates.jaxb.TemplateGenerationError;
@@ -17,40 +17,48 @@ import com.sun.xml.xsom.XSElementDecl;
 
 public class TemplateGenerationException extends RuntimeException {
 	
-	public TemplateGenerationException() {} 
+	public TemplateGenerationException(String serviceName, String resourceName) {
+		super();
+		_serviceName = serviceName;
+		_resourceName = resourceName;	
+	} 
 	
-	public TemplateGenerationException(Exception e) {
+	public TemplateGenerationException(String serviceName, String resourceName, Exception e) {
 		super(e);
+		_serviceName = serviceName;
+		_resourceName = resourceName;		
 	}
 	
-	public TemplateGenerationException(SchemaCompilerErrorListener scel) {
-		constructorImpl(scel, false);
-	}
-	
-	public TemplateGenerationException(SchemaCompilerErrorListener scel, boolean doNotWarnOnUriMismatch) {
-		constructorImpl(scel, doNotWarnOnUriMismatch);
-	}
-	
-	public static TemplateGenerationException MainSchemaHasMultipleRootElements(Link link, XSElementDecl offendingElement) {
-		TemplateGenerationException ex = new TemplateGenerationException();
+	public static TemplateGenerationException MainSchemaHasMultipleRootElements(String serviceName, String resourceName, Link link, XSElementDecl offendingElement) {
+		
+		TemplateGenerationException ex = new TemplateGenerationException(serviceName, resourceName);
+		ex._serviceName = serviceName;
+		ex._resourceName = resourceName;
 		ex.parseErrors.add(ParseError.MainSchemaHasMultipleRootElements(link, offendingElement));
 		
 		return ex;
 	}
 	
-	private void constructorImpl(SchemaCompilerErrorListener scel, boolean doNotWarnOnUriMismatch) {
-		for (SAXParseException spe : scel.getErrors()) {
-			parseErrors.add(new ParseError(scel.getLink(), spe, doNotWarnOnUriMismatch));
-		}
+	public TemplateGenerationException(String serviceName, String resourceName, CodeGenException gce) {		
+		_serviceName = serviceName;
+		_resourceName = resourceName;		
+		for (SAXParseException se : gce.getSchemaCompilerErrorListener().getErrors()) {
+			parseErrors.add(new ParseError(gce.getLink(), se, gce.getDoNotWarnOnUriMismatch()));
+		}		
 	}
 
-	public TemplateGenerationException(TemplateGenerationError tge) {
+
+	public TemplateGenerationException(String serviceName, String resourceName, TemplateGenerationError tge) {
+		_serviceName = serviceName;
+		_resourceName = resourceName;		
 		for (ParseError pe : tge.getErrors()) {
 			parseErrors.add(pe);
 		}
 	}
 	
-	public TemplateGenerationException(Link link, ParseErrorException pee) {
+	public TemplateGenerationException(String serviceName, String resourceName, Link link, ParseErrorException pee) {
+		_serviceName = serviceName;
+		_resourceName = resourceName;
 		ParseError pe = new ParseError(link, pee);
 		parseErrors.add(pe);
 	}
@@ -60,8 +68,17 @@ public class TemplateGenerationException extends RuntimeException {
 	public List<ParseError> getParseErrors() { return this.parseErrors; }
 	
 	private List<ParseError> parseErrors = new ArrayList<ParseError>();
+	
 	private String _message;
 	public String getMessage() { return _message; }
-
-		private static final long serialVersionUID = -8319988350710918994L;
+	
+	private String _resourceName;
+	public String getResourceName() { return _resourceName; }
+	
+	private String _serviceName;
+	public String getServiceName() { return _serviceName; }
+		
+	private static final long serialVersionUID = -8319988350710918994L;
+		
+		
 }

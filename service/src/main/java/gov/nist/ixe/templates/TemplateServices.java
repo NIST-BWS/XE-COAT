@@ -179,6 +179,8 @@ public class TemplateServices implements ITemplateServices {
 	private Response generateTemplate(String serviceName, StringSource config,
 			Link configLink, Link processLink) {
 		trace();
+		
+		String resourceName = Constants.NAMED_PROCESS_NAME_PREFIX + configLink.getName();
 
 		requirePrimarySchema(serviceName);
 		requireTemplate(serviceName);
@@ -228,15 +230,15 @@ public class TemplateServices implements ITemplateServices {
 				XmlUtil.ValidateXml(schemaISs, configIS);
 			} catch (SAXParseException spe) {
 				ParseError pe = new ParseError(configLink, spe, false);
-				TemplateGenerationException tge = new TemplateGenerationException();
+				TemplateGenerationException tge = new TemplateGenerationException(serviceName, resourceName);
 				tge.getParseErrors().add(pe);
 				throw tge;
 			} catch (NullPointerException e) {
-				throw new TemplateGenerationException(e);
+				throw new TemplateGenerationException(serviceName, resourceName, e);
 			} catch (SAXException e) {
-				throw new TemplateGenerationException(e);
+				throw new TemplateGenerationException(serviceName, resourceName, e);
 			} catch (ParserConfigurationException e) {
-				throw new TemplateGenerationException(e);
+				throw new TemplateGenerationException(serviceName, resourceName, e);
 			}
 
 			// Get the name and data type of the root element
@@ -278,12 +280,12 @@ public class TemplateServices implements ITemplateServices {
 					Link link = getServiceResources(serviceName)
 							.getPrimarySchemaLink();
 					throw TemplateGenerationException
-							.MainSchemaHasMultipleRootElements(link,
+							.MainSchemaHasMultipleRootElements(serviceName, resourceName, link,
 									elements.get(1));
 				}
 
 			} catch (SAXException e) {
-				throw new TemplateGenerationException(e);
+				throw new TemplateGenerationException(serviceName, resourceName, e);
 			}
 			
 			Class<?> cls = CodeGen.loadClass(compilationDir, packageName,
@@ -299,7 +301,8 @@ public class TemplateServices implements ITemplateServices {
 
 			StringSource output = VelocityUtil.processTemplate(template,
 					"ROOT", configObj);
-			return StringSourceConverters.toResponse(output, "plain", Constants.Rel.TEMPLATE);
+			return StringSourceConverters.toResponse(output, "plain", 
+					serviceName, Constants.Rel.PROCESS, Constants.PROCESS_RESOURCE_NAME);
 
 		} catch (JAXBException jaxbe) {
 
@@ -307,30 +310,32 @@ public class TemplateServices implements ITemplateServices {
 			if (SAXParseException.class.equals(jaxbe.getCause().getClass())) {
 				SAXParseException spe = (SAXParseException) jaxbe.getCause();
 				ParseError pe = new ParseError(configLink, spe, false);
-				tge = new TemplateGenerationException();
+				tge = new TemplateGenerationException(serviceName, resourceName);
 				tge.getParseErrors().add(pe);
 			} else {
-				tge = new TemplateGenerationException(jaxbe);
+				tge = new TemplateGenerationException(serviceName, resourceName, jaxbe);
 			}
 			throw tge;
 		} catch (ParseErrorException pee) {
-			Link temlateLink = Link.Template(getStorageProvider(),
+			Link templateLink = Link.Template(getStorageProvider(),
 					getRootUri(), serviceName);
-			ParseError pe = new ParseError(temlateLink, pee);
-			TemplateGenerationException tge = new TemplateGenerationException();
+			ParseError pe = new ParseError(templateLink, pee);
+			TemplateGenerationException tge = new TemplateGenerationException(serviceName, resourceName);
 			tge.getParseErrors().add(pe);
 			throw tge;
 
 		} catch (MissingCompilerException mce) {
-			throw new TemplateGenerationException(mce);
+			throw new TemplateGenerationException(serviceName, resourceName, mce);
 		} catch (IOException ioe) {
-			throw new TemplateGenerationException(ioe);
+			throw new TemplateGenerationException(serviceName, resourceName, ioe);
 		} catch (ClassNotFoundException cnfe) {
-			throw new TemplateGenerationException(cnfe);
+			throw new TemplateGenerationException(serviceName, resourceName, cnfe);
 		} catch (InstantiationException ie) {
-			throw new TemplateGenerationException(ie);
+			throw new TemplateGenerationException(serviceName, resourceName, ie);
 		} catch (IllegalAccessException iae) {
-			throw new TemplateGenerationException(iae);
+			throw new TemplateGenerationException(serviceName, resourceName, iae);
+		} catch (CodeGenException cge) {
+			throw new TemplateGenerationException(serviceName, resourceName, cge);
 		} finally {
 			FileUtil.clear(scratchDir);
 		}
@@ -368,7 +373,8 @@ public class TemplateServices implements ITemplateServices {
 		trace();
 		validateServiceOrResourceName(serviceName);
 		return StringSourceConverters.toResponse(getStorageProvider()
-				.getTemplate(serviceName), Constants.ContentType.SubType.PLAIN, Constants.Rel.TEMPLATE);
+				.getTemplate(serviceName), Constants.ContentType.SubType.PLAIN, 
+				serviceName, Constants.Rel.TEMPLATE, Constants.TEMPLATE_RESOURCE_NAME);
 	}
 
 	public void setTemplate(String serviceName, byte[] payload,
@@ -402,7 +408,8 @@ public class TemplateServices implements ITemplateServices {
 		validateServiceOrResourceName(serviceName);
 		forbidEmptyName(schemaName);
 		return StringSourceConverters.toResponse(getStorageProvider()
-				.getSchema(serviceName, schemaName), "xml", Constants.Rel.SCHEMA);
+				.getSchema(serviceName, schemaName), "xml", 
+				serviceName, Constants.Rel.SCHEMA, schemaName);
 	}
 
 	public void setSchema(String serviceName, String schemaName,
@@ -440,7 +447,8 @@ public class TemplateServices implements ITemplateServices {
 		forbidEmptyName(configName);
 
 		return StringSourceConverters.toResponse(getStorageProvider()
-				.getConfig(serviceName, configName), "xml", Constants.Rel.CONFIG);
+				.getConfig(serviceName, configName), "xml", 
+				serviceName, Constants.Rel.CONFIG, configName);
 	}
 
 	public void setConfig(String serviceName, String configName,
@@ -554,7 +562,8 @@ public class TemplateServices implements ITemplateServices {
 		StringSource template = getStorageProvider().getHistoricTemplate(
 				serviceName, d);
 		Response result = StringSourceConverters.toResponse(template,
-				Constants.ContentType.SubType.PLAIN, Constants.Rel.TEMPLATE);
+				Constants.ContentType.SubType.PLAIN, 
+				serviceName, Constants.Rel.TEMPLATE, Constants.TEMPLATE_RESOURCE_NAME);
 		result.getHeaders().add(Constants.HttpHeader.HISTORIC_VERSION_OF, 
 				BuildUri.getTemplateUri(getRootUri(), serviceName));
 		return result;
@@ -582,7 +591,8 @@ public class TemplateServices implements ITemplateServices {
 		StringSource schema = getStorageProvider().getHistoricSchema(
 				serviceName, schemaName, d);
 		Response result = StringSourceConverters.toResponse(schema,
-				Constants.ContentType.SubType.XML, Constants.Rel.SCHEMA);
+				Constants.ContentType.SubType.XML, 
+				serviceName, Constants.Rel.SCHEMA, schemaName);
 		result.getHeaders().add(Constants.HttpHeader.HISTORIC_VERSION_OF, 
 				BuildUri.getSchemaUri(getRootUri(), serviceName, schemaName));
 		return result;
@@ -608,8 +618,8 @@ public class TemplateServices implements ITemplateServices {
 		Date d = getStorageProvider().fromStringToDate(timestamp);
 		StringSource config = getStorageProvider().getHistoricConfig(
 				serviceName, configName, d);
-		Response result = StringSourceConverters.toResponse(config,
-				Constants.ContentType.SubType.XML, Constants.Rel.CONFIG);
+		Response result = StringSourceConverters.toResponse(config, Constants.ContentType.SubType.XML, 
+				serviceName, Constants.Rel.CONFIG, configName);
 		result.getHeaders().add(Constants.HttpHeader.HISTORIC_VERSION_OF, 
 				BuildUri.getConfigUri(getRootUri(), serviceName, configName));
 		return result;
