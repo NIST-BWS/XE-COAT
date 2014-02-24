@@ -1,0 +1,12 @@
+#foreach ($line in [1..${ROOT.lines}])
+#if ($line % ${ROOT.fizzFrequency} == 0 && 
+     $line % ${ROOT.buzzFrequency} == 0)
+  ${ROOT.fizzText}${ROOT.buzzText}$eol
+#elseif ($line % ${ROOT.fizzFrequency} == 0)
+  ${ROOT.buzzText}$eol
+#elseif ($line % ${ROOT.buzzFrequency} == 0)
+  ${ROOT.fizzText}$eol
+#else
+  $line$eol
+#end
+#end

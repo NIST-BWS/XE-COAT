@@ -94,25 +94,26 @@ public abstract class Tests extends TemplateServicesTests {
 				Constants.Rel.CONFIG, 
 				BuildUri.getConfigUri(rootUri, serviceName, config1Name),
 				resources.get(1));
+		
+		assertLinkEquals(Constants.PROCESS_RESOURCE_NAME, 
+				Constants.Rel.PROCESS, 
+				BuildUri.getProcessUri(rootUri, serviceName),
+				resources.get(2));
+		assertLinkEquals(Constants.NAMED_PROCESS_NAME_PREFIX + config0Name, 
+				Constants.Rel.PROCESS, 
+				BuildUri.getNamedProcessUri(rootUri, serviceName, config0Name),
+				resources.get(3));
+		assertLinkEquals(Constants.NAMED_PROCESS_NAME_PREFIX + config1Name,  
+				Constants.Rel.PROCESS, 
+				BuildUri.getNamedProcessUri(rootUri, serviceName, config1Name),
+				resources.get(4));
+
 
 		assertLinkEquals(Constants.PRIMARY_SCHEMA_NAME, 
 				Constants.Rel.SCHEMA, 
 				BuildUri.getSchemaUri(rootUri, serviceName, Constants.PRIMARY_SCHEMA_NAME),
-				resources.get(2));
-
-		assertLinkEquals(Constants.PROCESS_RESOURCE_NAME, 
-				Constants.Rel.PROCESS, 
-				BuildUri.getProcessUri(rootUri, serviceName),
-				resources.get(3));
-
-		assertLinkEquals(Constants.NAMED_PROCESS_NAME_PREFIX + config0Name, 
-				Constants.Rel.PROCESS, 
-				BuildUri.getNamedProcessUri(rootUri, serviceName, config0Name),
-				resources.get(4));
-		assertLinkEquals(Constants.NAMED_PROCESS_NAME_PREFIX + config1Name,  
-				Constants.Rel.PROCESS, 
-				BuildUri.getNamedProcessUri(rootUri, serviceName, config1Name),
 				resources.get(5));
+
 
 		assertLinkEquals(schemaName,
 				Constants.Rel.SCHEMA, 

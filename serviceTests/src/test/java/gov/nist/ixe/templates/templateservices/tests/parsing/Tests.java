@@ -86,7 +86,7 @@ public abstract class Tests extends TemplateServicesTests {
 		try {
 			getTemplate(templateFilename, schemaFilename, configFilename, style);			
 		} catch (TemplateGenerationException tge) {
-			result = tge;
+			result = tge;			
 		} 
 		return result;
 	}

@@ -72,8 +72,10 @@ public class TemplateGenerationException extends RuntimeException {
 	private String _message;
 	public String getMessage() { return _message; }
 	
+	@XmlElement(name="resourceName")
 	private String _resourceName;
 	public String getResourceName() { return _resourceName; }
+	public void setResourceName(String resourceName) { _resourceName = resourceName; }
 	
 	private String _serviceName;
 	public String getServiceName() { return _serviceName; }

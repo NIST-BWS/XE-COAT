@@ -1,0 +1,7 @@
+<FizzBuzz>
+	<lines>100</lines>
+	<fizzText>Fizz</fizzText>
+	<buzzText>Buzz</buzzText>
+	<fizzFrequency>3</fizzFrequency>
+	<buzzFrequency>5</buzzFrequency>
+</FizzBuzz>

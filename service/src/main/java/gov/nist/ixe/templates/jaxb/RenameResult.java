@@ -1,6 +1,9 @@
 package gov.nist.ixe.templates.jaxb;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gov.nist.ixe.templates.Constants;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -12,7 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 public class RenameResult {
 	
 	public RenameResult() {}
-
+	
 	private Link oldLink;
 	private Link newLink;
 	
@@ -31,5 +34,10 @@ public class RenameResult {
 	public void setNewLink(Link newLink) {
 		this.newLink = newLink;
 	}
+	
+	@XmlElement(name="renamedResources")
+	public List<RenameResult> getRenamedResources() { return this.renamedResources; }
+	
+	protected List<RenameResult> renamedResources = new ArrayList<RenameResult>();
 	
 }

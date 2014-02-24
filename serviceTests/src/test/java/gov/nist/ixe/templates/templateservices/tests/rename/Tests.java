@@ -2,6 +2,7 @@ package gov.nist.ixe.templates.templateservices.tests.rename;
 
 import static gov.nist.ixe.templates.TemplateServicesUtil.setConfig;
 import static gov.nist.ixe.templates.TemplateServicesUtil.setSchema;
+import static gov.nist.ixe.templates.TemplateServicesUtil.setTemplate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -90,6 +91,48 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(rootUri + "service0", services.get(0).getUri());
 		assertEquals(rootUri + "service1", services.get(1).getUri());
 	}
+	
+	
+	@Test public void servicesHaveTheirChildrenRenamedCorrectly() {
+		
+		ts.createService("service0");
+		
+		setConfig(ts, "service0", "c1", Examples.CONFIG);
+		setConfig(ts, "service0", "c2", Examples.CONFIG);
+		setConfig(ts, "service0", "c3", Examples.CONFIG);
+		setSchema(ts, "service0", "s1", Examples.SCHEMA);
+		setTemplate(ts, "service0", Examples.TEMPLATE);
+		RenameResult rr = ts.renameService("service0", "service1");
+		assertEquals(rr.getRenamedResources().size(), 5);
+		
+		assertEquals(rr.getRenamedResources().get(0).getOldLink().getUri(), 
+				BuildUri.getConfigUri(rootUri, "service0", "c1"));
+		assertEquals(rr.getRenamedResources().get(0).getNewLink().getUri(), 
+				BuildUri.getConfigUri(rootUri, "service1", "c1"));
+		
+		assertEquals(rr.getRenamedResources().get(1).getOldLink().getUri(), 
+				BuildUri.getConfigUri(rootUri, "service0", "c2"));
+		assertEquals(rr.getRenamedResources().get(1).getNewLink().getUri(), 
+				BuildUri.getConfigUri(rootUri, "service1", "c2"));
+		
+		assertEquals(rr.getRenamedResources().get(2).getOldLink().getUri(), 
+				BuildUri.getConfigUri(rootUri, "service0", "c3"));
+		assertEquals(rr.getRenamedResources().get(2).getNewLink().getUri(), 
+				BuildUri.getConfigUri(rootUri, "service1", "c3"));
+		
+		assertEquals(rr.getRenamedResources().get(3).getOldLink().getUri(), 
+				BuildUri.getSchemaUri(rootUri, "service0", "s1"));
+		assertEquals(rr.getRenamedResources().get(3).getNewLink().getUri(), 
+				BuildUri.getSchemaUri(rootUri, "service1", "s1"));
+		
+		
+		assertEquals(rr.getRenamedResources().get(4).getOldLink().getUri(), 
+				BuildUri.getTemplateUri(rootUri, "service0"));
+		assertEquals(rr.getRenamedResources().get(4).getNewLink().getUri(), 
+				BuildUri.getTemplateUri(rootUri, "service1"));
+		
+	}
+	
 	
 	@Test public void serviceRenameReturnsNewLocationAsLinkXml() {
 		

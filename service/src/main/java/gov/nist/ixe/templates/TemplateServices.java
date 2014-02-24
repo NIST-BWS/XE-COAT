@@ -302,7 +302,7 @@ public class TemplateServices implements ITemplateServices {
 			StringSource output = VelocityUtil.processTemplate(template,
 					"ROOT", configObj);
 			return StringSourceConverters.toResponse(output, "plain", 
-					serviceName, Constants.Rel.PROCESS, Constants.PROCESS_RESOURCE_NAME);
+					serviceName, Constants.Rel.PROCESS, configLink.getName());
 
 		} catch (JAXBException jaxbe) {
 
@@ -361,8 +361,8 @@ public class TemplateServices implements ITemplateServices {
 		trace();
 		StringSource config = getStorageProvider().getConfig(serviceName,
 				configName);
-		Response result = generateTemplate(serviceName, config, Link.Config(
-				storage, getRootUri(), serviceName, configName),
+		Response result = generateTemplate(serviceName, config, 
+				Link.Config(storage, getRootUri(), serviceName, configName),
 				Link.NamedProcess(storage, getRootUri(), serviceName,
 						configName));
 		return result;
@@ -416,12 +416,16 @@ public class TemplateServices implements ITemplateServices {
 			byte[] payload, String contentType) {
 		trace();
 
+		serviceName = serviceName.trim();
+		schemaName = schemaName.trim();
+		
 		validateServiceOrResourceName(serviceName);
 		validateServiceOrResourceName(schemaName);
 		forbidEmptyName(schemaName);
 		forbidReservedName(schemaName);
 		requireSpecificContentType(contentType, "text/xml");
 
+		
 		StringSource schema = new StringSource(payload, contentType);
 		getStorageProvider().addSchema(serviceName, schemaName, schema);
 		info(String.format("Schema '%s' was added to service '%s'.",
@@ -493,7 +497,7 @@ public class TemplateServices implements ITemplateServices {
 			throws IllegalResourceNameException {
 		forbidEmptyName(name);
 		forbidReservedName(name);
-		if (!name.matches("^[a-zA-Z0-9_. ()][a-zA-Z0-9_. ()\\- ]*$")) {
+		if (!name.matches("^[a-zA-Z0-9_. ()][a-zA-Z0-9_. ()\\\\\\- ]*")) {
 			throw IllegalResourceNameException.IllegalFormat(name);
 		}
 	}
@@ -631,7 +635,11 @@ public class TemplateServices implements ITemplateServices {
 		forbidReservedName(newName);
 		
 		validateServiceOrResourceName(newName);
-
+		
+		
+		ServiceResources oldResources = getServiceResources(serviceName);
+		
+		
 		getStorageProvider().renameService(serviceName, newName);
 		info(String.format("Serivce '%s' renamed to '%s'.", serviceName,
 				newName));
@@ -639,13 +647,23 @@ public class TemplateServices implements ITemplateServices {
 		IStorageProvider storage = getStorageProvider();
 		String rootUri = getRootUri();
 
-		Link oldLink = Link.Service(storage, rootUri, serviceName);
-		Link newLink = Link.Service(storage, rootUri, newName);
+		Link oldServiceLink = Link.Service(storage, rootUri, serviceName);
+		Link newServiceLink = Link.Service(storage, rootUri, newName);
 
-		RenameResult rr = new RenameResult();
-		rr.setOldLink(oldLink);
-		rr.setNewLink(newLink);
-		return rr;
+		RenameResult parentRR = new RenameResult();
+		parentRR.setOldLink(oldServiceLink);
+		parentRR.setNewLink(newServiceLink);
+		
+		ServiceResources newResources = getServiceResources(newName);
+		for (Link oldLink : oldResources.getResources()) {
+			RenameResult rr = new RenameResult();
+			rr.setOldLink(oldLink);
+			rr.setNewLink(newResources.getLinkByNameAndRel(oldLink.getName(), oldLink.getRel()));
+			parentRR.getRenamedResources().add(rr);
+		}
+		
+		
+		return parentRR;
 	}
 
 	public RenameResult renameSchema(String serviceName, String schemaName,

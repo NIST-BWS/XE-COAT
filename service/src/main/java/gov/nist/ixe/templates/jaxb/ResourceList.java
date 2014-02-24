@@ -23,10 +23,13 @@ public class ResourceList {
 	protected List<Link> resources = new ArrayList<Link>();
 	
 	public void sort() {
-		Collections.sort(this.resources, 
+		/*
 				new Comparator<Link>() { public int compare(Link l1, Link l2)
 				{ return l1.getName().compareTo(l2.getName());}
 		});
+		*/
+		Collections.sort(this.resources, new LinkComparator());
 	}
 
 }
+	

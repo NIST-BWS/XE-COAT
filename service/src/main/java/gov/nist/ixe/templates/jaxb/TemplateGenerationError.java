@@ -18,11 +18,23 @@ public class TemplateGenerationError {
 	
 	public TemplateGenerationError(TemplateGenerationException tge) {
 		errors = tge.getParseErrors();
+		serviceName = tge.getServiceName();
+		resourceName = tge.getResourceName();
 	}
 	
 	protected List<ParseError> errors = new ArrayList<ParseError>();
 
 	@XmlElement(name="error")
 	public List<ParseError> getErrors() { return this.errors; }
+
+	@XmlElement(name="serviceName")
+	public String getServiceName() { return serviceName;}
+	public void setServiceName(String serviceName) { this.serviceName = serviceName; }
+	private String serviceName;
+	
+	@XmlElement(name="resourcName")
+	public String getResourceName() { return resourceName;}
+	public void setResourceName(String resourceName) { this.resourceName = resourceName; }
+	private String resourceName;
 	
 }
