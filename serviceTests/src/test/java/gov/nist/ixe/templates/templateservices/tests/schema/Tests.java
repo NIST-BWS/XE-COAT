@@ -75,8 +75,8 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(Constants.Rel.SCHEMA, schemas.get(0).getRel());
 		assertEquals(Constants.Rel.SCHEMA, schemas.get(1).getRel());
 
-		assertEquals(BuildUri.getSchemaUri(rootUri, serviceName, schema0Name), schemas.get(0).getUri());
-		assertEquals(BuildUri.getSchemaUri(rootUri, serviceName, schema1Name), schemas.get(1).getUri());
+		assertEquals(BuildUri.getSchemaUri(serverRootUri, serviceName, schema0Name), schemas.get(0).getUri());
+		assertEquals(BuildUri.getSchemaUri(serverRootUri, serviceName, schema1Name), schemas.get(1).getUri());
 
 	}
 

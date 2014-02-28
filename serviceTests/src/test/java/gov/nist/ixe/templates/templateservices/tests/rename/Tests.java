@@ -88,8 +88,8 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(2, services.size());
 		assertEquals("service", services.get(0).getRel());
 		assertEquals("service", services.get(1).getRel());
-		assertEquals(rootUri + "service0", services.get(0).getUri());
-		assertEquals(rootUri + "service1", services.get(1).getUri());
+		assertEquals(serverRootUri + "service0", services.get(0).getUri());
+		assertEquals(serverRootUri + "service1", services.get(1).getUri());
 	}
 	
 	
@@ -105,6 +105,7 @@ public abstract class Tests extends TemplateServicesTests {
 		RenameResult rr = ts.renameService("service0", "service1");
 		assertEquals(rr.getRenamedResources().size(), 5);
 		
+		String rootUri = serverRootUri;
 		assertEquals(rr.getRenamedResources().get(0).getOldLink().getUri(), 
 				BuildUri.getConfigUri(rootUri, "service0", "c1"));
 		assertEquals(rr.getRenamedResources().get(0).getNewLink().getUri(), 
@@ -141,9 +142,9 @@ public abstract class Tests extends TemplateServicesTests {
 		ts.createService(serviceName);
 		RenameResult rr = ts.renameService(oldName, newName);
 		
-		assertLinkEquals(oldName, Constants.Rel.SERVICE,  BuildUri.getServiceUri(rootUri, oldName), 
+		assertLinkEquals(oldName, Constants.Rel.SERVICE,  BuildUri.getServiceUri(serverRootUri, oldName), 
 				rr.getOldLink());
-		assertLinkEquals(newName, Constants.Rel.SERVICE,  BuildUri.getServiceUri(rootUri, newName), 
+		assertLinkEquals(newName, Constants.Rel.SERVICE,  BuildUri.getServiceUri(serverRootUri, newName), 
 				rr.getNewLink());				
 	}
 	
@@ -155,7 +156,7 @@ public abstract class Tests extends TemplateServicesTests {
 		RenameResult rr = ts.renameSchema(serviceName, "schema0", "schema1");
 		
 		assertLinkEquals("schema1", Constants.Rel.SCHEMA,  
-				BuildUri.getSchemaUri(rootUri, serviceName, "schema1"), rr.getNewLink());				
+				BuildUri.getSchemaUri(serverRootUri, serviceName, "schema1"), rr.getNewLink());				
 	}
 	
 	@Test public void configRenameReturnsNewLocationAsLinkXml() {
@@ -165,7 +166,7 @@ public abstract class Tests extends TemplateServicesTests {
 		RenameResult rr = ts.renameConfig(serviceName, "config0", "config1");
 		
 		assertLinkEquals("config1", Constants.Rel.CONFIG,  
-				BuildUri.getConfigUri(rootUri, serviceName, "config1"), rr.getNewLink());				
+				BuildUri.getConfigUri(serverRootUri, serviceName, "config1"), rr.getNewLink());				
 	}
 	
 	@Test

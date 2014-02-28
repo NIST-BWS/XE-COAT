@@ -138,7 +138,7 @@ public abstract class Tests extends TemplateServicesTests {
 				
 		assertLinkEquals(schemaName, 
 				Constants.Rel.SCHEMA, 
-				BuildUri.getSchemaUri(rootUri, serviceName, schemaName),
+				BuildUri.getSchemaUri(serverRootUri, serviceName, schemaName),
 				errors.get(0).getLink());
 		
 	}
@@ -161,7 +161,7 @@ public abstract class Tests extends TemplateServicesTests {
 		
 		assertLinkEquals(schemaName, 
 				Constants.Rel.SCHEMA, 
-				BuildUri.getSchemaUri(rootUri, serviceName, schemaName),
+				BuildUri.getSchemaUri(serverRootUri, serviceName, schemaName),
 				errors.get(0).getLink());
 		
 	}
@@ -184,7 +184,7 @@ public abstract class Tests extends TemplateServicesTests {
 		
 		assertLinkEquals(schemaName, 
 				Constants.Rel.SCHEMA, 
-				BuildUri.getSchemaUri(rootUri, serviceName, schemaName),
+				BuildUri.getSchemaUri(serverRootUri, serviceName, schemaName),
 				errors.get(0).getLink());
 		
 	}
@@ -203,11 +203,11 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(1, errors.get(0).getColumnNumber());
 		assertEquals("Premature end of file.", errors.get(0).getMessage());
 		
-		String expectedUri = BuildUri.getConfigUri(rootUri, serviceName, configName);
+		String expectedUri = BuildUri.getConfigUri(serverRootUri, serviceName, configName);
 		String expectedRel = Constants.Rel.CONFIG;
 		String expectedName = configName;
 		if (style == ProcessStyle.Posted) {
-			expectedUri = BuildUri.getProcessPayloadUri(rootUri, serviceName);
+			expectedUri = BuildUri.getProcessPayloadUri(serverRootUri, serviceName);
 			expectedRel = Constants.Rel.PROCESS;
 			expectedName = Constants.PROCESS_RESOURCE_NAME;
 		}
@@ -231,11 +231,11 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(3, errors.get(0).getColumnNumber());
 		
 		
-		String expectedUri = BuildUri.getConfigUri(rootUri, serviceName, configName);
+		String expectedUri = BuildUri.getConfigUri(serverRootUri, serviceName, configName);
 		String expectedRel = Constants.Rel.CONFIG;
 		String expectedName = configName;
 		if (style == ProcessStyle.Posted) {
-			expectedUri = BuildUri.getProcessPayloadUri(rootUri, serviceName);
+			expectedUri = BuildUri.getProcessPayloadUri(serverRootUri, serviceName);
 			expectedRel = Constants.Rel.PROCESS;
 			expectedName = Constants.PROCESS_RESOURCE_NAME;
 		}
@@ -263,11 +263,11 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(15, errors.get(0).getColumnNumber());
 		
 		// Link to error
-		String expectedUri = BuildUri.getConfigUri(rootUri, serviceName, configName);
+		String expectedUri = BuildUri.getConfigUri(serverRootUri, serviceName, configName);
 		String expectedRel = Constants.Rel.CONFIG;
 		String expectedName = configName;
 		if (style == ProcessStyle.Posted) {
-			expectedUri = BuildUri.getProcessPayloadUri(rootUri, serviceName);
+			expectedUri = BuildUri.getProcessPayloadUri(serverRootUri, serviceName);
 			expectedRel = Constants.Rel.PROCESS;
 			expectedName = Constants.PROCESS_RESOURCE_NAME;
 		}

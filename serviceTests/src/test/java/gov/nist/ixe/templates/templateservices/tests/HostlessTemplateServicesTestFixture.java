@@ -20,7 +20,12 @@ public class HostlessTemplateServicesTestFixture
 	}
 
 	@Override
-	public String getRootUri() {
+	public String getClientRootUri() {
+		return "file:/";
+	}
+	
+	@Override
+	public String getServerRootUri() {
 		return "file:/";
 	}
 

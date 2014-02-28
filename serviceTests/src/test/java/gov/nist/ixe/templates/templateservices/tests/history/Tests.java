@@ -41,7 +41,7 @@ public abstract class Tests extends TemplateServicesTests {
 		setSchema(ts, serviceName, "schema0", Examples.DUMMY2);
 		long t2 = new Date().getTime();
 		
-		String originalUri = BuildUri.getSchemaUri(rootUri, serviceName, "schema0");
+		String originalUri = BuildUri.getSchemaUri(serverRootUri, serviceName, "schema0");
 		ResourceHistory rh = ts.getSchemaHistory(serviceName, "schema0");
 
 		assertEquals(2, rh.getHistoricLinks().size());
@@ -99,7 +99,7 @@ public abstract class Tests extends TemplateServicesTests {
 		long t2 = new Date().getTime();
 
 		ResourceHistory rh = ts.getConfigHistory(serviceName, "c");
-		String originalUri = BuildUri.getConfigUri(rootUri, serviceName, "c");
+		String originalUri = BuildUri.getConfigUri(serverRootUri, serviceName, "c");
 		
 		assertEquals(2, rh.getHistoricLinks().size());
 		assertEquals(originalUri, rh.getOriginalUri());
@@ -148,7 +148,7 @@ public abstract class Tests extends TemplateServicesTests {
 		long t2 = new Date().getTime();
 
 		ResourceHistory rh = ts.getTemplateHistory(serviceName);
-		String originalUri = BuildUri.getTemplateUri(rootUri, serviceName);
+		String originalUri = BuildUri.getTemplateUri(serverRootUri, serviceName);
 		
 		assertEquals(2, rh.getHistoricLinks().size());
 		assertEquals(originalUri, rh.getOriginalUri());
@@ -216,7 +216,7 @@ public abstract class Tests extends TemplateServicesTests {
 		Response r2 = ts.getHistoricSchema(serviceName, "schema1", Long.toString(T1));
 		Response r = ts.getSchema(serviceName, "schema1");
 		
-		String uri = BuildUri.getSchemaUri(rootUri, serviceName, "schema1");
+		String uri = BuildUri.getSchemaUri(serverRootUri, serviceName, "schema1");
 		assertEquals(uri, r1.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
 		assertEquals(uri, r2.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
 		
@@ -260,7 +260,7 @@ public abstract class Tests extends TemplateServicesTests {
 		Response r1 = ts.getHistoricConfig(serviceName, "c", Long.toString(T1));
 		Response r = ts.getConfig(serviceName, "c");
 		
-		String uri = BuildUri.getConfigUri(rootUri, serviceName, "c");
+		String uri = BuildUri.getConfigUri(serverRootUri, serviceName, "c");
 		assertEquals(uri, r0.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
 		assertEquals(uri, r1.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
 		

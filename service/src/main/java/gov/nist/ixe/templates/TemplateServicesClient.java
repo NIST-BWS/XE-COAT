@@ -63,6 +63,7 @@ import java.io.InputStream;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Response.StatusType;
@@ -105,7 +106,9 @@ public class TemplateServicesClient implements ITemplateServices {
 	
 	@SuppressWarnings("unchecked")
 	public <T> T makeRequest(String uri, String method, Class<T> returnTypeClass, byte[] payload, String payloadContentType) {
-		T result = null;
+		return makeRequest(uri, method, returnTypeClass, payload, payloadContentType, null);
+		
+		/*T result = null;
 		
 		Invocation.Builder ib = ClientBuilder.newClient().target(uri).request();
 		Response response;
@@ -122,9 +125,38 @@ public class TemplateServicesClient implements ITemplateServices {
 			result = (T) response;
 		} else	if (returnTypeClass != null) {
 			result = response.readEntity(returnTypeClass);
+		}	
+				 
+		return result;*/
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public <T> T makeRequest(String uri, String method, Class<T> returnTypeClass, byte[] payload, String payloadContentType,
+			MultivaluedMap<String,Object> headers) {
+		T result = null;
+		
+		Invocation.Builder ib = ClientBuilder.newClient().target(uri).request();
+		
+		if (headers != null) {
+			ib.headers(headers);
 		}
 		
-
+		Response response;
+		if (payload != null) {
+			EncodingUtil.assertContentTypeIsValid(payloadContentType);
+			response = ib.method(method, Entity.entity(payload, payloadContentType));			
+		} else {
+			response = ib.method(method);
+		}	
+	
+		ReverseMapException(response);
+		
+		if (returnTypeClass == Response.class) {
+			result = (T) response;
+		} else	if (returnTypeClass != null) {
+			result = response.readEntity(returnTypeClass);
+		}	
 				 
 		return result;
 	}

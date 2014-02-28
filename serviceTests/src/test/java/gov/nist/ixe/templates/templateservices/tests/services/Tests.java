@@ -36,8 +36,8 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(2, services.size());
 		assertEquals("service", services.get(0).getRel());
 		assertEquals("service", services.get(1).getRel());
-		assertEquals(rootUri + "service0", services.get(0).getUri());
-		assertEquals(rootUri + "service1", services.get(1).getUri());
+		assertEquals(serverRootUri + "service0", services.get(0).getUri());
+		assertEquals(serverRootUri + "service1", services.get(1).getUri());
 	}
 	
 	@Test public void emptyServicesCanBeDeleted() {
@@ -53,15 +53,20 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(2, services.size());
 		assertEquals("service", services.get(0).getRel());
 		assertEquals("service", services.get(1).getRel());
-		assertEquals(rootUri + "service0", services.get(0).getUri());
-		assertEquals(rootUri + "service2", services.get(1).getUri());
+		assertEquals(serverRootUri + "service0", services.get(0).getUri());
+		assertEquals(serverRootUri + "service2", services.get(1).getUri());
 	}
 	
 	
 	@Test (expected=IllegalResourceNameException.class)
 	public void cannotCreateServiceWithWhitespaceName() {
 		ts.createService("\r \t");	
-	}		
+	}
+	
+	@Test (expected=IllegalResourceNameException.class)
+	public void cannotCreateServiceWithAReservedName() {
+		ts.createService("service");
+	}
 
 
 }

@@ -54,7 +54,7 @@ public abstract class Tests extends TemplateServicesTests {
 		assertLinkEquals(
 				Constants.TEMPLATE_RESOURCE_NAME, 
 				Constants.Rel.TEMPLATE, 
-				BuildUri.getTemplateUri(rootUri, serviceName),
+				BuildUri.getTemplateUri(serverRootUri, serviceName),
 				rl.getResources().get(0));
 	}
 	
@@ -68,7 +68,7 @@ public abstract class Tests extends TemplateServicesTests {
 		assertLinkEquals(
 				resourceName, 
 				Constants.Rel.CONFIG, 
-				BuildUri.getConfigUri(rootUri, serviceName, resourceName),
+				BuildUri.getConfigUri(serverRootUri, serviceName, resourceName),
 				rl.getResources().get(0));
 	}
 	
@@ -82,7 +82,7 @@ public abstract class Tests extends TemplateServicesTests {
 		assertLinkEquals(
 				resourceName, 
 				Constants.Rel.SCHEMA, 
-				BuildUri.getSchemaUri(rootUri, serviceName, resourceName),
+				BuildUri.getSchemaUri(serverRootUri, serviceName, resourceName),
 				rl.getResources().get(0));
 	}
 

@@ -11,6 +11,10 @@ import java.net.URISyntaxException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 
 public class HostedTemplateServicesTestFixture implements
 		ITemplateServicesTestFixture {
@@ -27,8 +31,13 @@ public class HostedTemplateServicesTestFixture implements
 	}
 
 	@Override
-	public String getRootUri() {
-		return TestConstants.HOSTED_SERVICE_URI;
+	public String getClientRootUri() {
+		return TestConstants.CLIENT_URI;
+	}
+	
+	@Override
+	public String getServerRootUri() {
+		return TestConstants.SERVER_URI;
 	}
 
 	@Override
@@ -44,7 +53,7 @@ public class HostedTemplateServicesTestFixture implements
 		System.setProperty("jersey.config.server.tracing.threshold", "VERBOSE");
 		
 		try {
-			grizzlyServer = JerseyUtil.createGrizzlyServer(new URI(TestConstants.HOSTED_SERVICE_URI));
+			grizzlyServer = JerseyUtil.createGrizzlyServer(new URI(TestConstants.SERVER_URI));
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
@@ -56,7 +65,8 @@ public class HostedTemplateServicesTestFixture implements
 	}
 	
 	
+	
 	private static TemplateServicesClient createClient() {
-		return new TemplateServicesClient(TestConstants.HOSTED_SERVICE_URI);
+		return new HostedTemplateServicesClient(TestConstants.CLIENT_URI);
 	}
 }

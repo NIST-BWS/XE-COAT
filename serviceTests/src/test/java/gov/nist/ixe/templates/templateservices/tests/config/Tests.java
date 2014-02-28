@@ -72,8 +72,8 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(Constants.Rel.CONFIG, configs.get(0).getRel());
 		assertEquals(Constants.Rel.CONFIG, configs.get(1).getRel());
 		
-		assertEquals(BuildUri.getConfigUri(rootUri, serviceName, config0Name), configs.get(0).getUri());
-		assertEquals(BuildUri.getConfigUri(rootUri, serviceName, config1Name), configs.get(1).getUri());
+		assertEquals(BuildUri.getConfigUri(serverRootUri, serviceName, config0Name), configs.get(0).getUri());
+		assertEquals(BuildUri.getConfigUri(serverRootUri, serviceName, config1Name), configs.get(1).getUri());
 			
 	}
 	

@@ -55,12 +55,12 @@ public abstract class Tests extends TemplateServicesTests {
 		assertLinkEquals(
 				Constants.PROCESS_RESOURCE_NAME, 
 				Constants.Rel.PROCESS, 
-				BuildUri.getProcessUri(rootUri, serviceName),
+				BuildUri.getProcessUri(serverRootUri, serviceName),
 				processors.get(0));
 
 		assertEquals(Constants.PROCESS_RESOURCE_NAME, processors.get(0).getName());			
 		assertEquals(Constants.Rel.PROCESS, processors.get(0).getRel());
-		assertEquals(BuildUri.getProcessUri(rootUri, serviceName), processors.get(0).getUri());			
+		assertEquals(BuildUri.getProcessUri(serverRootUri, serviceName), processors.get(0).getUri());			
 
 	}
 
@@ -85,6 +85,7 @@ public abstract class Tests extends TemplateServicesTests {
 		List<Link> resources = ts.getServiceResources(serviceName).getResources();
 		assertEquals(8, resources.size());
 
+		String rootUri = serverRootUri;
 		assertLinkEquals(config0Name, 
 				Constants.Rel.CONFIG, 
 				BuildUri.getConfigUri(rootUri, serviceName, config0Name),

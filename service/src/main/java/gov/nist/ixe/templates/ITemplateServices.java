@@ -218,7 +218,7 @@ public interface ITemplateServices {
 				@PathParam(Constants.Uri.Param.CONFIG_NAME) String configName
 				);
 	
-	
+			
 	// ----
 	// TEMPLATE / GET
 	// ----

@@ -35,7 +35,7 @@ public class RenameResult {
 		this.newLink = newLink;
 	}
 	
-	@XmlElement(name="renamedResources")
+	@XmlElement(name="renamedResource")
 	public List<RenameResult> getRenamedResources() { return this.renamedResources; }
 	
 	protected List<RenameResult> renamedResources = new ArrayList<RenameResult>();

@@ -7,7 +7,8 @@ public interface ITemplateServicesTestFixture {
 	void before();
 	void after();
 	
-	public String getRootUri();
+	public String getClientRootUri();
+	public String getServerRootUri();
 	public ITemplateServices getTemplateServices();
 
 }

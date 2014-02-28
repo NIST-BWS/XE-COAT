@@ -7,6 +7,10 @@ import gov.nist.ixe.templates.jaxb.Link;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 
 public abstract class TemplateServicesTests {
 
@@ -23,13 +27,19 @@ public abstract class TemplateServicesTests {
 	}
 
 	public TemplateServicesTests() {
-		ts = getTestFixture().getTemplateServices();
-		rootUri = getTestFixture().getRootUri();
+		ts = getTestFixture().getTemplateServices();		
+		clientRootUri = getTestFixture().getClientRootUri();
+		serverRootUri = getTestFixture().getServerRootUri();
 	}
 
 	// protected ITemplateServices ts;
 	protected ITemplateServices ts;
-	protected String rootUri;
+	
+	// We use both a client and server root URI to support the use of a
+	// debugging proxy
+	//
+	protected String clientRootUri; 
+	protected String serverRootUri;
 
 	public static void assertLinkEquals(String expectedName,
 			String expectedRel, String expectedUri, Link link) {
@@ -56,5 +66,23 @@ public abstract class TemplateServicesTests {
 				{ "txt/roundtrip/sample02.inf", "sample02" },
 		};
 	}
+	
+	
+	
+	@Rule
+	public TestRule watcher = new TestWatcher() {
+		@Override protected void starting(Description description) {
+			if (ts instanceof HostedTemplateServicesClient) {
+				
+				// Not the most elegant way to do this, but the test rule needs to be in the 
+				// fixture, and we already have a lot of duplication. What we're doing
+				// here is putting the name of the running test in the request headers.
+				// This is very useful when looking at the captures of the HTTP traffic
+				// with an HTTP debugging proxy (like Fiddler2).
+				//
+				((HostedTemplateServicesClient) ts).setDescription(description);
+			}
+	   }
+	};
 
 }
