@@ -58,6 +58,11 @@ public abstract class Tests extends TemplateServicesTests {
 	}
 	
 	
+	@Test public void creatingAnExistingServiceIsAllowed() {
+		ts.createService("idempotent");
+		ts.createService("idempotent");
+	}
+	
 	@Test (expected=IllegalResourceNameException.class)
 	public void cannotCreateServiceWithWhitespaceName() {
 		ts.createService("\r \t");	

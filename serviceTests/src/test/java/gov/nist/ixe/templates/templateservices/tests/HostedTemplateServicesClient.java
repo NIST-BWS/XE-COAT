@@ -26,9 +26,15 @@ public class HostedTemplateServicesClient extends TemplateServicesClient
 			String payloadContentType) {
 		
 		MultivaluedMap<String,Object> headers = new MultivaluedHashMap<String,Object>();
-		ArrayList<Object> values = new ArrayList<Object>();
-		values.add(description.getClassName() + "." + description.getMethodName());
-		headers.put("X-COAT-UnitTestName", values);
+		
+		ArrayList<Object> testClass = new ArrayList<Object>();
+		testClass.add(description.getClassName());
+		headers.put("X-COAT-JUnitTestClass", testClass);
+		
+		ArrayList<Object> testMethod = new ArrayList<Object>();
+		testMethod.add(description.getMethodName());
+		headers.put("X-COAT-JUnitTestMethod", testMethod);
+		
 				
 		return makeRequest(uri, method, returnTypeClass, payload, payloadContentType, headers);
 	}

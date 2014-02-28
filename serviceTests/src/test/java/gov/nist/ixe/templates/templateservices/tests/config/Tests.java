@@ -104,7 +104,14 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(1, config_count_after_delete);
 	
 	}
-		
+	
+	@Test
+	public void deletingAConfigWithAnIllegalNameIsAllowed() {
+		String serviceName = "service0"; String configName = "config";
+		ts.createService(serviceName);
+		ts.deleteConfig(serviceName, configName);
+	}
+	
 	
 
 	@Test
