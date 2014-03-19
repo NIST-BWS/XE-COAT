@@ -194,7 +194,7 @@ public class TemplateServices implements ITemplateServices {
 		File mainSchemaFile = null;
 
 		try {
-			String packageName = CodeGen.getUniquePackageName();
+			String packageName = XmlCodeGen.getUniquePackageName();
 			List<StringSourceUriPair> schemas = new ArrayList<StringSourceUriPair>();
 
 			// For each schema, generate the required source code
@@ -206,7 +206,7 @@ public class TemplateServices implements ITemplateServices {
 						l.getUri());
 				schemas.add(ssup);
 
-				File schemaFile = CodeGen.generateCodeFromSchema(packageName,
+				File schemaFile = XmlCodeGen.generateCodeFromSchema(packageName,
 						l.getName(), schema, schemaDir, compilationDir, l);
 
 				if (Constants.PRIMARY_SCHEMA_NAME.equals(l.getName())) {
@@ -215,7 +215,7 @@ public class TemplateServices implements ITemplateServices {
 			}
 
 			// Compile all of the generated code
-			CodeGen.compile(compilationDir, compilationDir.getAbsolutePath());
+			XmlCodeGen.compile(compilationDir, compilationDir.getAbsolutePath());
 
 			try {
 				// Make (SAX) InputSources out of the StringSources so we can
@@ -288,7 +288,7 @@ public class TemplateServices implements ITemplateServices {
 				throw new TemplateGenerationException(serviceName, resourceName, e);
 			}
 			
-			Class<?> cls = CodeGen.loadClass(compilationDir, packageName,
+			Class<?> cls = XmlCodeGen.loadClass(compilationDir, packageName,
 					rootElementType);
 			InputStream in = new ByteArrayInputStream(config.getData());
 

@@ -296,6 +296,26 @@ public class BuildUri {
 		return builder.queryParam(Constants.Uri.Param.SERVICE_NAME, serviceName).buildFromMap(args).toString();
 		
 	}
+	
+	// ---
+	// Clone
+	// ---
+	
+	public static String getCloneServiceUri(String rootUri, String serviceName) {
+		UriBuilder builder = UriBuilder.fromUri(rootUri);
+		builder.path(Constants.Uri.CLONE_SERVICE);
+		Map<String,String> args = new HashMap<String,String>();
+		args.put(Constants.Uri.Param.SERVICE_NAME, serviceName);
+		return builder.buildFromMap(args).toString();
+	}
+	
+	public static String getCloneServiceUri(String rootUri, String serviceName, String newName) {
+		UriBuilder builder = UriBuilder.fromUri(rootUri);
+		builder.path(Constants.Uri.CLONE_SERVICE);
+		Map<String,String> args = new HashMap<String,String>();
+		args.put(Constants.Uri.Param.SERVICE_NAME, serviceName);
+		return builder.queryParam(Constants.Uri.Param.NEW_NAME, newName).buildFromMap(args).toString();
+	}
 		
 
 }

@@ -148,9 +148,18 @@ public class BuildUriTests {
 		assertEquals("http://templates.xe.nist.gov/foo/1234567890", uri);
 	}
 	
-	@Test public void getIniSplitterUri_buildCorrectly() {
+	@Test public void getIniSplitterUri_buildsCorrectly() {
 		String uri = BuildUri.getIniSplitterUri(rootUri, "service0");
 		assertEquals("http://example.com/splitter/ini?serviceName=service0", uri);
 	}
+	
+	@Test public void getBaseCloneServiceUri_buildsCorrectly() {
+		String uri = BuildUri.getCloneServiceUri(rootUri, "service0");
+		assertEquals("http://example.com/cloneService/service0", uri);
+	}
 
+	@Test public void getCloneServiceUri_buildsCorrectly() {
+		String uri = BuildUri.getCloneServiceUri(rootUri, "service0", "newService");
+		assertEquals("http://example.com/cloneService/service0?newName=newService", uri);
+	}
 }

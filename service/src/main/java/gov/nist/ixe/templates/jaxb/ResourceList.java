@@ -1,11 +1,10 @@
 package gov.nist.ixe.templates.jaxb;
 
+import gov.nist.ixe.templates.Constants;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import gov.nist.ixe.templates.Constants;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -14,12 +14,12 @@ public class CorsFilter implements ContainerResponseFilter {
 
 	
 	private String ALLOW_HEADERS = 
-			TemplateServiceExceptionMapper.COAT_EXCEPTION_TYPE + ", " + 
+			TemplateServiceExceptionMapper.IXE_TEMPLATE_EXCEPTION_TYPE + ", " + 
 			Constants.HttpHeader.REL + ", " +
 			Constants.HttpHeader.SERVICE_NAME + ", " +
 			Constants.HttpHeader.RESOURCE_NAME + ", " +
 			Constants.HttpHeader.HISTORIC_VERSION_OF + ", " +
-			TemplateServiceExceptionMapper.COAT_EXCEPTION_MESSAGE;
+			TemplateServiceExceptionMapper.IXE_TEMPLATE_EXCEPTION_MESSAGE;
 
 	@Override
 	public void filter(ContainerRequestContext request,

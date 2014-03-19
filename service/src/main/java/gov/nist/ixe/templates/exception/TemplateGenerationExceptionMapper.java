@@ -57,8 +57,8 @@ extends TemplateServiceExceptionMapper<TemplateGenerationException> {
 	public Response toResponse(TemplateGenerationException tge) {
 
 		return Response.status(getStatusCode())
-				.header(COAT_EXCEPTION_TYPE, getClassLiteral().getSimpleName())
-				.header(COAT_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(tge.getMessage()))
+				.header(IXE_TEMPLATE_EXCEPTION_TYPE, getClassLiteral().getSimpleName())
+				.header(IXE_TEMPLATE_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(tge.getMessage()))
 				.header(Constants.HttpHeader.SERVICE_NAME, tge.getServiceName())
 				.header(Constants.HttpHeader.RESOURCE_NAME, tge.getResourceName())
 				.entity(new TemplateGenerationError(tge))

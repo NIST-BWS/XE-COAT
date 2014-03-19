@@ -141,11 +141,12 @@ public class Constants {
 		public  static final String SERVICE  = "{" + Param.SERVICE_NAME + "}";
 		
 		private static final String SERVICE_NAME_PREFIX = SERVICE + "/";
-		public  static final String PROCESS  = SERVICE_NAME_PREFIX + Atom.PROCESS;
-		public  static final String SCHEMA   = SERVICE_NAME_PREFIX + Atom.SCHEMA + "/{" + Param.SCHEMA_NAME + "}";
-		public  static final String CONFIG   = SERVICE_NAME_PREFIX + Atom.CONFIG + "/{" + Param.CONFIG_NAME + "}";
-		public  static final String TEMPLATE = SERVICE_NAME_PREFIX + Atom.TEMPLATE;
-		public  static final String UPLOAD   = SERVICE_NAME_PREFIX + Atom.UPLOAD;
+		 
+		public  static final String CONFIG        = SERVICE_NAME_PREFIX + Atom.CONFIG + "/{" + Param.CONFIG_NAME + "}";
+		public  static final String PROCESS       = SERVICE_NAME_PREFIX + Atom.PROCESS;
+		public  static final String SCHEMA        = SERVICE_NAME_PREFIX + Atom.SCHEMA + "/{" + Param.SCHEMA_NAME + "}";
+		public  static final String TEMPLATE      = SERVICE_NAME_PREFIX + Atom.TEMPLATE;
+		public  static final String UPLOAD        = SERVICE_NAME_PREFIX + Atom.UPLOAD;
 		
 		public  static final String TEMPLATE_HISTORY = NAMED_HISTORY_NAME_PREFIX + Uri.TEMPLATE; 
 		public  static final String SCHEMA_HISTORY   = NAMED_HISTORY_NAME_PREFIX + Uri.SCHEMA;
@@ -161,15 +162,19 @@ public class Constants {
 		public  static final String RENAME_CONFIG  = RENAME_PREFIX + Uri.CONFIG;
 		public  static final String RENAME_SERVICE = RENAME_PREFIX + Atom.SERVICE + "/" + Uri.SERVICE;
 	
-				
+		public  static final String CLONE_SERVICE = Atom.CLONE_SERVICE + "/" + Uri.SERVICE;
+		
 	}
 	
 	private static final class Atom {
 		
 		private static final String NAME_SUFFIX   = "Name";
+		private static final String SERVICE_SUFFIX = "Service";
 		
+		private static final String CLONE			= "clone";
+		private static final String CLONE_SERVICE   = CLONE + SERVICE_SUFFIX;
 		private static final String CONFIG          = "config";
-		private static final String CONFIG_NAME     = "configName";
+		private static final String CONFIG_NAME     = CONFIG + NAME_SUFFIX;
 		private static final String CONTENT_TYPE    = "Content-Type";
 		private static final String DEFAULT         = "default";
 		private static final String HISTORY         = "history";
@@ -177,7 +182,7 @@ public class Constants {
 		private static final String INI             = "ini";
 		private static final String MAIN            = "main";
 		private static final String NAME            = "name";
-		private static final String NEW_NAME        = "newName";
+		private static final String NEW_NAME        = "new" + NAME_SUFFIX;
 		private static final String PROCESS         = "process";
 		private static final String PLAIN           = "plain";
 		private static final String REL             = "rel";

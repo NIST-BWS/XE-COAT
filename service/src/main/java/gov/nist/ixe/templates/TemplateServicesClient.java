@@ -104,30 +104,9 @@ public class TemplateServicesClient implements ITemplateServices {
 
 	
 	
-	@SuppressWarnings("unchecked")
-	public <T> T makeRequest(String uri, String method, Class<T> returnTypeClass, byte[] payload, String payloadContentType) {
-		return makeRequest(uri, method, returnTypeClass, payload, payloadContentType, null);
-		
-		/*T result = null;
-		
-		Invocation.Builder ib = ClientBuilder.newClient().target(uri).request();
-		Response response;
-		if (payload != null) {
-			EncodingUtil.assertContentTypeIsValid(payloadContentType);
-			response = ib.method(method, Entity.entity(payload, payloadContentType));			
-		} else {
-			response = ib.method(method);
-		}	
 	
-		ReverseMapException(response);
-		
-		if (returnTypeClass == Response.class) {
-			result = (T) response;
-		} else	if (returnTypeClass != null) {
-			result = response.readEntity(returnTypeClass);
-		}	
-				 
-		return result;*/
+	public <T> T makeRequest(String uri, String method, Class<T> returnTypeClass, byte[] payload, String payloadContentType) {
+		return makeRequest(uri, method, returnTypeClass, payload, payloadContentType, null);	
 	}
 	
 	
@@ -178,8 +157,8 @@ public class TemplateServicesClient implements ITemplateServices {
 		if (status.getStatusCode() == 500) {
 			String message = status.getReasonPhrase();
 
-			String exceptionType = response.getHeaderString(TemplateServiceExceptionMapper.COAT_EXCEPTION_TYPE);
-			String exceptionMessage = response.getHeaderString(TemplateServiceExceptionMapper.COAT_EXCEPTION_MESSAGE);
+			String exceptionType = response.getHeaderString(TemplateServiceExceptionMapper.IXE_TEMPLATE_EXCEPTION_TYPE);
+			String exceptionMessage = response.getHeaderString(TemplateServiceExceptionMapper.IXE_TEMPLATE_EXCEPTION_MESSAGE);
 
 			if (IllegalResourceNameException.class.getSimpleName().equals(exceptionType)) {
 				throw new IllegalResourceNameException(exceptionMessage);

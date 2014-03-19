@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import gov.nist.ixe.FileUtil;
 import gov.nist.ixe.stringsource.StringSource;
 import gov.nist.ixe.stringsource.StringSourcePersistence;
-import gov.nist.ixe.templates.CodeGen;
+import gov.nist.ixe.templates.XmlCodeGen;
 import gov.nist.ixe.templates.CodeGenException;
 
 import java.io.File;
@@ -49,7 +49,7 @@ public class JaxbXsdTests {
 		StringSource schema = StringSourcePersistence.inferFromSystemResource(schemaFilename);
 		generateCodeFromSchema("schema0", schema, schemaDir, compileDir);
 		
-		CodeGen.compile(compileDir, compileDir.getAbsolutePath());
+		XmlCodeGen.compile(compileDir, compileDir.getAbsolutePath());
 		
 		FileUtil.clear(scratchDir);
 	}
@@ -65,7 +65,7 @@ public class JaxbXsdTests {
 		StringSource schema = Examples.EMPTY;
 		try {
 			generateCodeFromSchema("schema0", schema, schemaDir, compileDir);
-			CodeGen.compile(compileDir, compileDir.getAbsolutePath());
+			XmlCodeGen.compile(compileDir, compileDir.getAbsolutePath());
 		} catch (CodeGenException cge) {
 			assertEquals(1, cge.getSchemaCompilerErrorListener().getErrors().size());	
 		} finally {
@@ -75,7 +75,7 @@ public class JaxbXsdTests {
 	}
 
 	private void generateCodeFromSchema(String schemaName, StringSource schema, File schemaDir, File compileDir) throws IOException, CodeGenException {
-		String packageName = CodeGen.getUniquePackageName();
-		CodeGen.generateCodeFromSchema(packageName, schemaName, schema, schemaDir, compileDir, null);		
+		String packageName = XmlCodeGen.getUniquePackageName();
+		XmlCodeGen.generateCodeFromSchema(packageName, schemaName, schema, schemaDir, compileDir, null);		
 	}
 }

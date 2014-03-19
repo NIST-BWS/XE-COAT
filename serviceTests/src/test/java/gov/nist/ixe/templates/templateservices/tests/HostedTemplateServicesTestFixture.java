@@ -11,10 +11,6 @@ import java.net.URISyntaxException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestRule;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
 
 public class HostedTemplateServicesTestFixture implements
 		ITemplateServicesTestFixture {

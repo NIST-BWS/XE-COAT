@@ -27,8 +27,8 @@ import javax.ws.rs.ext.Provider;
 	public Response toResponse(UnreachableServiceException ex) {
 		
 		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).
-				header(COAT_EXCEPTION_TYPE, ex.getOriginalExceptionSimpleName()).
-				header(COAT_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(ex.getOriginalException().getMessage())).
+				header(IXE_TEMPLATE_EXCEPTION_TYPE, ex.getOriginalExceptionSimpleName()).
+				header(IXE_TEMPLATE_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(ex.getOriginalException().getMessage())).
 				build();
 	
 				

@@ -3,6 +3,11 @@ package gov.nist.ixe;
 import static gov.nist.ixe.Logging.trace;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileUtil {
 	
@@ -29,5 +34,26 @@ public class FileUtil {
 		return tempDir;
 	}
 	
-
+	public static void copyDirectory(File source, File target)
+	throws IOException {
+		if (source.isDirectory()) {			
+			if (!target.exists()) {
+				target.mkdir();	
+			}			
+			for (String child : source.list()) {
+				copyDirectory(new File(source, child), new File(target, child));
+			}
+		} else {			
+			InputStream is = new FileInputStream(source);
+			OutputStream os = new FileOutputStream(target);
+			
+			byte[] buffer = new byte[1024];
+			int length;
+			while ((length = is.read(buffer)) > 0) {
+				os.write(buffer, 0, length);				
+			}
+			is.close();
+			os.close();
+		}
+	}
 }

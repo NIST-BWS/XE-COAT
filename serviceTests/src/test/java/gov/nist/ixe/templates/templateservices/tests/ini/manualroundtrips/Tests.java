@@ -52,6 +52,7 @@ public abstract class Tests extends TemplateServicesTests {
 	//private String dir = FileUtil.getRandomTempDirectoryName("IniRoundtripTests");
 	private String dir = "C:\\tmp\\out";
 
+	@SuppressWarnings("unused")
 	private void save(StringSource ss, String serviceName, String suffix) throws IOException {
 		(new File(dir)).mkdirs();
 		File f = new File(dir, serviceName + "." + suffix);

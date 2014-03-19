@@ -9,8 +9,8 @@ import javax.ws.rs.ext.ExceptionMapper;
 public abstract class TemplateServiceExceptionMapper<E extends Throwable> 
 implements ExceptionMapper<E> {
 
-	public static final String COAT_EXCEPTION_TYPE = "X-COAT-Exception-Type";
-	public static final String COAT_EXCEPTION_MESSAGE = "X-COAT-Exception-Message";
+	public static final String IXE_TEMPLATE_EXCEPTION_TYPE = "X-COAT-Exception-Type";
+	public static final String IXE_TEMPLATE_EXCEPTION_MESSAGE = "X-COAT-Exception-Message";
 
 	public abstract int getStatusCode();
 	public abstract Class<E> getClassLiteral();
@@ -18,8 +18,8 @@ implements ExceptionMapper<E> {
 	public Response toResponse(E ex) {
 
 		return Response.status(getStatusCode()).				
-				header(COAT_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(ex.getMessage())).
-				header(COAT_EXCEPTION_TYPE, getClassLiteral().getSimpleName()).
+				header(IXE_TEMPLATE_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(ex.getMessage())).
+				header(IXE_TEMPLATE_EXCEPTION_TYPE, getClassLiteral().getSimpleName()).
 				entity(new ExceptionResult<E>(getClassLiteral(), ex)).
 				build();
 	}

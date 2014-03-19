@@ -20,7 +20,7 @@
         
         <java.version>1.7</java.version>
         
-        <jersey.version>2.6</jersey.version>
+        <jersey.version>2.7</jersey.version>
         <junit.version>4.10</junit.version>
         <log4j.version>1.2.17</log4j.version>
         <cxf.version>2.7.10</cxf.version>
