@@ -64,6 +64,7 @@ public class StringSource {
 			baos.write(buffer, 0, length);
 		}
 		byte[] data = baos.toByteArray();
+		baos.close();
 		String charset = EncodingUtil.detectCharset(data);
 		return new StringSource(data, charset);
 			

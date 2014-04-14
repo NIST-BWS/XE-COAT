@@ -327,7 +327,7 @@ public class FileStorageProvider implements IStorageProvider {
 	}
 	
 	private void forbidReservedName(String name) throws IllegalResourceNameException {
-		if (name == Constants.Rel.CONFIG_HISTORY ||
+		if (name == Constants.Rel.CONFIG ||
 				name == Constants.Rel.CONFIG_HISTORY ||
 				name == Constants.Rel.PROCESS ||
 				name == Constants.Rel.SCHEMA ||

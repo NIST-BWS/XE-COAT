@@ -11,7 +11,3 @@ To build the COAT project using Apache Maven, open a command prompt and change y
 
 COAT needs the full JDK, not just the JRE, since it programatically invokes the Java compiler. Other dependencies will be automatically downloaded and managed by Maven.
 
-<a href="https://scan.coverity.com/projects/1774">
-  <img alt="Coverity Scan Build Status"
-       src="https://scan.coverity.com/projects/1774/badge.svg"/>
-</a>

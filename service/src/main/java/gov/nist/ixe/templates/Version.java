@@ -10,11 +10,13 @@ import java.io.UnsupportedEncodingException;
 	
 public class Version {
 	
-	public static String getVersion() {
+	public static String getVersion()  {
 		String result = "0.0.0.$SVN_REPOSITORY";
 		InputStream is = TemplateServices.class.getResourceAsStream("/VERSION");
-		try {
-			result = StringSource.infer(is).getString();
+		try { 
+			try { 
+				result = StringSource.infer(is).getString();
+			} finally {is.close();}
 		} catch (UnsupportedEncodingException e) {
 			// Do nothing
 		} catch (IOException e) {
