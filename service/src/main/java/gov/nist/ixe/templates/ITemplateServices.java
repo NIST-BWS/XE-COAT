@@ -109,27 +109,28 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public interface ITemplateServices {
 	
 	@GET
-	@Produces("text/plain")
+	@Produces(MediaType.TEXT_PLAIN)
 	@Path(Constants.Uri.VERSION)
 	public String getVersion();
 	
 	@GET
-	@Produces("text/plain")
+	@Produces(MediaType.TEXT_PLAIN)
 	@Path(Constants.Uri.TEST_CONNECTION)
 	public String testConnectionViaGet();
 	
 	@POST
-	@Produces("text/plain")
+	@Produces(MediaType.TEXT_PLAIN)
 	@Path(Constants.Uri.TEST_CONNECTION)
 	public String testConnectionViaPost();
 	
 	@DELETE
-	@Produces("text/plain")
+	@Produces(MediaType.TEXT_PLAIN)
 	@Path(Constants.Uri.TEST_CONNECTION)
 	public String testConnectionViaDelete();
 	
@@ -185,7 +186,7 @@ public interface ITemplateServices {
 	// Calling POST on the 'process' resource processes the template against the
 	// posted XML
 	//
-	@POST
+	@POST	
 	@Path(Constants.Uri.PROCESS)
 	public Response processTemplate(
 			@PathParam(Constants.Uri.Param.SERVICE_NAME) String serviceName,	

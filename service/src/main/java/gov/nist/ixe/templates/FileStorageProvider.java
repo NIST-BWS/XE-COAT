@@ -437,19 +437,15 @@ public class FileStorageProvider implements IStorageProvider {
 	}
 
 
-	private static Object setResourcesLock = new Object();
+	//private static Object setResourcesLock = new Object();
 	private void setResource(String serviceName, String subDirName, String resourceName, StringSource resourceContents) {
-
-		synchronized(setResourcesLock) {
-			try {
-				// Sleep for one millisecond to prevent resources from being tombstoned to the same timestamp.
-				Thread.sleep(1);
-			} catch (InterruptedException ie) {
-				// If this is interrupted, do nothing.
-			}
-		}
 		
-
+		try {
+			// Sleep for one millisecond to prevent resources from being tombstoned to the same timestamp.
+			Thread.sleep(1);
+		} catch (InterruptedException ie) {
+			// If this is interrupted, do nothing.
+		}
 		
 		// First, see if there is a real file exists under a different encoding.
 		File resourceFile = uncheckedGetResourceFile(serviceName, subDirName, resourceName);

@@ -10,7 +10,7 @@ import javax.xml.bind.JAXBException;
 public class SchemaGen {
 	
 	public static void main(String... args) throws JAXBException, IOException  {
-		File tmp = new File("C:/tmp");
+		File tmp = new File("C:/tmp/coat");
 		XmlCodeGen.generateSchemaFromClasses(tmp, "Link.xsd", Link.class);
 		XmlCodeGen.generateSchemaFromClasses(tmp, "ExceptionResult.xsd", ExceptionResult.class);
 		XmlCodeGen.generateSchemaFromClasses(tmp, "ServiceList.xsd", ServiceList.class);

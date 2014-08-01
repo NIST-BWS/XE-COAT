@@ -45,8 +45,6 @@ public class HostedTemplateServicesTestFixture implements
 	private static ITemplateServices client = null;
 	
 	@BeforeClass public static void beforeClass() {
-		System.setProperty("jersey.config.server.tracing", "ALL");
-		System.setProperty("jersey.config.server.tracing.threshold", "VERBOSE");
 		
 		try {
 			grizzlyServer = JerseyUtil.createGrizzlyServer(new URI(TestConstants.SERVER_URI));

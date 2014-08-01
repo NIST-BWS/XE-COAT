@@ -32,7 +32,7 @@ public class TemplateGenerationError {
 	public void setServiceName(String serviceName) { this.serviceName = serviceName; }
 	private String serviceName;
 	
-	@XmlElement(name="resourcName")
+	@XmlElement(name="resourceName")
 	public String getResourceName() { return resourceName;}
 	public void setResourceName(String resourceName) { this.resourceName = resourceName; }
 	private String resourceName;

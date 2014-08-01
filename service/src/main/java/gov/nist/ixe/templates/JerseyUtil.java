@@ -16,7 +16,16 @@ public class JerseyUtil {
 		org.glassfish.grizzly.http.server.HttpServer server = null;
 		try {		
 			Map<String,String> initParams = new HashMap<String,String>();
+			
+			initParams.put("jersey.config.server.tracing","ALL"); // Jersey 2.7
+			initParams.put("jersey.config.server.tracing.type", "ALL");
+			
+			initParams.put("jersey.config.server.tracing.threshold", "TRACE");
+			
+			
 			initParams.put("jersey.config.server.provider.packages", "gov.nist.ixe.templates");
+			
+			
 			server = GrizzlyWebContainerFactory.create(uri, initParams);
 			
 			//server = GrizzlyHttpServerFactory.createHttpServer(uri,createResourceConfig());

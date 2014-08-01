@@ -45,24 +45,34 @@ import gov.nist.ixe.StringUtil;
 import gov.nist.ixe.templates.Constants;
 import gov.nist.ixe.templates.jaxb.TemplateGenerationError;
 
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
-@Provider public class TemplateGenerationExceptionMapper 
+@Provider 
+public class TemplateGenerationExceptionMapper 
 extends TemplateServiceExceptionMapper<TemplateGenerationException> {
 
+	@Context private HttpHeaders headers;
+	
 	public int getStatusCode() { return 500; }
-	public Class<TemplateGenerationException> getClassLiteral() {return TemplateGenerationException.class;	}
+	public Class<TemplateGenerationException> getClassLiteral() {
+		return TemplateGenerationException.class;	
+	}
 
 	public Response toResponse(TemplateGenerationException tge) {
-
-		return Response.status(getStatusCode())
-				.header(IXE_TEMPLATE_EXCEPTION_TYPE, getClassLiteral().getSimpleName())
+		
+		return Response
+				.status(getStatusCode())
+				.entity(new TemplateGenerationError(tge))
+				.header(IXE_TEMPLATE_EXCEPTION_TYPE, getClassLiteral().getSimpleName())		
 				.header(IXE_TEMPLATE_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(tge.getMessage()))
 				.header(Constants.HttpHeader.SERVICE_NAME, tge.getServiceName())
-				.header(Constants.HttpHeader.RESOURCE_NAME, tge.getResourceName())
-				.entity(new TemplateGenerationError(tge))
+				.header(Constants.HttpHeader.RESOURCE_NAME, tge.getResourceName())					
 				.build();
+				
 	}
 
 }
