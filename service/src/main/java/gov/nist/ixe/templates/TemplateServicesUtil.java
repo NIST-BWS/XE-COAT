@@ -55,7 +55,7 @@ public class TemplateServicesUtil {
 
 	public static String getContentSubType(String rel) {
 		String result = Constants.ContentType.SubType.PLAIN;
-		if (rel == Constants.Rel.SCHEMA || rel == Constants.Rel.CONFIG) {
+		if (rel.equals(Constants.Rel.SCHEMA) || rel.equals(Constants.Rel.CONFIG)) {
 			result = Constants.ContentType.SubType.XML;
 		}
 		return result;

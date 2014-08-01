@@ -13,8 +13,6 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-
-
 public class XmlModel {
 	public static final String namespacePrefix = "coat";
 
@@ -30,76 +28,65 @@ public class XmlModel {
 	private String rootElementTypeNameForReference;
 	private String targetNamespace;
 
+	private static Map<Class<?>, XmlArrayType> xmlArrayTypeMap = getArrayTypeMap();
+	private static Map<Class<?>, String> xmlTypeMap = getTypeMap();
 
-
-	private static Map<Class<?>, XmlArrayType> xmlArrayTypeMap;
-	private static Map<Class<?>, String> xmlTypeMap;
-
-	public XmlModel(List<IniSection> iniSections, String rootElementName, String namespace) {
+	public XmlModel(List<IniSection> iniSections, String rootElementName,
+			String namespace) {
 		trace();
 
-		initTypeMaps();
 		arrayTypes = getXmlArrayTypes(iniSections);
 		sections = getXmlSections(iniSections);
 		targetNamespace = namespace;
 
 		if (isMultipleSections()) {
-			this.rootElementName = rootElementName;	
-			this.rootElementTypeNameForDefinition = TypeNameForDefinition.fromRootName(rootElementName);
-			this.rootElementTypeNameForReference = TypeNameForReference.fromRootName(rootElementName);
+			this.rootElementName = rootElementName;
+			this.rootElementTypeNameForDefinition = TypeNameForDefinition
+					.fromRootName(rootElementName);
+			this.rootElementTypeNameForReference = TypeNameForReference
+					.fromRootName(rootElementName);
 		} else {
 			String sectionName = iniSections.get(0).getName();
 			this.rootElementName = sectionName;
-			this.rootElementTypeNameForDefinition = TypeNameForDefinition.fromSectionName(sectionName);
-			this.rootElementTypeNameForReference = TypeNameForReference.fromRootName(sectionName);
+			this.rootElementTypeNameForDefinition = TypeNameForDefinition
+					.fromSectionName(sectionName);
+			this.rootElementTypeNameForReference = TypeNameForReference
+					.fromRootName(sectionName);
 		}
 	}
 
-	private void initTypeMaps() {
-		trace();
 
-		initArrayTypeMap();
-		initTypeMap();
+	private static Map<Class<?>, XmlArrayType> getArrayTypeMap() {
+		xmlArrayTypeMap = new HashMap<Class<?>, XmlArrayType>();
+		xmlArrayTypeMap.put(String.class, new XmlArrayType("element", "StringArray", XS_STRING));
+		xmlArrayTypeMap.put(Integer.class, new XmlArrayType("element", "IntegerArray", XS_INT));
+		xmlArrayTypeMap.put(Double.class, new XmlArrayType("element", "DecimalArray", XS_DECIMAL));
+		xmlArrayTypeMap.put(Object.class, new XmlArrayType("element", "Array", XS_ANY));
+		return xmlArrayTypeMap;
 	}
 
-
-	private void initArrayTypeMap() {
-		trace();
-
-		if (xmlArrayTypeMap == null) {
-			xmlArrayTypeMap = new HashMap<Class<?>, XmlArrayType>();
-			xmlArrayTypeMap.put(String.class, new XmlArrayType("element", "StringArray", XS_STRING));
-			xmlArrayTypeMap.put(Integer.class, new XmlArrayType("element", "IntegerArray", XS_INT));
-			xmlArrayTypeMap.put(Double.class, new XmlArrayType("element", "DecimalArray", XS_DECIMAL));
-			xmlArrayTypeMap.put(Object.class, new XmlArrayType("element", "Array", XS_ANY));
-		}
+	private static Map<Class<?>, String> getTypeMap() {
+		xmlTypeMap = new HashMap<Class<?>, String>();
+		xmlTypeMap.put(String.class, XS_STRING);
+		xmlTypeMap.put(Integer.class, XS_INT);
+		xmlTypeMap.put(Double.class, XS_DECIMAL);
+		xmlTypeMap.put(Object.class, XS_ANY);
+		return xmlTypeMap;
 	}
-
-	private void initTypeMap() {
-		trace();
-
-		if (xmlTypeMap == null) {
-			xmlTypeMap = new HashMap<Class<?>, String>();
-			xmlTypeMap.put(String.class, XS_STRING);
-			xmlTypeMap.put(Integer.class, XS_INT);
-			xmlTypeMap.put(Double.class, XS_DECIMAL);
-			xmlTypeMap.put(Object.class, XS_ANY);
-		}
-	}
-
 
 	public boolean isMultipleSections() {
 		trace();
 
-		return sections.size() > 1; 
+		return sections.size() > 1;
 	}
 
-	private static Set<XmlArrayType> getXmlArrayTypes(List<IniSection> iniSections) {
+	private static Set<XmlArrayType> getXmlArrayTypes(
+			List<IniSection> iniSections) {
 		trace();
 
 		// For keys with multiple values, collect all of the unique
 		// types that additional support types will be needed for.
-		//		
+		//
 		Set<XmlArrayType> result = new TreeSet<XmlArrayType>();
 
 		for (IniSection section : iniSections) {
@@ -121,22 +108,26 @@ public class XmlModel {
 
 			XmlSection sectionType = new XmlSection();
 
-			sectionType.typeNameForReference = TypeNameForReference.fromSectionName(section.getName());
-			sectionType.typeNameForDefinition = TypeNameForDefinition.fromSectionName(section.getName());
-			sectionType.elementName = ElementName.fromSectionName(section.getName());
+			sectionType.typeNameForReference = TypeNameForReference
+					.fromSectionName(section.getName());
+			sectionType.typeNameForDefinition = TypeNameForDefinition
+					.fromSectionName(section.getName());
+			sectionType.elementName = ElementName.fromSectionName(section
+					.getName());
 
-			for (Entry<String, Values> entry : section.getKeyValuesMap().entrySet()) {
+			for (Entry<String, Values> entry : section.getKeyValuesMap()
+					.entrySet()) {
 				XmlSectionElement element = new XmlSectionElement();
 
 				// Getting the element name is easy
 				element.elementName = ElementName.fromKeyName(entry.getKey());
 
-				Values values = entry.getValue(); 
+				Values values = entry.getValue();
 				element.typeNameForReference = getSectionElementTypeName(values);
 
 				injectValues(element, values);
 
-				sectionType.getElements().add(element);	
+				sectionType.getElements().add(element);
 			}
 
 			result.add(sectionType);
@@ -144,7 +135,6 @@ public class XmlModel {
 
 		return result;
 	}
-
 
 	private static String getSectionElementTypeName(Values values) {
 		trace();
@@ -162,7 +152,7 @@ public class XmlModel {
 			typeName = xmlTypeMap.get(type);
 		}
 
-		return typeName; 
+		return typeName;
 	}
 
 	private static void injectValues(XmlSectionElement target, Values values) {
@@ -170,21 +160,22 @@ public class XmlModel {
 		if (values.size() == 1) {
 			target.isMultivalued = false;
 			XmlValue value = new XmlValue();
-			
+
 			value.Value = values.getUnquotedString(0);
 			value.Type = xmlTypeMap.get(values.get(0).getClass());
 			target.getValues().add(value);
 		} else {
 			target.isMultivalued = true;
-			target.isOfMixedTypes = values.getMostDetailedCommonType().equals(Object.class);
+			target.isOfMixedTypes = values.getMostDetailedCommonType().equals(
+					Object.class);
 
-			for (int i=0; i < values.size(); i++) {
+			for (int i = 0; i < values.size(); i++) {
 				XmlValue v = new XmlValue();
 				v.Value = values.getUnquotedString(i);
 				v.Type = xmlTypeMap.get(values.get(i).getClass());
-				target.getValues().add(v);								
+				target.getValues().add(v);
 			}
-								
+
 		}
 	}
 
@@ -204,13 +195,15 @@ public class XmlModel {
 		protected static String fromSectionName(String sectionName) {
 			trace();
 
-			return namespacePrefix + ":" + TypeNameForDefinition.fromSectionName(sectionName);
+			return namespacePrefix + ":"
+					+ TypeNameForDefinition.fromSectionName(sectionName);
 		}
 
 		protected static String fromRootName(String sectionName) {
 			trace();
 
-			return namespacePrefix + ":" + TypeNameForDefinition.fromRootName(sectionName);
+			return namespacePrefix + ":"
+					+ TypeNameForDefinition.fromRootName(sectionName);
 		}
 	}
 
@@ -233,35 +226,60 @@ public class XmlModel {
 		List<Integer> indexes = new ArrayList<Integer>();
 		String regex = "^[^a-zA-Z]+|[^0-9a-zA-Z]+";
 		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(name);		
+		Matcher matcher = pattern.matcher(name);
 		while (matcher.find()) {
-			indexes.add(matcher.end());		
-		} 
+			indexes.add(matcher.end());
+		}
 		for (int i : indexes) {
 			result = StringUtil.capitalize(result, i);
 		}
 		result = result.replaceAll(regex, "");
-		
-		// JAXB camel cases after digits, so this needs to be fixed. For example, a INI
-		// key called Foo3d becomes getFoo3D in the JAXB generated code. This regex finds
+
+		// JAXB camel cases after digits, so this needs to be fixed. For
+		// example, a INI
+		// key called Foo3d becomes getFoo3D in the JAXB generated code. This
+		// regex finds
 		// all of the letters following a digit so they can be capitalized.
 		//
 		indexes.clear();
 		String jaxbFixRegex = "(?:[0-9])([a-zA-Z])";
 		pattern = Pattern.compile(jaxbFixRegex);
 		matcher = pattern.matcher(result);
-		while (matcher.find()) { indexes.add(matcher.start(1)); }
-		for (int i : indexes) {	result = StringUtil.capitalize(result, i); }
-		
+		while (matcher.find()) {
+			indexes.add(matcher.start(1));
+		}
+		for (int i : indexes) {
+			result = StringUtil.capitalize(result, i);
+		}
+
 		return result;
 	}
 
-	public String getRootElementName() { return rootElementName; }
-	public String getRootElementTypeNameForDefinition() { return rootElementTypeNameForDefinition; }
-	public String getRootElementTypeNameForReference() { return rootElementTypeNameForReference; }
+	public String getRootElementName() {
+		return rootElementName;
+	}
 
-	public String getNamespacePrefix() { return namespacePrefix; }
-	public String getTargetNamespace() { return targetNamespace; }
-	public Set<XmlArrayType> getArrayTypes() { return arrayTypes; }
-	public List<XmlSection> getSections() { return sections; }
+	public String getRootElementTypeNameForDefinition() {
+		return rootElementTypeNameForDefinition;
+	}
+
+	public String getRootElementTypeNameForReference() {
+		return rootElementTypeNameForReference;
+	}
+
+	public String getNamespacePrefix() {
+		return namespacePrefix;
+	}
+
+	public String getTargetNamespace() {
+		return targetNamespace;
+	}
+
+	public Set<XmlArrayType> getArrayTypes() {
+		return arrayTypes;
+	}
+
+	public List<XmlSection> getSections() {
+		return sections;
+	}
 }

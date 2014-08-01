@@ -13,7 +13,7 @@ public final class TestConstants {
 	public static final String SERVER_URI = "http://localhost:12345/";
 	
 	public static final String CLIENT_URI = "http://localhost:12345/";
-	//public static final String CLIENT_URI = "http://localhost:8888/";
+	//public static final String CLIENT_URI = "http://localhost:8888/";// USE FOR FIddler
 	
 	private TestConstants(){}
 }

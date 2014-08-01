@@ -23,7 +23,7 @@ public class ResourceHistory {
 	public ResourceHistory(IStorageProvider storage, String rootUri, String serviceName, String rel, String resourceName) {
 		originalRel = rel;
 		
-		if (rel == Constants.Rel.TEMPLATE) {
+		if (rel.equals(Constants.Rel.TEMPLATE)) {
 			originalUri = BuildUri.getTemplateUri(rootUri, serviceName);
 			for (HistoryInfo hi : storage.getTemplateHistoryInfo(serviceName)) {
 				HistoricLink link = new HistoricLink();
@@ -38,7 +38,7 @@ public class ResourceHistory {
 			}
 		}
 
-		if (rel == Constants.Rel.SCHEMA) {
+		if (rel.equals(Constants.Rel.SCHEMA)) {
 			originalUri = BuildUri.getSchemaUri(rootUri, serviceName, resourceName);
 			for (HistoryInfo hi : storage.getSchemaHistoryInfo(serviceName, resourceName)) {
 				HistoricLink link = new HistoricLink();
@@ -54,7 +54,7 @@ public class ResourceHistory {
 			}
 		}
 
-		if (rel == Constants.Rel.CONFIG) {
+		if (rel.equals(Constants.Rel.CONFIG)) {
 			originalUri = BuildUri.getConfigUri(rootUri, serviceName, resourceName);
 			for (HistoryInfo hi : storage.getConfigHistoryInfo(serviceName, resourceName)) {
 				HistoricLink link = new HistoricLink();

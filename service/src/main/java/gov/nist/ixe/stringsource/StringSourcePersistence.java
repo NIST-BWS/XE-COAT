@@ -67,7 +67,7 @@ public class StringSourcePersistence {
 			(StringSourceFilePersistenceException.ErrorMessage.TOO_MANY_CANDIDATES);
 		}
 		File result = null;
-		if (candidates != null && candidates.length == 1) {
+		if (candidates.length == 1) {
 			result = candidates[0];
 		}
 		return result;
