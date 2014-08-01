@@ -47,7 +47,6 @@ import gov.nist.ixe.templates.jaxb.TemplateGenerationError;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
@@ -62,6 +61,7 @@ extends TemplateServiceExceptionMapper<TemplateGenerationException> {
 		return TemplateGenerationException.class;	
 	}
 
+	@Override
 	public Response toResponse(TemplateGenerationException tge) {
 		
 		return Response
