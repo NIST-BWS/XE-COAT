@@ -17,19 +17,17 @@ public class JerseyUtil {
 		try {		
 			Map<String,String> initParams = new HashMap<String,String>();
 			
-			//initParams.put("jersey.config.server.tracing","ALL"); // Jersey 2.7
-			initParams.put("jersey.config.server.tracing.type", "ALL"); // Jersey 2.8+			
-			initParams.put("jersey.config.server.tracing.threshold", "TRACE");
+			// initParams.put("jersey.config.server.tracing","ALL"); // Jersey 2.7
+			// initParams.put("jersey.config.server.tracing.type", "ALL"); // Jersey 2.8+			
+			// initParams.put("jersey.config.server.tracing.threshold", "TRACE");
 			
-			//initParams.put("jersey.config.server.exception.processResponseErrors", "false");
 			
 			// Somewhere between Jersey 2.7 and 2.8, setting this to 'true' became necessary
 			// for responses to be left as-is. Comment this out, and grizzly will return HTML
 			// when the result is not 200. Strangely, the Jersey 2.11 documentation states that this
 			// parameter was introduced in 2.5. 
 			//
-			initParams.put("jersey.config.server.response.setStatusOverSendError", "true");
-			
+			initParams.put("jersey.config.server.response.setStatusOverSendError", "true");			
 			
 			initParams.put("jersey.config.server.provider.packages", "gov.nist.ixe.templates");
 			server = GrizzlyWebContainerFactory.create(uri, initParams);
