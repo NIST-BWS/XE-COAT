@@ -41,11 +41,12 @@
 
 package gov.nist.ixe.templates.exception;
 
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
 
 @Provider public class StorageProviderExceptionMapper 
 	extends TemplateServiceExceptionMapper<StorageProviderException> {
 
-	public int getStatusCode() { return 500; }
+	public Status getStatusCode() { return Status.INTERNAL_SERVER_ERROR; }
 	public Class<StorageProviderException> getClassLiteral() {return StorageProviderException.class;	}
 }

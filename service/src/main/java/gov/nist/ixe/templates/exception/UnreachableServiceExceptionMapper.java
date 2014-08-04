@@ -3,17 +3,18 @@ package gov.nist.ixe.templates.exception;
 import gov.nist.ixe.StringUtil;
 
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
 
 @Provider public class UnreachableServiceExceptionMapper 
 	extends TemplateServiceExceptionMapper<UnreachableServiceException> {
 
 	@Override
-	public int getStatusCode() {
+	public Status getStatusCode() {
 		// Does not get called since this method is only used when we use the
 		// default implementation of toReponse()
 		//
-		return 0;
+		return Status.INTERNAL_SERVER_ERROR;
 	}
 
 	@Override

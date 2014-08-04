@@ -140,7 +140,7 @@ public interface ITemplateServices {
 	// Calling GET on the 'service list' resource returns a list of services
 	//
 	@GET
-	@Produces("text/xml")
+	@Produces(MediaType.TEXT_XML)
 	//@Path(Constants.Uri.SERVICE_LIST) 	
 	public ServiceList getServiceList();
 	
@@ -150,7 +150,7 @@ public interface ITemplateServices {
 	// Calling GET on the 'service' resource returns a list of service resources
 	//
 	@GET
-	@Produces("text/xml")
+	@Produces(MediaType.TEXT_XML)
 	@Path(Constants.Uri.SERVICE)
 	public ServiceResources getServiceResources(
 			@PathParam(Constants.Uri.Param.SERVICE_NAME) String serviceName
@@ -376,7 +376,7 @@ public interface ITemplateServices {
 	// Calling GET on the 'schema history' resource returns a list of historic schemas
 	//
 	@GET
-	@Produces("text/xml")	
+	@Produces(MediaType.TEXT_XML)	
 	@Path(Constants.Uri.SCHEMA_HISTORY)
 	public ResourceHistory getSchemaHistory(
 			@PathParam(Constants.Uri.Param.SERVICE_NAME) String serviceName,
@@ -389,7 +389,7 @@ public interface ITemplateServices {
 	// Calling GET on a 'historic schema' resource gets an older version of the schema
 	//
 	@GET
-	@Produces("text/xml")
+	@Produces(MediaType.TEXT_XML)
 	@Path(Constants.Uri.HISTORIC_SCHEMA)
 	public Response getHistoricSchema(
 			@PathParam(Constants.Uri.Param.SERVICE_NAME) String serviceName,
@@ -404,7 +404,7 @@ public interface ITemplateServices {
 	// Calling GET on the 'config history' resource returns a list of historic configurations
 	//
 	@GET
-	@Produces("text/xml")
+	@Produces(MediaType.TEXT_XML)
 	@Path(Constants.Uri.CONFIG_HISTORY)
 	public ResourceHistory getConfigHistory(
 			@PathParam(Constants.Uri.Param.SERVICE_NAME) String serviceName,
@@ -417,7 +417,7 @@ public interface ITemplateServices {
 	// Calling GET on a 'historic config' resource gets an older version of the configuration
 	//
 	@GET
-	@Produces("text/xml")
+	@Produces(MediaType.TEXT_XML)
 	@Path(Constants.Uri.HISTORIC_CONFIG)
 	public Response getHistoricConfig(
 			@PathParam(Constants.Uri.Param.SERVICE_NAME) String serviceName,
@@ -500,5 +500,6 @@ public interface ITemplateServices {
 			
 	
 
+	
 	
 }

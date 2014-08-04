@@ -48,6 +48,7 @@ import gov.nist.ixe.templates.jaxb.TemplateGenerationError;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
 
 @Provider 
@@ -56,7 +57,7 @@ extends TemplateServiceExceptionMapper<TemplateGenerationException> {
 
 	@Context private HttpHeaders headers;
 	
-	public int getStatusCode() { return 500; }
+	public Status getStatusCode() { return Status.INTERNAL_SERVER_ERROR; }
 	public Class<TemplateGenerationException> getClassLiteral() {
 		return TemplateGenerationException.class;	
 	}

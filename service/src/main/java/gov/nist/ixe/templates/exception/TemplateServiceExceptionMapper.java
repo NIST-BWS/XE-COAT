@@ -4,6 +4,7 @@ import gov.nist.ixe.StringUtil;
 import gov.nist.ixe.templates.jaxb.ExceptionResult;
 
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 
 public abstract class TemplateServiceExceptionMapper<E extends Throwable> 
@@ -12,7 +13,7 @@ implements ExceptionMapper<E> {
 	public static final String IXE_TEMPLATE_EXCEPTION_TYPE = "X-COAT-Exception-Type";
 	public static final String IXE_TEMPLATE_EXCEPTION_MESSAGE = "X-COAT-Exception-Message";
 
-	public abstract int getStatusCode();
+	public abstract Status getStatusCode();
 	public abstract Class<E> getClassLiteral();
 
 	public Response toResponse(E ex) {

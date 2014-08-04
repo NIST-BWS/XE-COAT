@@ -41,11 +41,12 @@
 
 package gov.nist.ixe.templates.exception;
 
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
 
 @Provider public class ResourceNotFoundExceptionMapper 
 	extends TemplateServiceExceptionMapper<ResourceNotFoundException> {
 
-	public int getStatusCode() { return 404; }
+	public Status getStatusCode() { return Status.NOT_FOUND; }
 	public Class<ResourceNotFoundException> getClassLiteral() {	return ResourceNotFoundException.class;	}
 }

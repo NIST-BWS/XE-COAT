@@ -41,12 +41,13 @@
 
 package gov.nist.ixe.templates.exception;
 
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
 
 @Provider public class IllegalContentTypeExceptionMapper 
 extends TemplateServiceExceptionMapper<IllegalContentTypeException> {
 
-	public int getStatusCode() { return 500; }
+	public Status getStatusCode() { return Status.BAD_REQUEST; }
 	public Class<IllegalContentTypeException> getClassLiteral() {
 		return IllegalContentTypeException.class;	
 	}

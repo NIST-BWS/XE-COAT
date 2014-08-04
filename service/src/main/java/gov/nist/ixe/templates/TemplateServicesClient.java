@@ -146,15 +146,13 @@ public class TemplateServicesClient implements ITemplateServices {
 		
 		if (status.getFamily() == Status.Family.SUCCESSFUL) return;
 		
-		if (status.getStatusCode() == 404) {
+		if (status.getStatusCode() == Status.NOT_FOUND.getStatusCode()) {
 			throw new ResourceNotFoundException(status.getReasonPhrase());
-		}
-		
-		if (status.getStatusCode() == 409) {
+		} else if (status.getStatusCode() == Status.CONFLICT.getStatusCode()) {
 			throw new ResourceNotEmptyException();
-		}
+		} else {
 	
-		if (status.getStatusCode() == 500) {
+		
 			String message = status.getReasonPhrase();
 
 			String exceptionType = response.getHeaderString(TemplateServiceExceptionMapper.IXE_TEMPLATE_EXCEPTION_TYPE);
