@@ -204,23 +204,29 @@ public class ValueParseTests {
 	
 	@Test
 	public void ValueListsOfStringsYieldCorrectCommonType() {
-		assertEquals(String.class, Values.parse("a,b,c").getMostDetailedCommonType());
+		assertEquals(String.class, Values.parse("a,b,c").getMostDetailedCommonType(String.class));
 	}
 	
 	@Test
 	public void ValueListsOfIntegersYieldCorrectCommonType() {
-		assertEquals(Integer.class, Values.parse("1,2,3,4").getMostDetailedCommonType());
+		assertEquals(Integer.class, Values.parse("1,2,3,4").getMostDetailedCommonType(String.class));
 	}
 	
 	@Test
 	public void ValueListsOfDoubleYieldCorrectCommonType() {
-		assertEquals(Double.class, Values.parse("1.0,2.0,3.0,4.0").getMostDetailedCommonType());
+		assertEquals(Double.class, Values.parse("1.0,2.0,3.0,4.0").getMostDetailedCommonType(String.class));
 	}
 	
 	@Test
 	public void ValueListOfMixedTypesYieldCorrectCommonType() {
-		assertEquals(Object.class, Values.parse("1,2,abc,def").getMostDetailedCommonType());
+		assertEquals(Object.class, Values.parse("1,2,abc,def").getMostDetailedCommonType(String.class));
 	}
 	
+	@Test
+	public void ValueListWithEmptyValuesYieldCorrectCommonType() {
+		assertEquals(String.class, Values.parse(",,").getMostDetailedCommonType(String.class));
+		assertEquals(Integer.class, Values.parse(",,").getMostDetailedCommonType(Integer.class));
+	}
+
 
 }

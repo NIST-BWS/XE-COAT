@@ -224,4 +224,12 @@ public class Link {
 		return result;
 	}
 		
+	public static Link IniSplitter(IStorageProvider storage, String rootUri) {
+		Link result = new Link();
+		result.setRel(Constants.Rel.INI_SPLITTER);
+		result.setUri(BuildUri.getIniSplitterUri(rootUri));
+		return result;
+	}
+		
+	
 }

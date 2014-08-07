@@ -288,12 +288,19 @@ public class BuildUri {
 	// Splitters 
 	// ---
 	
-	public static String getIniSplitterUri(String rootUri, String serviceName) {
+	public static String getIniSplitterUri(String rootUri) {
+		UriBuilder builder = UriBuilder.fromUri(rootUri);
+		builder.path(Constants.Uri.INI_SPLITTER);
+		return builder.toString();
+		
+	}
+	
+	public static String getIniSplitterUri(String rootUri, String newServiceName) {
 		UriBuilder builder = UriBuilder.fromUri(rootUri);
 		builder.path(Constants.Uri.INI_SPLITTER);
 		Map<String,String> args = new HashMap<String,String>();
-		args.put(Constants.Uri.Param.SERVICE_NAME, serviceName);
-		return builder.queryParam(Constants.Uri.Param.SERVICE_NAME, serviceName).buildFromMap(args).toString();
+		args.put(Constants.Uri.Param.SERVICE_NAME, newServiceName);
+		return builder.queryParam(Constants.Uri.Param.SERVICE_NAME, newServiceName).buildFromMap(args).toString();
 		
 	}
 	

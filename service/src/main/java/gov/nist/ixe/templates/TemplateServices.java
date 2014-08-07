@@ -382,8 +382,9 @@ public class TemplateServices implements ITemplateServices {
 		trace();
 
 		validateServiceOrResourceName(serviceName);
-		requireSpecificContentType(contentType, "text/plain");
-		// forbidEmptyPayload(payload, contentType);
+		if (enforceRequiredContentType) 
+			requireSpecificContentType(contentType, "text/plain");
+
 
 		StringSource template = new StringSource(payload, contentType);
 		getStorageProvider().setTemplate(serviceName, template);
@@ -423,7 +424,8 @@ public class TemplateServices implements ITemplateServices {
 		validateServiceOrResourceName(schemaName);
 		forbidEmptyName(schemaName);
 		forbidReservedName(schemaName);
-		requireSpecificContentType(contentType, "text/xml");
+		if (enforceRequiredContentType)
+			requireSpecificContentType(contentType, "text/xml");
 
 		
 		StringSource schema = new StringSource(payload, contentType);
@@ -463,7 +465,8 @@ public class TemplateServices implements ITemplateServices {
 		validateServiceOrResourceName(configName);
 		forbidEmptyName(configName);
 		forbidReservedName(configName);
-		requireSpecificContentType(contentType, "text/xml");
+		if (enforceRequiredContentType)
+			requireSpecificContentType(contentType, "text/xml");
 		getStorageProvider().addConfig(serviceName, configName,
 				new StringSource(payload, contentType));
 
@@ -504,6 +507,8 @@ public class TemplateServices implements ITemplateServices {
 
 	private static void requireSpecificContentType(String actual,
 			String expected) {
+		
+		
 		boolean result = false;
 		try {
 			MediaType actualMT = MediaType.valueOf(actual);
@@ -821,6 +826,16 @@ public class TemplateServices implements ITemplateServices {
 	@Override
 	public String testConnectionViaDelete() {
 		return getVersion();
+	}
+
+	
+	private boolean enforceRequiredContentType = true;	
+	public boolean getEnforceRequiredContentType() {
+		return enforceRequiredContentType;
+	}
+	
+	public void setEnforceRequiredContentType(boolean value) {
+		enforceRequiredContentType = value;		
 	}
 
 }

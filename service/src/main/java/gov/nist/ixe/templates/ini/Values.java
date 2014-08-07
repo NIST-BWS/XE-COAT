@@ -15,7 +15,7 @@ public class Values extends ArrayList<Object> {
 		trace();
 		return super.size() > 1;
 	}
-	public Class<?> getMostDetailedCommonType() {
+	public Class<?> getMostDetailedCommonType(Class<?> classToUseForNullValues) {
 		trace();
 		
 		// If there are no values, then default to a string instead
@@ -28,7 +28,12 @@ public class Values extends ArrayList<Object> {
 		Class<?> result = Object.class;
 
 		for (int i=0; i < this.size(); i++) {
-			types.add(this.get(i).getClass());
+			// We assume (perhaps incorrectly) that a null element 
+			// should be an empty string.
+			//
+			Class<?> c = classToUseForNullValues;
+			if (this.get(i) != null) c = this.get(i).getClass();
+			types.add(c);
 		}
 
 		if (types.size() == 1) {
@@ -89,6 +94,7 @@ public class Values extends ArrayList<Object> {
 
 			if (value != null) {
 				boolean isInteger = false;
+				boolean isLong = false;
 				boolean isDouble = false;
 
 				if (group == NON_QUOTED_STRING_GROUP) {
@@ -96,10 +102,19 @@ public class Values extends ArrayList<Object> {
 						values.add(Integer.parseInt(value));
 						isInteger = true;
 					} catch (NumberFormatException ex) {
-						isInteger = false;		
+						isInteger = false; // probably not necessary		
+					}
+					
+					if (!isInteger) {
+						try {
+							values.add(Long.parseLong(value));
+							isLong = true;
+						} catch (NumberFormatException ex) {
+							isLong = false;					
+						}
 					}
 
-					if (!isInteger) {
+					if (!isInteger && !isLong) {
 						try {
 							values.add(Double.parseDouble(value));
 							isDouble = true;
@@ -111,7 +126,7 @@ public class Values extends ArrayList<Object> {
 
 				if (value.toString().equals("")) {
 					values.add(null);				
-				} else if (!isInteger && !isDouble) {
+				} else if (!isInteger && !isDouble && !isLong) {
 					
 					// Replace predefined XML entities
 					value = value.replace("&", "&amp;");				
@@ -210,17 +225,21 @@ public class Values extends ArrayList<Object> {
 	}
 	
 	public String getUnquotedString(int i) {
-		if (commonLeftDelimiter.isEmpty() && commonRightDelimiter.isEmpty()) {
-			return get(i).toString();
+		String result = "";
+		if (get(i) == null) {
+			result = "";
+		} else if (commonLeftDelimiter.isEmpty() && commonRightDelimiter.isEmpty()) {
+			result = get(i).toString();
 		} else {
-			return unquote(get(i).toString());
-		}
+			result = unquote(get(i).toString());
+		}		
+		return result;
 	}
 	
 	public static String unquote(String string) {
 		trace();
 
-		String result = string;
+		String result = "";
 
 		final String leftDelims[] = new String[] { "\"", "'", "(", "[", "{", "<" };
 		final String rightDelims[] = new String[] { "\"", "'", ")", "]", "}", ">" };

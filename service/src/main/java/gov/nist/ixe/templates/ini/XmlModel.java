@@ -15,10 +15,13 @@ import java.util.regex.Matcher;
 
 public class XmlModel {
 	public static final String namespacePrefix = "coat";
+	
+	public static final Class<?> ASSUMED_CLASS_FOR_NULL_VALUES = Object.class;
 
 	private static final String XS_STRING = "xs:string";
 	private static final String XS_INT = "xs:int";
 	private static final String XS_DECIMAL = "xs:decimal";
+	private static final String XS_DOUBLE = "xs:double";
 	private static final String XS_ANY = "xs:anyType";
 
 	private Set<XmlArrayType> arrayTypes;
@@ -58,19 +61,21 @@ public class XmlModel {
 
 	private static Map<Class<?>, XmlArrayType> getArrayTypeMap() {
 		xmlArrayTypeMap = new HashMap<Class<?>, XmlArrayType>();
-		xmlArrayTypeMap.put(String.class, new XmlArrayType("element", "StringArray", XS_STRING));
+		xmlArrayTypeMap.put(String.class,  new XmlArrayType("element", "StringArray",  XS_STRING));
 		xmlArrayTypeMap.put(Integer.class, new XmlArrayType("element", "IntegerArray", XS_INT));
-		xmlArrayTypeMap.put(Double.class, new XmlArrayType("element", "DecimalArray", XS_DECIMAL));
-		xmlArrayTypeMap.put(Object.class, new XmlArrayType("element", "Array", XS_ANY));
+		xmlArrayTypeMap.put(Long.class,    new XmlArrayType("element", "DecimalArray", XS_DECIMAL));
+		xmlArrayTypeMap.put(Double.class,  new XmlArrayType("element", "DoubleArray",  XS_DOUBLE));
+		xmlArrayTypeMap.put(Object.class,  new XmlArrayType("element", "Array",        XS_ANY));
 		return xmlArrayTypeMap;
 	}
 
 	private static Map<Class<?>, String> getTypeMap() {
 		xmlTypeMap = new HashMap<Class<?>, String>();
-		xmlTypeMap.put(String.class, XS_STRING);
+		xmlTypeMap.put(String.class,  XS_STRING);
 		xmlTypeMap.put(Integer.class, XS_INT);
-		xmlTypeMap.put(Double.class, XS_DECIMAL);
-		xmlTypeMap.put(Object.class, XS_ANY);
+		xmlTypeMap.put(Long.class,    XS_DECIMAL);
+		xmlTypeMap.put(Double.class,  XS_DOUBLE);
+		xmlTypeMap.put(Object.class,  XS_ANY);
 		return xmlTypeMap;
 	}
 
@@ -91,7 +96,7 @@ public class XmlModel {
 
 		for (IniSection section : iniSections) {
 			for (Values values : section.getMultiValueKeys().values()) {
-				Class<?> type = values.getMostDetailedCommonType();
+				Class<?> type = values.getMostDetailedCommonType(ASSUMED_CLASS_FOR_NULL_VALUES);
 				result.add(xmlArrayTypeMap.get(type));
 			}
 		}
@@ -142,7 +147,7 @@ public class XmlModel {
 		// The type name is more complicated. If the key can have multiple
 		// values, then we need to get a custom array type.
 		//
-		Class<?> type = values.getMostDetailedCommonType();
+		Class<?> type = values.getMostDetailedCommonType(ASSUMED_CLASS_FOR_NULL_VALUES);
 		String typeName;
 
 		if (values.isMultiple()) {
@@ -166,13 +171,17 @@ public class XmlModel {
 			target.getValues().add(value);
 		} else {
 			target.isMultivalued = true;
-			target.isOfMixedTypes = values.getMostDetailedCommonType().equals(
+			target.isOfMixedTypes = values.getMostDetailedCommonType(ASSUMED_CLASS_FOR_NULL_VALUES).equals(
 					Object.class);
 
 			for (int i = 0; i < values.size(); i++) {
 				XmlValue v = new XmlValue();
 				v.Value = values.getUnquotedString(i);
-				v.Type = xmlTypeMap.get(values.get(i).getClass());
+				Class<?> vType = ASSUMED_CLASS_FOR_NULL_VALUES;
+				if (values.get(i) != null) {
+					vType = values.get(i).getClass();
+				}
+				v.Type = xmlTypeMap.get(vType);
 				target.getValues().add(v);
 			}
 

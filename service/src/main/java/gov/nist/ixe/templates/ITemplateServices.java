@@ -500,6 +500,5 @@ public interface ITemplateServices {
 			
 	
 
-	
-	
+		
 }

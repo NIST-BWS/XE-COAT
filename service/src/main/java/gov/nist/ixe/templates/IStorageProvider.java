@@ -76,7 +76,6 @@ public interface IStorageProvider {
 	boolean supportsHistory();
 
 	StringSource getHistoricSchema(String serviceName, String schemaName, Date timestamp);
-	//Date[] getSchemaHistoryTimestamps(String serviceName, String schemaName);
 	HistoryInfo[] getSchemaHistoryInfo(String serviceName, String schemaName);
 
 	StringSource getHistoricConfig(String serviceName, String configurationName, Date timestamp);

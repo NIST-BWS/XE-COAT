@@ -85,11 +85,11 @@ public abstract class Tests extends TemplateServicesTests {
 		ts.renameService("service2", "service1");
 		ServiceList services = ts.getServiceList();
 		services.sort();
-		assertEquals(2, services.size());
-		assertEquals("service", services.get(0).getRel());
-		assertEquals("service", services.get(1).getRel());
-		assertEquals(serverRootUri + "service0", services.get(0).getUri());
-		assertEquals(serverRootUri + "service1", services.get(1).getUri());
+		assertEquals(2, services.servicesSize());
+		assertEquals("service", services.getService(0).getRel());
+		assertEquals("service", services.getService(1).getRel());
+		assertEquals(serverRootUri + "service0", services.getService(0).getUri());
+		assertEquals(serverRootUri + "service1", services.getService(1).getUri());
 	}
 	
 	

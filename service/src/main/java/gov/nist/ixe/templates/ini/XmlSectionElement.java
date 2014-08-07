@@ -17,7 +17,9 @@ public class XmlSectionElement extends XmlFragment {
 	}
 	
 	public String getSimpleValue() { 
-		return values.get(0).getValue(); 
+		String result = "";
+		if (values.get(0) != null) result = values.get(0).getValue();
+		return result; 
 	}
 	
 	public List<XmlValue> getValues() { 

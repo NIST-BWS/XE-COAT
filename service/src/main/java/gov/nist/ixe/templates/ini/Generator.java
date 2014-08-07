@@ -109,7 +109,10 @@ public class Generator {
 		result = rootPart + sectionPart + keyPart + "}";
 		KeyValueLine kvl = section.getKeyValuesLine(keyName);
 		 
+		
 		Values values = section.getValues(keyName);
+		
+		
 		String leftDelim = values.getCommonLeftDelimiter(false);
 		String rightDelim = values.getCommonRightDelimiter(false);
 		
@@ -120,6 +123,9 @@ public class Generator {
 		if (values.size() > 1) {
 			String delim = kvl.getDelimiter();
 			String forEachV = "$!value";
+			//String forEachV = "#if($velocityHasNext)$!value#end";
+			
+			//String forEachV = "#if($value)$!value#{end}";
 			String inlineV = forEachV;
 			String forEachSource = rootPart + sectionPart + keyPart + ".Element}";
 

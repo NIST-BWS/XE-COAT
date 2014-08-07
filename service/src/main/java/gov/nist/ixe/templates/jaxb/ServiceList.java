@@ -63,13 +63,14 @@ public class ServiceList {
 		for (String serviceName : storage.getServiceNames()) {
 			services.add(Link.Service(storage, rootUri, serviceName));
 		}
+		iniSplitter = Link.IniSplitter(storage, rootUri);
 	}
 	
 	@XmlElement(name="link")
 	public List<Link> getServices() { sort(); return services; }
 	
-	public int size() { return services.size(); };
-	public Link get(int index) { return services.get(index); }
+	public int servicesSize() { return services.size(); };
+	public Link getService(int index) { return services.get(index); }
 	
 	private List<Link> services = new ArrayList<Link>();
 	
@@ -80,4 +81,14 @@ public class ServiceList {
 		});
 	}
 	
+	
+	private Link iniSplitter;
+	@XmlElement(name="iniSplitter") 
+	public Link getIniSplitter() { 
+		return iniSplitter;
+	}
+
+	public void setIniSplitter(Link link) {
+		iniSplitter = link;
+	}
 }

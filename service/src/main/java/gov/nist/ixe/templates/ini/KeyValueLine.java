@@ -134,7 +134,11 @@ public class KeyValueLine {
 		StringBuilder builder = new StringBuilder();
 		
 		for (int i=0; i < values.size(); i++) {
-			builder.append(Pattern.quote(values.get(i).toString()));
+			String value = "";
+			if (values.get(i) != null) {
+				value = values.get(i).toString();
+			}
+			builder.append(Pattern.quote(value));
 			
 			if (i == 0) {
 				builder.append("(.*)");

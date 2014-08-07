@@ -7,11 +7,9 @@ import gov.nist.ixe.GetOpt.Parameter;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.servlet.GrizzlyWebContainerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 
@@ -60,9 +58,7 @@ public class EntryPoint {
 			System.out.println("Hosting service at endpoint " + uri);
 			System.out.println("Data store location  " + storageLocation);
 			
-			Map<String,String> initParams = new HashMap<String,String>();
-			initParams.put("jersey.config.server.provider.packages", "gov.nist.ixe.templates");
-			HttpServer server = GrizzlyWebContainerFactory.create(new URI(uri), initParams);
+			HttpServer server = JerseyUtil.createGrizzlyServer(new URI(uri));
 			
 			System.out.println("Type 'quit' to terminate");
 			String line = null;

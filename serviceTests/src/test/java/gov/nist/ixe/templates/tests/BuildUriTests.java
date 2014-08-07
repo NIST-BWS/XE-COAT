@@ -148,6 +148,11 @@ public class BuildUriTests {
 		assertEquals("http://templates.xe.nist.gov/foo/1234567890", uri);
 	}
 	
+	@Test public void getBaseIniSplitterUri_buildsCorrectly() {
+		String uri = BuildUri.getIniSplitterUri(rootUri);
+		assertEquals("http://example.com/splitter/ini", uri);
+	}
+	
 	@Test public void getIniSplitterUri_buildsCorrectly() {
 		String uri = BuildUri.getIniSplitterUri(rootUri, "service0");
 		assertEquals("http://example.com/splitter/ini?serviceName=service0", uri);
