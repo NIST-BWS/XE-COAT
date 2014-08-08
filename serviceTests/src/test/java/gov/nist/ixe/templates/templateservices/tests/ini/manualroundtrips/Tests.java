@@ -73,10 +73,10 @@ public abstract class Tests extends TemplateServicesTests {
 		StringSource schema = g.genXsdSchema(iniSections);		
 		StringSource template = g.genVelocityTemplate(ini, iniSections, newline);
 		
-		save(template, serviceName, "vm");
-		save(config, serviceName, "xml");
-		save(schema, serviceName, "xsd");
-		save(ini, serviceName, "ini");
+		//save(template, serviceName, "vm");
+		//save(config, serviceName, "xml");
+		//save(schema, serviceName, "xsd");
+		//save(ini, serviceName, "ini");
 		
 		XmlUtil.ValidateXml(
 				StringSourceUriPair.InputSource(schema, "schema"), 
