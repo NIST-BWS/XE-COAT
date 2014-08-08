@@ -122,16 +122,14 @@ public class Generator {
 
 		if (values.size() > 1) {
 			String delim = kvl.getDelimiter();
-			String forEachV = "$!value";
-			//String forEachV = "#if($velocityHasNext)$!value#end";
+			String forEachV = "$value";
 			
-			//String forEachV = "#if($value)$!value#{end}";
-			String inlineV = forEachV;
 			String forEachSource = rootPart + sectionPart + keyPart + ".Element}";
 
-			inlineV = leftDelim + forEachV + rightDelim;
-
-			result = "#foreach(" + forEachV + " in " + forEachSource + ")" + inlineV + "#if($velocityHasNext)" + delim + "#end#end";		
+			String inlineV = leftDelim + "$!value" + rightDelim;
+			//inlineV = "#{if}(\"$!value\"!=\"\")X" + inlineV + "$eol#{end}";
+		
+			result = "#foreach(" + forEachV + " in " + forEachSource + ")" + inlineV + "#if($velocityHasNext)" + delim + "#end#end$eol";
 		}
 
 		return result;

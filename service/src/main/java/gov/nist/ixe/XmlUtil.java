@@ -3,6 +3,7 @@ package gov.nist.ixe;
 import static gov.nist.ixe.Logging.trace;
 
 
+
 import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -16,7 +17,14 @@ import org.xml.sax.SAXParseException;
 
 public class XmlUtil {
 	
-		
+	public static String EscapeForXml(String value) {
+		return value
+				.replace("&",  "&amp;") // make sure ampersands are replaced first
+				.replace("\"", "&quot;")
+				.replace("'",  "&apos;")
+				.replace("<",  "&lt;")
+				.replace(">",  "&gt;");
+	}
 
 	public static void ValidateXml(InputSource schema, InputSource instance) throws ParserConfigurationException, SAXException, IOException {
 		ValidateXml(new InputSource[]{schema}, instance);

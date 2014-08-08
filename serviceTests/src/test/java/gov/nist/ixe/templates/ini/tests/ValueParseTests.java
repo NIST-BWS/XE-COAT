@@ -8,6 +8,12 @@ import org.junit.Test;
 
 public class ValueParseTests {
 	
+	// JAXB deserialization doesn't like to deserialize null values ---
+	// If it is presented with empty strings, it will use those, instead
+	// of unmarshalling to instances of an internal, 'ElementNSImpl' object
+	
+	private static Object nullObject = ""; 
+	
 	private String dq(String s) {
 		return "\"" + s + "\"";
 	}
@@ -85,41 +91,45 @@ public class ValueParseTests {
 	@Test
 	public void ValuesAreExtractedCorrectlyFromTrailingDanglingCommas() {
 		
-		assertValuesEquals(new Object[]{"dangle", null}, Values.parse("dangle,"));
-		assertValuesEquals(new Object[]{"dangle", null}, Values.parse("dangle ,"));
-		assertValuesEquals(new Object[]{"dangle", null}, Values.parse("dangle , "));
-		assertValuesEquals(new Object[]{"dangle", null}, Values.parse(" dangle , "));
-		assertValuesEquals(new Object[]{"dangle", null}, Values.parse(" dangle, "));
-		assertValuesEquals(new Object[]{"dangle", null}, Values.parse(" dangle,"));
+		Object n = ""; // 'n' for null object
 		
-		assertValuesEquals(new Object[]{"dangle", null, null}, Values.parse("dangle,,;comment"));
-		assertValuesEquals(new Object[]{"dangle", null, null}, Values.parse("dangle , ,;;"));
-		assertValuesEquals(new Object[]{"dangle", null, null}, Values.parse("dangle ,  ,; comment"));
-		assertValuesEquals(new Object[]{"dangle", null, null}, Values.parse(" dangle ,,;,,,"));
-		assertValuesEquals(new Object[]{"dangle", null, null}, Values.parse(" dangle,,; "));
-		assertValuesEquals(new Object[]{"dangle", null, null}, Values.parse(" dangle,,;"));
+		assertValuesEquals(new Object[]{"dangle", n}, Values.parse("dangle,"));
+		assertValuesEquals(new Object[]{"dangle", n}, Values.parse("dangle ,"));
+		assertValuesEquals(new Object[]{"dangle", n}, Values.parse("dangle , "));
+		assertValuesEquals(new Object[]{"dangle", n}, Values.parse(" dangle , "));
+		assertValuesEquals(new Object[]{"dangle", n}, Values.parse(" dangle, "));
+		assertValuesEquals(new Object[]{"dangle", n}, Values.parse(" dangle,"));
+		
+		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse("dangle,,;comment"));
+		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse("dangle , ,;;"));
+		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse("dangle ,  ,; comment"));
+		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse(" dangle ,,;,,,"));
+		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse(" dangle,,; "));
+		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse(" dangle,,;"));
 		
 	}
 	
 	@Test
 	public void ValuesAreExtractedCorrectlyFromCommaOnlyLists() {
 		
-		assertValuesEquals(new Object[]{null,null}, Values.parse(","));
-		assertValuesEquals(new Object[]{null,null}, Values.parse(", "));
-		assertValuesEquals(new Object[]{null,null}, Values.parse(" , "));
-		assertValuesEquals(new Object[]{null,null}, Values.parse(" ,"));
-		assertValuesEquals(new Object[]{null,null}, Values.parse(",;,"));
-		assertValuesEquals(new Object[]{null,null}, Values.parse(", ;;"));
-		assertValuesEquals(new Object[]{null,null}, Values.parse(" , ;;;;"));
-		assertValuesEquals(new Object[]{null,null}, Values.parse(" ,;"));
+		Object[] twoNullObjects = new Object[]{nullObject,nullObject};
+		Object[] threeNullObjects = new Object[]{nullObject,nullObject,nullObject};
+		assertValuesEquals(twoNullObjects, Values.parse(","));
+		assertValuesEquals(twoNullObjects, Values.parse(", "));
+		assertValuesEquals(twoNullObjects, Values.parse(" , "));
+		assertValuesEquals(twoNullObjects, Values.parse(" ,"));
+		assertValuesEquals(twoNullObjects, Values.parse(",;,"));
+		assertValuesEquals(twoNullObjects, Values.parse(", ;;"));
+		assertValuesEquals(twoNullObjects, Values.parse(" , ;;;;"));
+		assertValuesEquals(twoNullObjects, Values.parse(" ,;"));
 		
-		assertValuesEquals(new Object[]{null,null,null}, Values.parse(",,"));
-		assertValuesEquals(new Object[]{null,null,null}, Values.parse(", ,"));
-		assertValuesEquals(new Object[]{null,null,null}, Values.parse(" ,, "));
-		assertValuesEquals(new Object[]{null,null,null}, Values.parse(" ,,"));
-		assertValuesEquals(new Object[]{null,null,null}, Values.parse(",,;a,b,c"));
-		assertValuesEquals(new Object[]{null,null,null}, Values.parse(", ,;d,e,f"));
-		assertValuesEquals(new Object[]{null,null,null}, Values.parse(" ,,;\\;"));
+		assertValuesEquals(threeNullObjects, Values.parse(",,"));
+		assertValuesEquals(threeNullObjects, Values.parse(", ,"));
+		assertValuesEquals(threeNullObjects, Values.parse(" ,, "));
+		assertValuesEquals(threeNullObjects, Values.parse(" ,,"));
+		assertValuesEquals(threeNullObjects, Values.parse(",,;a,b,c"));
+		assertValuesEquals(threeNullObjects, Values.parse(", ,;d,e,f"));
+		assertValuesEquals(threeNullObjects, Values.parse(" ,,;\\;"));
 		
 	}
 	
@@ -142,7 +152,7 @@ public class ValueParseTests {
 	public void ValueListsExtactCorrectlyFromCommasProtectedByDoubleQuotes() {
 		String C= ","; String qC = dq(","); // comma, quoted comma
 		assertValuesEquals(new Object[]{qC , qC}, Values.parse(qC + C + qC));
-		assertValuesEquals(new Object[]{null, qC, null}, Values.parse(C + qC + C));
+		assertValuesEquals(new Object[]{nullObject, qC, nullObject}, Values.parse(C + qC + C));
 		
 	}
 	
@@ -155,7 +165,7 @@ public class ValueParseTests {
 	
 	@Test
 	public void ValueListsExtactCorrectlyFromQuotedAndNonQuotedValues() {
-		assertValuesEquals(new Object[]{null,null,null}, Values.parse(" ,,;\\;"));
+		assertValuesEquals(new Object[]{nullObject,nullObject,nullObject}, Values.parse(" ,,;\\;"));
 	}
 	
 	
@@ -207,6 +217,8 @@ public class ValueParseTests {
 		assertEquals(String.class, Values.parse("a,b,c").getMostDetailedCommonType(String.class));
 	}
 	
+	
+	
 	@Test
 	public void ValueListsOfIntegersYieldCorrectCommonType() {
 		assertEquals(Integer.class, Values.parse("1,2,3,4").getMostDetailedCommonType(String.class));
@@ -225,7 +237,7 @@ public class ValueParseTests {
 	@Test
 	public void ValueListWithEmptyValuesYieldCorrectCommonType() {
 		assertEquals(String.class, Values.parse(",,").getMostDetailedCommonType(String.class));
-		assertEquals(Integer.class, Values.parse(",,").getMostDetailedCommonType(Integer.class));
+	
 	}
 
 

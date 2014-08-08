@@ -1,7 +1,7 @@
 package gov.nist.ixe.templates.ini;
 
 import static gov.nist.ixe.Logging.trace;
-
+import gov.nist.ixe.templates.exception.InfSplitterException;
 import gov.nist.ixe.templates.ini.exception.IniParseException;
 
 import java.util.regex.Matcher;
@@ -126,7 +126,11 @@ public class KeyValueLine {
 					Pattern.COMMENTS);
 
 	
-	private String getDelimiterDetectionRegex() {
+	private enum DelimiterDetectionStyle {
+		RespectWhitespace, IgnoreWhitespace
+	}
+	
+	private String getDelimiterDetectionRegex(DelimiterDetectionStyle dds) {
 		trace();
 		
 		String result = null;
@@ -138,7 +142,15 @@ public class KeyValueLine {
 			if (values.get(i) != null) {
 				value = values.get(i).toString();
 			}
+
+			// We get a more robust delimiter detection routine
+			// if we accept whitespace before or after the token
+			
+			if (dds == DelimiterDetectionStyle.IgnoreWhitespace)
+				builder.append("[\\s]*"); 
 			builder.append(Pattern.quote(value));
+			if (dds == DelimiterDetectionStyle.IgnoreWhitespace)
+				builder.append("[\\s]*");
 			
 			if (i == 0) {
 				builder.append("(.*)");
@@ -156,16 +168,31 @@ public class KeyValueLine {
 	public String getDelimiter() {
 		trace();
 		
-		String result = "";
-		String delimiterDetectionRegex = getDelimiterDetectionRegex();
+		String result = null;
 		
-		if (delimiterDetectionRegex != null) {
-			Pattern pattern = Pattern.compile(delimiterDetectionRegex);
+		String ddr = getDelimiterDetectionRegex(DelimiterDetectionStyle.RespectWhitespace);
+		if (ddr != null) {
+			Pattern pattern = Pattern.compile(ddr);
 			Matcher matcher = pattern.matcher(values.trim());
-			
 			if (matcher.find()) { 
 				result = matcher.group(1); 
 			}
+		}
+
+	
+		if (result == null) {
+			ddr = getDelimiterDetectionRegex(DelimiterDetectionStyle.IgnoreWhitespace);
+			Pattern pattern = Pattern.compile(ddr);
+			Matcher matcher = pattern.matcher(values.trim());
+			if (matcher.find()) { 
+				result = matcher.group(1); 
+			}
+		
+		}
+		
+		
+		if (result == null) {
+			throw InfSplitterException.CouldNotDetermineDelimiter();
 		}
 		
 		return result;

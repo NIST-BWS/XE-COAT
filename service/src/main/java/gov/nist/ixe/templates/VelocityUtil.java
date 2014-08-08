@@ -60,7 +60,7 @@ public class VelocityUtil {
 				
 		VelocityContext context = new VelocityContext();
 		
-				context.put(rootModelName, rootModel);
+		context.put(rootModelName, rootModel);
 		context.put("eol", "");
 	
 		Template template = engine.getTemplate(TEMPLATE_RESOURCE_NAME, templateContents.getCharset());

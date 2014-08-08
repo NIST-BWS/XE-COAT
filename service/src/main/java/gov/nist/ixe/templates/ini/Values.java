@@ -77,6 +77,7 @@ public class Values extends ArrayList<Object> {
 				if (matcher.group(i) == null) continue;
 				
 				if (value != null) {
+					
 					// The structure of the regex is such that only one group
 					// should be non-null for a given match. If we have a group that is
 					// not null, and the value has already been assigned, this is a
@@ -125,11 +126,12 @@ public class Values extends ArrayList<Object> {
 				}
 
 				if (value.toString().equals("")) {
-					values.add(null);				
+					//values.add(null);				
+					values.add("");
 				} else if (!isInteger && !isDouble && !isLong) {
 					
 					// Replace predefined XML entities
-					value = value.replace("&", "&amp;");				
+					//value = value.replace("&", "&amp;");				
 					values.add(value.toString());					
 				}
 			}
@@ -151,15 +153,15 @@ public class Values extends ArrayList<Object> {
 		//
 
 		boolean nullsOnly = true;
-		
+		Object nullObject = "";
 		for (Object value : values) {
-			if (value != null) {
+			if (value != nullObject) {
 				nullsOnly = false; break;
 			}
 		}
 		
 		if (values.size() > 0 && nullsOnly) {
-			values.add(null);
+			values.add(nullObject);
 		}
 
 		return values;
@@ -173,7 +175,7 @@ public class Values extends ArrayList<Object> {
 					"  (?:,?\\s*(\\([^(\\\\]*(?:\\\\.[^)\\\\]*)*\\)))     | # Group 4; parenthesized string\n" +
 					"  (?:,?\\s*(\\[[^\\[\\\\]*(?:\\\\.[^\\]\\\\]*)*\\])) | # Group 5; square bracketed string\n" +
 					"  (?:,?\\s*(\\{[^{\\\\]*(?:\\\\.[^}\\\\]*)*\\}))     | # Group 6; curly bracketed string\n" +
-					"  (?:,?\\s*([^,;\\s]+(?:\\s+[^,;\\s]+)*))            | # Group 7; non-quoted string\n" +
+					"  (?:,?\\s*([^,;\\s]+(?:[^,;\\s]+)*))            | # Group 7; non-quoted string\n" +
 					"  (?:,()\\s*)                                          # Group 8; trailing comma\n" +
 					")\n" +
 					"(?:\\s*(?:;.*$)?)                                      # Trailing comment", 

@@ -18,8 +18,17 @@ public class InfSplitterException extends RuntimeException {
 	}
 	
 	
+	public static InfSplitterException CouldNotDetermineDelimiter() {
+		InfSplitterException ex = new InfSplitterException();
+		ex._message = COULD_NOT_DETERMINE_DELIMITER;
+		return ex;
+	}
+	
 	public static final String CANNOT_OVERWRITE_EXISTING_TEMPLATE = 
 			"Cannot overwrite existing template.";
+	
+	public static final String COULD_NOT_DETERMINE_DELIMITER = 
+			"Could not determine the delimiter.";
 	
 	private static final long serialVersionUID = -2618591351584770954L;
 

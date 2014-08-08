@@ -22,9 +22,9 @@
   <$element.ElementName>
 #foreach ($value in $element.Values)
 #if ($element.OfMixedTypes)
-   <element xsi:type="$value.Type">$value.Value</element>
+   <element xsi:type="$value.Type">$value.EscapedValue</element>
 #else
-   <element>$value.Value</element>
+   <element>$value.EscapedValue</element>
 #end
 #end
   </$element.ElementName>
@@ -32,7 +32,7 @@
   <$element.ElementName/> 
 #end
 #else
-  <$element.ElementName>$element.SimpleValue</$element.ElementName>
+  <$element.ElementName>$element.EscapedSimpleValue</$element.ElementName>
 #end
 #end
  </$section.ElementName>
