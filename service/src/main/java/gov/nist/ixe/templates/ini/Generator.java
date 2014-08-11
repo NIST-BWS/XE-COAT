@@ -19,7 +19,7 @@ public class Generator {
 	public Generator(String rootElementNameToUseForMultisectionFiles) {
 		trace();
 
-		rootElementName = rootElementNameToUseForMultisectionFiles;
+		rootElementName = XmlModel.cleanupVariableName(rootElementNameToUseForMultisectionFiles);
 		targetNamespace = BuildUri.getNamespaceUri(rootElementName, (new Date().getTime()));
 	}
 

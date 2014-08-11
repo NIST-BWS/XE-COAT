@@ -245,10 +245,9 @@ public class XmlModel {
 		result = result.replaceAll(regex, "");
 
 		// JAXB camel cases after digits, so this needs to be fixed. For
-		// example, a INI
-		// key called Foo3d becomes getFoo3D in the JAXB generated code. This
-		// regex finds
-		// all of the letters following a digit so they can be capitalized.
+		// example, a INI key called Foo3d becomes getFoo3D in the JAXB 
+		// generated code. This regex finds all of the letters following 
+		// a digit so they can be capitalized.
 		//
 		indexes.clear();
 		String jaxbFixRegex = "(?:[0-9])([a-zA-Z])";

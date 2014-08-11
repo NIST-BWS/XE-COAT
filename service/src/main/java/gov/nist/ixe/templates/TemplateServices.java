@@ -778,7 +778,7 @@ public class TemplateServices implements ITemplateServices {
 
 			StringSource ini = new StringSource(payload, contentType);
 			String newline = EncodingUtil.detectNewline(ini.getString());
-			;
+			
 			List<String> iniText = ini.getLines(newline);
 
 			List<IniSection> iniSections = IniSection.parse(iniText, false);
@@ -788,10 +788,9 @@ public class TemplateServices implements ITemplateServices {
 			StringSource schema = g.genXsdSchema(iniSections);
 			StringSource template = g.genVelocityTemplate(ini, iniSections,
 					newline);
-
-			XmlUtil.ValidateXml(
-					StringSourceUriPair.InputSource(schema, "schema"),
-					StringSourceUriPair.InputSource(config, "config"));
+			
+			config = config.getCopyWithoutBOM();
+			schema = schema.getCopyWithoutBOM();
 
 			createService(serviceName);
 
@@ -803,6 +802,12 @@ public class TemplateServices implements ITemplateServices {
 
 			setConfig(serviceName, "default.xml", config.getData(),
 					config.getContentType("xml"));
+			
+
+			XmlUtil.ValidateXml(
+					StringSourceUriPair.InputSource(schema, "schema"),
+					StringSourceUriPair.InputSource(config, "config"));
+
 
 		} catch (Exception ex) {
 			throw new InfSplitterException(ex);

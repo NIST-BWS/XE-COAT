@@ -1,7 +1,6 @@
 package gov.nist.ixe.templates.ini.tests;
 
 import gov.nist.ixe.EncodingUtil;
-import gov.nist.ixe.FileUtil;
 import gov.nist.ixe.XmlUtil;
 import gov.nist.ixe.stringsource.StringSource;
 import gov.nist.ixe.stringsource.StringSourcePersistence;
@@ -9,7 +8,6 @@ import gov.nist.ixe.templates.StringSourceUriPair;
 import gov.nist.ixe.templates.ini.Generator;
 import gov.nist.ixe.templates.ini.IniSection;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -67,7 +65,7 @@ public class GenerationTests {
 		StringSource schema = g.genXsdSchema(iniSections);		
 		//StringSource template = g.genVelocityTemplate(ini, iniSections, iniNewline);
 
-		File temp = FileUtil.getRandomTempDirectory("ProcessTemplate");
+		//File temp = FileUtil.getRandomTempDirectory("ProcessTemplate");
 		//StringSourcePersistence.save(instance, new File(temp, rootElementName + ".xml"));
 		//StringSourcePersistence.save(schema, new File(temp, rootElementName + ".xsd"));
 		//StringSourcePersistence.save(template, new File(temp, rootElementName + ".vm"));

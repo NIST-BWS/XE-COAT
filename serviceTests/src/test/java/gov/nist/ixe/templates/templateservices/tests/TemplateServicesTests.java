@@ -66,7 +66,9 @@ public abstract class TemplateServicesTests {
 				{ "txt/roundtrip/sample02.inf", "sample02" },
 				{ "txt/roundtrip/numbers.ini", "numbers" },
 				{ "txt/roundtrip/nullTests.ini", "nullTests" },
-				{ "txt/roundtrip/escapeChars.ini", "escapeChars" }
+				{ "txt/roundtrip/escapeChars.ini", "escapeChars" },
+				{ "txt/roundtrip/1startsWithNumber.ini", "1startsWithNumber" }
+				
 		};
 	}
 	
