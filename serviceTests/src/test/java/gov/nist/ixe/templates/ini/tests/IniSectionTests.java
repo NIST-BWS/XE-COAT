@@ -62,25 +62,7 @@ public class IniSectionTests {
 		assertEquals("mixed", keys[1]);
 		assertEquals(StringUtil.quote("chitty chitty bang bang"), section.getValues("name").get(0));
 		assertEquals("c:\\tmp\\oooahh.exe", section.getValues("runCommand").get(0));
-					
-		
-//		kvl = section.getKeyValuesLine("airport");
-//		assertEquals(" lax ", kvl.getValues());
-//		assertEquals(9, kvl.getValuesStart());
-//		assertEquals(14, kvl.getValuesEnd());
-//		assertEquals(14, kvl.getCommentStart());
-//		assertEquals(26, kvl.getCommentEnd());
-//		assertEquals(6, kvl.getLineNumber());
-//		
-//		kvl = section.getKeyValuesLine("flight");
-//		assertEquals(" \"Oceanic 815\"", kvl.getValues());
-//		assertEquals(8, kvl.getValuesStart());
-//		assertEquals(22, kvl.getValuesEnd());
-//		assertEquals(22, kvl.getCommentStart());
-//		assertEquals(22, kvl.getCommentEnd());
-//		assertEquals(7, kvl.getLineNumber());
-		
-		
+						
 	}
 	
 	

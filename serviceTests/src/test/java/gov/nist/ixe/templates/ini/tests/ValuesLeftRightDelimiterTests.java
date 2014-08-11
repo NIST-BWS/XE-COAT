@@ -32,9 +32,11 @@ public class ValuesLeftRightDelimiterTests {
 	public static Collection<Object[]> data() {
 		Object[][] data = new Object[][] {
 				{ "[", "]", "[a], [b], [c], [d]" },
+				{ "E[", "]", "E[a], E[b], E[c], E[d]" },
 				{ "(", ")", "(abc), (def), (g), (h)"},
 				{ "{", "}", "{this}, {is}, {a}, {1234}"},
-				{ "", "", "{[()]}, {([])}, {<>}, {<{}>}"} // complex or strangely nested delimiters are not supported
+				{ "" , "" , "1.0, 2.0, 3.0. 4.0"},
+				{ "{", "}", "{[()]}, {([])}, {<>}, {<{}>}"}				 
 				
 		};
 		return Arrays.asList(data);

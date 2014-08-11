@@ -96,7 +96,7 @@ public class XmlModel {
 
 		for (IniSection section : iniSections) {
 			for (Values values : section.getMultiValueKeys().values()) {
-				Class<?> type = values.getMostDetailedCommonType(ASSUMED_CLASS_FOR_NULL_VALUES);
+				Class<?> type = values.getMostDetailedCommonType();
 				result.add(xmlArrayTypeMap.get(type));
 			}
 		}
@@ -147,7 +147,7 @@ public class XmlModel {
 		// The type name is more complicated. If the key can have multiple
 		// values, then we need to get a custom array type.
 		//
-		Class<?> type = values.getMostDetailedCommonType(ASSUMED_CLASS_FOR_NULL_VALUES);
+		Class<?> type = values.getMostDetailedCommonType();
 		String typeName;
 
 		if (values.isMultiple()) {
@@ -171,7 +171,7 @@ public class XmlModel {
 			target.getValues().add(value);
 		} else {
 			target.isMultivalued = true;
-			target.isOfMixedTypes = values.getMostDetailedCommonType(ASSUMED_CLASS_FOR_NULL_VALUES).equals(
+			target.isOfMixedTypes = values.getMostDetailedCommonType().equals(
 					Object.class);
 
 			for (int i = 0; i < values.size(); i++) {

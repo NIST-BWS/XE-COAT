@@ -24,11 +24,7 @@ public class BadKeyValueLineParseTests {
 	public static Collection<Object[]> data() {
 		Object[][] data = new Object[][] {
 				{ "key with space = value" },
-				{ "[section]" },
-				{ "\" unterminated quote" },
-				{ "\" unterminated quote ; with comment" },
-				{ "\"\\\" unterminated quote with backquote" }
-				
+				{ "[section]" }							
 		};
 		return Arrays.asList(data);
 	}

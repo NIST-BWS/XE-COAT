@@ -9,6 +9,7 @@ public class InfSplitterException extends RuntimeException {
 	
 	public InfSplitterException(Exception e) {
 		super(e);
+		this._message = e.getMessage();
 	}
 	
 	public static InfSplitterException CannotOverwriteExistingTemplate() {

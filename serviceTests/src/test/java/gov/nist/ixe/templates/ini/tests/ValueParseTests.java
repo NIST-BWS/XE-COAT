@@ -4,30 +4,142 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import gov.nist.ixe.templates.ini.Values;
 
-import org.junit.Test;
+import java.util.Arrays;
+import java.util.Collection;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+@RunWith(value = Parameterized.class)
 public class ValueParseTests {
 	
-	// JAXB deserialization doesn't like to deserialize null values ---
-	// If it is presented with empty strings, it will use those, instead
-	// of unmarshalling to instances of an internal, 'ElementNSImpl' object
+	@Parameters
+	public static Collection<Object[]> testData() {
+		Object[][] data = new Object[][] {
+				{ String.class,  new Object[]{""}, 	  null},
+				{ String.class,  new Object[]{""}, 	  " "},
+				{ String.class,  new Object[]{""}, 	  "  "},
+				{ String.class,  new Object[]{"simple"}, "simple"},
+				{ String.class,  new Object[]{"simple"}, " simple "},
+				{ String.class,  new Object[]{"simple"}, "  simple "},
+				{ String.class,  new Object[]{"simple"}, "simple   "},
+				{ Integer.class, new Object[]{1},        "1"},
+				{ Integer.class, new Object[]{0},        "0"},
+				
+				{ String.class,  new Object[]{"one","two"},  "one,two" },
+				{ String.class,  new Object[]{"one","two"},  " one, two" },
+				{ String.class,  new Object[]{"one","two"},  " one , two " },
+				{ String.class,  new Object[]{"one","two"},  " one,two " },
+				
+				{ String.class, new Object[]{"one","two"},  "one two" },
+				{ String.class, new Object[]{"one","two"},  " one two" },
+				{ String.class, new Object[]{"one","two"},  " one  two " },
+				{ String.class, new Object[]{"one","two"},  " one two " },
+				
+				{ String.class, new Object[]{"(a)","[b]","{c}","<d>"},  "(a) [b] {c} <d>" },
+				{ String.class, new Object[]{"(a)","[b]","{c}","<d>"},  "(a), [b], {c}, <d>" },
+				
+				{ String.class, new Object[]{"(a,)","[,b]","{c}","<,>"},  "(a,) [,b] {c} <,>" },
+				{ String.class, new Object[]{"(a,)","[,b]","{c}","<,>"},  "(a,), [,b], {c}, <,>" },
+				
+				{ String.class, new Object[]{"",""},  "," },
+				{ String.class, new Object[]{"",""},  " ," },
+				{ String.class, new Object[]{"",""},  ", " },
+				{ String.class, new Object[]{"","",""},  ",," },
+				{ String.class, new Object[]{"","",""},  " ,," },
+				{ String.class, new Object[]{"","",""},  ", ," },
+				{ String.class, new Object[]{"","",""},  ",, " },
+				
+				{ String.class, new Object[]{"a",""},  "a," },				
+				{ String.class, new Object[]{"","a"},  ",a" },
+				{ String.class, new Object[]{"a",""},  " a," },
+				{ String.class, new Object[]{"","a"},  " ,a" },
+				{ String.class, new Object[]{"a",""},  "a, " },
+				{ String.class, new Object[]{"","a"},  ",a " },
+				
+				{ String.class, new Object[]{"a","b",""},  "a,b ," },
+				{ String.class, new Object[]{"a","b",""},  " a,b ," },
+				{ String.class, new Object[]{"a","b",""},  " a, b ," },
+				{ String.class, new Object[]{"a","b",""},  " a, b," },
+				
+				{ String.class, new Object[]{"a","","b"},  "a,,b" },
+				{ String.class, new Object[]{"a","","b"},  "a ,,b" },
+				{ String.class, new Object[]{"a","","b"},  "a,,b " },
+				
+				{ String.class, new Object[]{quote("")},  quote("") },
+				{ String.class, new Object[]{quote(",")},  quote(",") },
+				{ String.class, new Object[]{dubQuote("")}, dubQuote("") },
+				{ String.class, new Object[]{dubQuote(",")}, dubQuote(",") },
+				{ String.class, new Object[]{paren("")},  paren("") },
+				{ String.class, new Object[]{paren(",")},  paren(",") },
+				{ String.class, new Object[]{square("")},  square("") },
+				{ String.class, new Object[]{square(",")},  square(",") },
+				{ String.class, new Object[]{curly("")},  curly("") },
+				{ String.class, new Object[]{curly(",")},  curly(",") },
+				{ String.class, new Object[]{angle("")},  angle("") },
+				{ String.class, new Object[]{angle(",")},  angle(",") },
+				
+				{ String.class, new Object[]{quote(dubQuote(""))},quote(dubQuote(""))},
+				{ String.class, new Object[]{dubQuote(quote(""))}, dubQuote(quote(""))},
+				{ String.class, new Object[]{dubQuote(dubQuote(""))},dubQuote(dubQuote(""))},
+								
+				{ String.class, new Object[]{"John Q. Public","Jane Doe"},  "John Q. Public, Jane Doe" },
+				{ String.class, new Object[]{"John","Q.","Public","Jane","Doe"},  "John Q. Public Jane Doe" },
+				
+				{ Integer.class, new Object[] { 2, 4, 6, 8 }, "2, 4, 6, 8" },
+				{ Double.class, new Object[] { 2.0, 4.0, 6.0, 8.0 }, "2.0, 4.0, 6.0, 8.0" },
+				{ Object.class, new Object[] { 2, 4.0, 6, 8 }, "2, 4.0, 6, 8" },
+				{ Double.class, new Object[] {100.0, 200.0, 300.0}, "100.0, 200.0, 300.0" }
+				
+				
+		};
+		return Arrays.asList(data);
+	}
 	
-	private static Object nullObject = ""; 
+	private Class<?> expectedMostCommonType;
+	private Object[] expectedValues;	
+	private String source;
 	
-	private String dq(String s) {
+	public ValueParseTests(Class<?> expectedMostCommonType, Object[] expectedValues, String source) {
+		this.expectedMostCommonType = expectedMostCommonType;
+		this.expectedValues = expectedValues;
+		this.source = source;						
+	}
+	
+	
+	@Test
+	public void ValuesParseCorrectly() {
+		Values values = Values.parse(source, 0);
+		assertValuesEquals(expectedValues, values);
+		assertEquals(expectedMostCommonType, values.getMostDetailedCommonType());
+	}
+
+
+	
+	private static String dubQuote(String s) {
 		return "\"" + s + "\"";
 	}
 	
-	private String sq(String s) {
+	private static String quote(String s) {
 		return "'" + s + "'";
 	}
 	
-	private String paren(String s) {
+	private static String paren(String s) {
 		return "(" + s + ")";
 	}
 	
-	private String square(String s) {
+	private static String square(String s) {
 		return "[" + s + "]";
+	}
+	
+	private static String curly(String s) {
+		return "{" + s + "}";
+	}
+	
+	private static String angle(String s) {
+		return "<" + s + ">";
 	}
 	
 	private void assertValuesEquals(Object[] expected, Values actual) {
@@ -38,207 +150,10 @@ public class ValueParseTests {
 			} else {
 				assertEquals(expected[i], actual.get(i));
 			}
-		}
-		
-	}
-	
-	@Test
-	public void ValuesAreExtractedCorrectlyFromSimpleStrings() {
-		assertValuesEquals(new Object[]{"single"}, Values.parse("single"));
-	}
-	
-	@Test
-	public void ValuesAreExtractedCorrectlyFromDoubleQuotedStrings() {
-		assertValuesEquals(new Object[]{sq("double quoted")}, Values.parse(sq("double quoted")));
-	}
-	
-	@Test
-	public void ValuesAreExtractedCorrectlyFromSingleQuotedStrings() {
-		assertValuesEquals(new Object[]{sq("single quoted")}, Values.parse(sq("single quoted")));
-	}
-	
-	@Test
-	public void ValuesAreExtractedCorrectlyFromParenthsizedStrings() {
-		assertValuesEquals(new Object[]{paren("quoted")}, Values.parse(paren("quoted")));
-	}
-	
-	@Test
-	public void ValuesAreExtractedCorrectlyFromSquareBracketedQuotedStrings() {
-		assertValuesEquals(new Object[]{square("quoted")}, Values.parse(square("quoted")));
-	}
-
-	
-	@Test
-	public void ValuesAreExtractedCorrectlyFromSimpleStringLists() {
-		
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse("one,two"));
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse(" one , two "));
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse(" one, two"));
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse("one, two "));
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse(" one,two"));
-		
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse("one,two;COMMENT"));
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse(" one , two ;XYZ"));
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse(" one, two;;;"));
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse("one, two ; ; ; ; one, two"));
-		assertValuesEquals(new Object[]{"one", "two"}, Values.parse(" one,two ; \"quoted comment\""));
-		
-					
-	}
-		
-		
-		
-	@Test
-	public void ValuesAreExtractedCorrectlyFromTrailingDanglingCommas() {
-		
-		Object n = ""; // 'n' for null object
-		
-		assertValuesEquals(new Object[]{"dangle", n}, Values.parse("dangle,"));
-		assertValuesEquals(new Object[]{"dangle", n}, Values.parse("dangle ,"));
-		assertValuesEquals(new Object[]{"dangle", n}, Values.parse("dangle , "));
-		assertValuesEquals(new Object[]{"dangle", n}, Values.parse(" dangle , "));
-		assertValuesEquals(new Object[]{"dangle", n}, Values.parse(" dangle, "));
-		assertValuesEquals(new Object[]{"dangle", n}, Values.parse(" dangle,"));
-		
-		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse("dangle,,;comment"));
-		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse("dangle , ,;;"));
-		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse("dangle ,  ,; comment"));
-		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse(" dangle ,,;,,,"));
-		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse(" dangle,,; "));
-		assertValuesEquals(new Object[]{"dangle", n, n}, Values.parse(" dangle,,;"));
-		
-	}
-	
-	@Test
-	public void ValuesAreExtractedCorrectlyFromCommaOnlyLists() {
-		
-		Object[] twoNullObjects = new Object[]{nullObject,nullObject};
-		Object[] threeNullObjects = new Object[]{nullObject,nullObject,nullObject};
-		assertValuesEquals(twoNullObjects, Values.parse(","));
-		assertValuesEquals(twoNullObjects, Values.parse(", "));
-		assertValuesEquals(twoNullObjects, Values.parse(" , "));
-		assertValuesEquals(twoNullObjects, Values.parse(" ,"));
-		assertValuesEquals(twoNullObjects, Values.parse(",;,"));
-		assertValuesEquals(twoNullObjects, Values.parse(", ;;"));
-		assertValuesEquals(twoNullObjects, Values.parse(" , ;;;;"));
-		assertValuesEquals(twoNullObjects, Values.parse(" ,;"));
-		
-		assertValuesEquals(threeNullObjects, Values.parse(",,"));
-		assertValuesEquals(threeNullObjects, Values.parse(", ,"));
-		assertValuesEquals(threeNullObjects, Values.parse(" ,, "));
-		assertValuesEquals(threeNullObjects, Values.parse(" ,,"));
-		assertValuesEquals(threeNullObjects, Values.parse(",,;a,b,c"));
-		assertValuesEquals(threeNullObjects, Values.parse(", ,;d,e,f"));
-		assertValuesEquals(threeNullObjects, Values.parse(" ,,;\\;"));
-		
-	}
-	
-	@Test
-	public void ValueListsExtractCorrectlyFromEscapedCharacters() {
-		String B = "\\"; String D = "\"";
-		assertValuesEquals(new Object[]{B}, Values.parse(B));
-		assertValuesEquals(new Object[]{B+D}, Values.parse(B+D)); // \"
-		assertValuesEquals(new Object[]{D+B+D+D}, Values.parse(D+B+D+D)); //   "\""
-		assertValuesEquals(new Object[]{D+B+D+D}, Values.parse(D+B+D+D)); // " "\"" "
-	}
-	
-	@Test
-	public void ValueListsExtactCorrectlyFromDoubleQuotesThatImplicitlyDelimitMultipleValues() {
-		String B = "\\"; String D = "\"";
-		assertValuesEquals(new Object[]{D+B+D+D, D+B+D+D}, Values.parse(D+B+D+D + D+B+D+D)); //   "\"""\""
-	}
-	
-	@Test
-	public void ValueListsExtactCorrectlyFromCommasProtectedByDoubleQuotes() {
-		String C= ","; String qC = dq(","); // comma, quoted comma
-		assertValuesEquals(new Object[]{qC , qC}, Values.parse(qC + C + qC));
-		assertValuesEquals(new Object[]{nullObject, qC, nullObject}, Values.parse(C + qC + C));
-		
-	}
-	
-	@Test
-	public void ValueListsExtactCorrectlyFromSemicolonsProtectedByDoubleQuotes() {
-		String S= ";"; String qS = dq(";"); // comma, quoted comma
-		assertValuesEquals(new Object[]{qS, qS}, Values.parse(qS+","+qS +"; comment"));
-		assertValuesEquals(new Object[]{qS}, Values.parse(qS+S+qS + "; comment"));
-	}
-	
-	@Test
-	public void ValueListsExtactCorrectlyFromQuotedAndNonQuotedValues() {
-		assertValuesEquals(new Object[]{nullObject,nullObject,nullObject}, Values.parse(" ,,;\\;"));
-	}
-	
-	
-	@Test
-	public void ValueListsPreserveWhitespaceInDoubleQuotedStrings() {
-		assertValuesEquals(new Object[]{dq(" one"), dq("two "), dq(" three ")}, 
-				Values.parse(dq(" one") + "," + dq("two ") + "," + dq(" three ")));
-	}
-	
-	@Test
-	public void ValueListsPreserveWhitespaceInDoubleQuotedNumbers() {
-		assertValuesEquals(new Object[]{dq(" 1"), dq("2 "), dq(" 3 ")}, 
-				Values.parse(dq(" 1") + "," + dq("2 ") + "," + dq(" 3 ")));
-	}
-	
-	@Test
-	public void ValueListsPreserveWhitespaceInSingleQuotedStrings() {
-		assertValuesEquals(new Object[]{sq(" one"), sq("two "), sq(" three ")}, 
-				Values.parse(sq(" one") + "," + sq("two ") + "," + sq(" three ")));
-	}
-	
-	@Test
-	public void ValueListsPreserveWhitespaceInSingleQuotedNumbers() {
-		assertValuesEquals(new Object[]{sq(" 1"), sq("2 "), sq(" 3 ")}, 
-				Values.parse(sq(" 1") + "," + sq("2 ") + "," + sq(" 3 ")));
-	}
-	
-	@Test
-	public void ValueListsEliminiateWhitespaceOnUnquotedElements() {
-		assertValuesEquals(new Object[]{"one", "two", "three"}, Values.parse("  one,two , three "));
-	}
-	
-	@Test
-	public void ValueListsEliminiateWhitespaceOutsideDoubleQuotedElements() {
-		assertValuesEquals(new Object[]{dq("one"), dq("two"), dq("three")}, 
-				Values.parse("   " +dq("one") + "  , " + "   " +dq("two") + "  , " + dq("three") + " "));
-	}
-	
-	@Test
-	public void ValueListsEliminiateWhitespaceOutsideSingleQuotedElements() {
-		assertValuesEquals(new Object[]{sq("one"), sq("two"), sq("three")}, 
-				Values.parse("   " +sq("one") + "  , " + "   " +sq("two") + "  , " + sq("three") + " "));
+		}		
 	}
 	
 	
 	
-	@Test
-	public void ValueListsOfStringsYieldCorrectCommonType() {
-		assertEquals(String.class, Values.parse("a,b,c").getMostDetailedCommonType(String.class));
-	}
 	
-	
-	
-	@Test
-	public void ValueListsOfIntegersYieldCorrectCommonType() {
-		assertEquals(Integer.class, Values.parse("1,2,3,4").getMostDetailedCommonType(String.class));
-	}
-	
-	@Test
-	public void ValueListsOfDoubleYieldCorrectCommonType() {
-		assertEquals(Double.class, Values.parse("1.0,2.0,3.0,4.0").getMostDetailedCommonType(String.class));
-	}
-	
-	@Test
-	public void ValueListOfMixedTypesYieldCorrectCommonType() {
-		assertEquals(Object.class, Values.parse("1,2,abc,def").getMostDetailedCommonType(String.class));
-	}
-	
-	@Test
-	public void ValueListWithEmptyValuesYieldCorrectCommonType() {
-		assertEquals(String.class, Values.parse(",,").getMostDetailedCommonType(String.class));
-	
-	}
-
-
 }

@@ -53,5 +53,35 @@ public class StringUtil {
 	public static boolean isBlank(String str) {
 		return str == null || str.isEmpty() || str.trim().isEmpty();
 	}
+	
+	public static String longestCommonPrefix(String[] strs, int max) {
+
+		// Adapted from http://tinyurl.com/nhzjrnb (Runhe Tian)
+		String prefix = new String();
+		if(strs.length > 0)
+			prefix = strs[0];
+		for(int i = 1; i < strs.length; ++i) {
+			String s = strs[i];
+			int j = 0;
+			for(; j < Math.min(prefix.length(), Math.min(max, s.length())); ++j) {
+				if(prefix.charAt(j) != s.charAt(j)) {
+					break;
+				}
+			}
+			prefix = prefix.substring(0, j);
+		}
+		return prefix;
+	}
+	
+	public static String longestCommonSuffix(String[] strs, int max) {
+		
+		String[] reverseStrs = new String[strs.length];
+		
+		for (int i =0; i < strs.length; i++) {
+			reverseStrs[i] = new StringBuilder(strs[i]).reverse().toString();			
+		}
+		return new StringBuilder(longestCommonPrefix(reverseStrs, max)).reverse().toString();
+
+	}
 
 }

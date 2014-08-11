@@ -52,6 +52,16 @@ public class IniParseException extends RuntimeException {
 		super(message);
 	}
 	
+	
+	public static IniParseException MalformedKeyValueLine(String sourceData, int lineNumber) {
+		IniParseException ex = new IniParseException(MALFORMED_KEY_VALUE_LINE, sourceData, lineNumber);
+		return ex;
+	}
+	
+	public static IniParseException MissingOrMalformedKey(String sourceData, int lineNumber) {
+		IniParseException ex = new IniParseException(MISSING_OR_MALFORMED_KEY, sourceData, lineNumber);
+		return ex;
+	}
 	 
 	public static class ErrorMessage {
 		public static final String UNEXPECTED_REGEX_STATE =
@@ -60,10 +70,15 @@ public class IniParseException extends RuntimeException {
 				"A section header could not be found.";
 		public static final String EXPECTED_KEY_VALUE_LINE =
 				"A key-value line was expected, but it was not found.";
-		public static final String MALFORMED_KEY_VALUE_LINE =
-				"A key-value line is not well formed.";
+	
 		
 	}
+	
+	private static final String MALFORMED_KEY_VALUE_LINE =
+			"A key-value line is not well formed.";
+	
+	private static final String MISSING_OR_MALFORMED_KEY =
+			"A key-value line has a missing or malformed key.";
 	
 	private static final long serialVersionUID = 7544289917649885726L;
 

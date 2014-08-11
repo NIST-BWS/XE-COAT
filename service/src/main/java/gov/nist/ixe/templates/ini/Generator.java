@@ -63,10 +63,16 @@ public class Generator {
 				String originalLine = kvl.getOriginalLine();
 
 				String startOfLine = originalLine.substring(0, kvl.getValuesStart());
-				String endOfLine = originalLine.substring(kvl.getCommentStart(), kvl.getCommentEnd());
+				String endOfLine = originalLine.substring(kvl.getCommentStart());
 				
 				String vv = getVelocityVariable(iniSections, section, rootElementName, kvl.getKey());
 				
+				// If the original line had a space after the left-hand side,
+				// let's put it back. 
+				if (originalLine.startsWith(kvl.getLhs() + " ")) {
+					startOfLine += " ";
+				}
+								
 				// Note we add a trailing space so that the comment is not directly against the variable
 				if (!("".equals(endOfLine.trim()))) {
 					endOfLine = " " + endOfLine;
