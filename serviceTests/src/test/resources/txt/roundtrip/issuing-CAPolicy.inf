@@ -1,0 +1,23 @@
+[Version]
+Signature="$Windows NT$"
+
+; From Windows Server 2008 PKI & Certificate Security from Microsoft Press
+; Implementing a Three-Tier CA Hierarchy (p. 121)
+
+[certsrv_server]
+RenewalKeyLength=2048
+
+RenewalValidityPeriodUnits=5
+RenewalValidityPeriod=Years
+
+CRLPeriodUnits=3
+CRLPeriod=days
+
+CRLOverlapUnits=4
+CRLOverlapPeriod=hours
+
+CRLDeltaPeriodUnits=12
+CRLDeltaPeriod=hours
+
+DiscreteSignatureAlgorithm=1
+LoadDefaultTemplates=0

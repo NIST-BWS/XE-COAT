@@ -1,0 +1,31 @@
+[Version]
+Signature="$Windows NT$"
+
+; From Windows Server 2008 PKI & Certificate Security from Microsoft Press
+; Implementing a Three-Tier CA Hierarchy (p. 126)
+
+[PolicyStatementExtension]
+Policies=NbclCps
+
+[NbclCps]
+OID=2.16.840.1.101.3.9.2.0		; OID 2.16.840.1.101.3.9.2.0 is assigned to NBCL CPS
+NOTICE=NIST Biometric Clients Lab Certification Practice Statement
+URL=http://ca-sha256.nbcl.i/CPS/CPStatement
+
+[certsrv_server]
+RenewalKeyLength=2048 			; Policy CA uses a key length of 2,048 bits
+
+RenewalValidityPeriodUnits=10		; Validity period of the policy CA cert is 10 years
+RenewalValidityPeriod=Years		; 
+
+CRLPeriod=weeks				; Base CRLs are published every 26 weeks
+CRLPeriodUnits=26 			;
+
+CRLOverlapPeriod=Weeks			; Base CRLS are published with a 2 week overlap
+CRLOverlapUnits=2			;
+
+CRLDeltaPeriod=days			; Delta CRLs are disabled 			
+CRLDeltaPeriodUnits=0			;
+
+DiscreteSignatureAlgorithm=1		; Discrete signatures allow the use of CNG
+					; algorithms for hashing and signing
