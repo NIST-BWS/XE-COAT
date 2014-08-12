@@ -489,12 +489,12 @@ public interface ITemplateServices {
 	// INI_SPLITTER / POST
 	// ---
 	// Calling POST on the 'ini splitter' resource creates a service based on the INI/INF
-	// provided in the payload. Returns a list of the resources available in the created service.
+	// provided in the payload. Returns a list of the newly created service(s).
 	//
 	//
 	@POST
 	@Path(Constants.Uri.INI_SPLITTER)
-	ServiceResources splitInf(byte[] payload,
+	ServiceList splitInf(byte[] payload,
 			@HeaderParam(Constants.Uri.Param.CONTENT_TYPE) String contentType,
 			@QueryParam(Constants.Uri.Param.SERVICE_NAME) String serviceName); 
 			

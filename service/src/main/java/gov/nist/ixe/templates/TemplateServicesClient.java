@@ -70,7 +70,6 @@ import javax.ws.rs.core.Response.StatusType;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-
 public class TemplateServicesClient implements ITemplateServices {
 
 	private static final String GET = "GET";
@@ -101,9 +100,6 @@ public class TemplateServicesClient implements ITemplateServices {
 		return makeRequest(uri, method, returnTypeClass, null, null);
 
 	}
-
-	
-	
 	
 	public <T> T makeRequest(String uri, String method, Class<T> returnTypeClass, byte[] payload, String payloadContentType) {
 		return makeRequest(uri, method, returnTypeClass, payload, payloadContentType, null);	
@@ -308,8 +304,8 @@ public class TemplateServicesClient implements ITemplateServices {
 	}
 
 	@Override
-	public ServiceResources splitInf(byte[] payload, String contentType, String serviceName) {
-		return makeRequest(BuildUri.getIniSplitterUri(getRootUri(), serviceName), POST, ServiceResources.class, payload, contentType); 
+	public ServiceList splitInf(byte[] payload, String contentType, String serviceName) {
+		return makeRequest(BuildUri.getIniSplitterUri(getRootUri(), serviceName), POST, ServiceList.class, payload, contentType); 
 	}
 
 	@Override

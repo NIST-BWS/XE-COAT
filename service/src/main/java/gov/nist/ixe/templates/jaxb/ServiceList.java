@@ -66,6 +66,13 @@ public class ServiceList {
 		iniSplitter = Link.IniSplitter(storage, rootUri);
 	}
 	
+	public static ServiceList NewlyCreatedService
+	(IStorageProvider storage, String rootUri, String serviceName) {
+		ServiceList result = new ServiceList();
+		result.services.add(Link.Service(storage, rootUri, serviceName));
+		return result;
+	}
+	
 	@XmlElement(name="link")
 	public List<Link> getServices() { sort(); return services; }
 	
@@ -80,7 +87,6 @@ public class ServiceList {
 				{ return l1.getName().compareTo(l2.getName());}
 		});
 	}
-	
 	
 	private Link iniSplitter;
 	@XmlElement(name="iniSplitter") 

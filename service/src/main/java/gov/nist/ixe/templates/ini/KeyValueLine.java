@@ -68,7 +68,7 @@ public class KeyValueLine {
 			}
 			
 		} else {			
-				throw IniParseException.MissingOrMalformedKey(line, lineNumber);			
+			throw IniParseException.MissingOrMalformedKey(line, lineNumber);			
 		}
 		
 		
@@ -109,7 +109,8 @@ public class KeyValueLine {
 	private int commentStart = -1;
 	
 	private String lhs = "";
-		
+
+	/*
 	private enum DelimiterDetectionStyle {
 		RespectWhitespace, IgnoreWhitespace
 	}
@@ -163,7 +164,6 @@ public class KeyValueLine {
 			}
 		}
 
-	
 		if (result == null) {
 			ddr = getDelimiterDetectionRegex(DelimiterDetectionStyle.IgnoreWhitespace);
 			Pattern pattern = Pattern.compile(ddr);
@@ -171,17 +171,17 @@ public class KeyValueLine {
 			if (matcher.find()) { 
 				result = matcher.group(1); 
 			}
-		
 		}
 		
 		
 		if (result == null) {
-			throw InfSplitterException.CouldNotDetermineDelimiter();
+			// If we can't determine the delimiter, then just use a space. 
+			result = " ";
 		}
 		
 		return result;
 	}
-	
+	*/
 
 	
 

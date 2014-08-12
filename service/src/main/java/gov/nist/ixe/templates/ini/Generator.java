@@ -127,7 +127,9 @@ public class Generator {
 		}
 
 		if (values.size() > 1) {
-			String delim = kvl.getDelimiter();
+			//String delim = kvl.getDelimiter();
+			String delim = Values.parse(kvl.getValues(), kvl.getLineNumber()).getValuesDelimiter();
+					
 			String forEachV = "$value";
 			
 			String forEachSource = rootPart + sectionPart + keyPart + ".Element}";

@@ -103,7 +103,6 @@ import com.sun.xml.xsom.parser.XSOMParser;
 public class TemplateServices implements ITemplateServices {
 
 	private @Context UriInfo uriInfo;
-
 	
 	private static StorageProviderFactory storageProviderFactory = new StorageProviderFactory();
 	private static IStorageProvider storage = storageProviderFactory
@@ -769,7 +768,7 @@ public class TemplateServices implements ITemplateServices {
 	
 
 	@Override
-	public ServiceResources splitInf(byte[] payload, String contentType,
+	public ServiceList splitInf(byte[] payload, String contentType,
 			String serviceName) {
 
 		createService(serviceName);
@@ -813,7 +812,10 @@ public class TemplateServices implements ITemplateServices {
 			throw new InfSplitterException(ex);
 		}
 
-		return getServiceResources(serviceName);
+		ServiceList result = 
+				ServiceList.NewlyCreatedService(storage, getRootUri(), serviceName);
+		
+		return result;
 
 	}
 	

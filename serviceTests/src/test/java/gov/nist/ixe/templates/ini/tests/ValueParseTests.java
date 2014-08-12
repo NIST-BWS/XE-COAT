@@ -2,6 +2,7 @@ package gov.nist.ixe.templates.ini.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import gov.nist.ixe.templates.ini.KeyValueLineValuesSplitterStyle;
 import gov.nist.ixe.templates.ini.Values;
 
 import java.util.Arrays;
@@ -15,105 +16,118 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(value = Parameterized.class)
 public class ValueParseTests {
 	
+	private static String e = "";
+
 	@Parameters
 	public static Collection<Object[]> testData() {
 		Object[][] data = new Object[][] {
-				{ String.class,  new Object[]{""}, 	  null},
-				{ String.class,  new Object[]{""}, 	  " "},
-				{ String.class,  new Object[]{""}, 	  "  "},
-				{ String.class,  new Object[]{"simple"}, "simple"},
-				{ String.class,  new Object[]{"simple"}, " simple "},
-				{ String.class,  new Object[]{"simple"}, "  simple "},
-				{ String.class,  new Object[]{"simple"}, "simple   "},
-				{ Integer.class, new Object[]{1},        "1"},
-				{ Integer.class, new Object[]{0},        "0"},
+
 				
-				{ String.class,  new Object[]{"one","two"},  "one,two" },
-				{ String.class,  new Object[]{"one","two"},  " one, two" },
-				{ String.class,  new Object[]{"one","two"},  " one , two " },
-				{ String.class,  new Object[]{"one","two"},  " one,two " },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { "simple" }, e, e, e, "simple" },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { "simple" }, e, e, e, "simple" },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { "simple" }, e, e, e, "simple" },
 				
-				{ String.class, new Object[]{"one","two"},  "one two" },
-				{ String.class, new Object[]{"one","two"},  " one two" },
-				{ String.class, new Object[]{"one","two"},  " one  two " },
-				{ String.class, new Object[]{"one","two"},  " one two " },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { 0 }, e, e, e, "0" },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Integer.class, new Object[] { 0 }, e, e, e, "0" },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, Integer.class, new Object[] { 0 }, e, e, e, "0" },
 				
-				{ String.class, new Object[]{"(a)","[b]","{c}","<d>"},  "(a) [b] {c} <d>" },
-				{ String.class, new Object[]{"(a)","[b]","{c}","<d>"},  "(a), [b], {c}, <d>" },
 				
-				{ String.class, new Object[]{"(a,)","[,b]","{c}","<,>"},  "(a,) [,b] {c} <,>" },
-				{ String.class, new Object[]{"(a,)","[,b]","{c}","<,>"},  "(a,), [,b], {c}, <,>" },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { e }, e, e, e, null },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { e }, e, e, e, null },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { e }, e, e, e, null },
 				
-				{ String.class, new Object[]{"",""},  "," },
-				{ String.class, new Object[]{"",""},  " ," },
-				{ String.class, new Object[]{"",""},  ", " },
-				{ String.class, new Object[]{"","",""},  ",," },
-				{ String.class, new Object[]{"","",""},  " ,," },
-				{ String.class, new Object[]{"","",""},  ", ," },
-				{ String.class, new Object[]{"","",""},  ",, " },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { e }, e, e, e, " " },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { e }, e, e, e, " " },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { e }, e, e, e, " " },
 				
-				{ String.class, new Object[]{"a",""},  "a," },				
-				{ String.class, new Object[]{"","a"},  ",a" },
-				{ String.class, new Object[]{"a",""},  " a," },
-				{ String.class, new Object[]{"","a"},  " ,a" },
-				{ String.class, new Object[]{"a",""},  "a, " },
-				{ String.class, new Object[]{"","a"},  ",a " },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { e }, e, e, e, "  " },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { e }, e, e, e, "  " },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { e }, e, e, e, "  " },
 				
-				{ String.class, new Object[]{"a","b",""},  "a,b ," },
-				{ String.class, new Object[]{"a","b",""},  " a,b ," },
-				{ String.class, new Object[]{"a","b",""},  " a, b ," },
-				{ String.class, new Object[]{"a","b",""},  " a, b," },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { "one", "two" },  e, ", ",  e, "one, two"    },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { "one", "two" },  e, ", ",  e, " one, two"   },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { "one", "two" },  e, ", ",  e, " one, two "  },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { "one", "two" },  e, " , ", e, " one , two " },
 				
-				{ String.class, new Object[]{"a","","b"},  "a,,b" },
-				{ String.class, new Object[]{"a","","b"},  "a ,,b" },
-				{ String.class, new Object[]{"a","","b"},  "a,,b " },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { "one,two" },     e, e,     e, "one,two"    },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { "one,", "two" }, e, " ",   e, "one, two"   },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { "one,", "two" }, e, " ",   e, "one, two"   },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { "one,", "two" }, e, " ",   e, "one, two "  },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { "one,", "two" }, e, " ",   e, " one, two " },
 				
-				{ String.class, new Object[]{quote("")},  quote("") },
-				{ String.class, new Object[]{quote(",")},  quote(",") },
-				{ String.class, new Object[]{dubQuote("")}, dubQuote("") },
-				{ String.class, new Object[]{dubQuote(",")}, dubQuote(",") },
-				{ String.class, new Object[]{paren("")},  paren("") },
-				{ String.class, new Object[]{paren(",")},  paren(",") },
-				{ String.class, new Object[]{square("")},  square("") },
-				{ String.class, new Object[]{square(",")},  square(",") },
-				{ String.class, new Object[]{curly("")},  curly("") },
-				{ String.class, new Object[]{curly(",")},  curly(",") },
-				{ String.class, new Object[]{angle("")},  angle("") },
-				{ String.class, new Object[]{angle(",")},  angle(",") },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { "one", "two" },  e, ", ",  e, "one, two"    },
 				
-				{ String.class, new Object[]{quote(dubQuote(""))},quote(dubQuote(""))},
-				{ String.class, new Object[]{dubQuote(quote(""))}, dubQuote(quote(""))},
-				{ String.class, new Object[]{dubQuote(dubQuote(""))},dubQuote(dubQuote(""))},
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { "one two" },    e, e,   e, "one two" },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { "one", "two" }, e, " ", e, "one two" },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { "one", "two" }, e, " ", e, "one two" },
+				
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { 2, 4, 6, 8 },         e, ", ", e, "2, 4, 6, 8" },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, Integer.class, new Object[] { 2, 4, 6, 8 },         e, ", ", e, "2, 4, 6, 8" },
+				
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Double.class, new Object[] { 2.0, 4.0, 6.0, 8.0 },  e, ", ", e, "2.0, 4.0, 6.0, 8.0" },
+				
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Long.class, new Object[] { 1234567890123L, 1234567890123L },  e, ", ", e, " 1234567890123, 1234567890123" },
 								
-				{ String.class, new Object[]{"John Q. Public","Jane Doe"},  "John Q. Public, Jane Doe" },
-				{ String.class, new Object[]{"John","Q.","Public","Jane","Doe"},  "John Q. Public Jane Doe" },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Object.class,  new Object[] { "2,","4,","6,", 8 },  e, " ",  e, "2, 4, 6, 8" },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Object.class,  new Object[] { "2,","4,","6,", 8 },  e, "  ",  e, " 2,  4,  6,  8 " },
 				
-				{ Integer.class, new Object[] { 2, 4, 6, 8 }, "2, 4, 6, 8" },
-				{ Double.class, new Object[] { 2.0, 4.0, 6.0, 8.0 }, "2.0, 4.0, 6.0, 8.0" },
-				{ Object.class, new Object[] { 2, 4.0, 6, 8 }, "2, 4.0, 6, 8" },
-				{ Double.class, new Object[] {100.0, 200.0, 300.0}, "100.0, 200.0, 300.0" }
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Integer.class, new Object[] { 2, 4, 6, 8 }, e, " ", e, "2 4 6 8" },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Integer.class, new Object[] { 2, 4, 6, 8 }, e, "  ", e, "2  4  6  8" },
 				
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { "a", "b" }, e,    ", ",   e,    "a, b"    },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { "a", "b" }, "{",  ", ", "}",    "{a}, {b}"  },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { "a", "b" }, "*(", ", ", ")",    "*(a), *(b)"  },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { "a", "b" }, "'",  ", ",   "'",  quote("a") + ", " + quote("b") },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { "a", "b" }, "\"", ", ",  "\"",  dubQuote("a") + ", " + dubQuote("b") },
+				
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     String.class, new Object[] { "John Q. Public", "Jane Doe" },      e, ", ",  e, "John Q. Public, Jane Doe" },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     String.class, new Object[] { "John","Q.","Public,","Jane","Doe"}, e, " ",   e, "John Q. Public, Jane Doe" },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, String.class, new Object[] { "John Q. Public", "Jane Doe" },      e, ", ",   e, "John Q. Public, Jane Doe" },
+				
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { 222, 222, 222, 222 },  e,   ", ", e,   "222, 222, 222, 222" },
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { 222, 222, 222, 222 },  "!", ", ", "%", "!222%, !222%, !222%, !222%" },
 				
 		};
 		return Arrays.asList(data);
 	}
 	
+	private KeyValueLineValuesSplitterStyle splitterStyle;
+
 	private Class<?> expectedMostCommonType;
-	private Object[] expectedValues;	
+	private Object[] expectedValues;
+	private String expectedLeftDelimiter;
+	private String expectedValueDelimiter;
+	private String expectedRightDelimiter;
 	private String source;
 	
-	public ValueParseTests(Class<?> expectedMostCommonType, Object[] expectedValues, String source) {
+	public ValueParseTests(
+			KeyValueLineValuesSplitterStyle style,
+			Class<?> expectedMostCommonType,
+			Object[] expectedValues,
+			String expectedLeftDelimiter,
+			String expectedValueDelimiter,
+			String expectedRightDelimiter,
+			String source) {
+		this.splitterStyle = style;
 		this.expectedMostCommonType = expectedMostCommonType;
 		this.expectedValues = expectedValues;
+		this.expectedLeftDelimiter = expectedLeftDelimiter;
+		this.expectedValueDelimiter = expectedValueDelimiter;
+		this.expectedRightDelimiter = expectedRightDelimiter;
 		this.source = source;						
 	}
 	
 	
 	@Test
 	public void ValuesParseCorrectly() {
-		Values values = Values.parse(source, 0);
-		assertValuesEquals(expectedValues, values);
+		Values values = Values.parse(source, 0, splitterStyle);
 		assertEquals(expectedMostCommonType, values.getMostDetailedCommonType());
+		assertValuesEquals(expectedValues, values);
+		assertEquals(expectedLeftDelimiter, values.getCommonLeftDelimiter(false));
+		assertEquals(expectedValueDelimiter, values.getValuesDelimiter());
+		assertEquals(expectedRightDelimiter, values.getCommonRightDelimiter(false));
+		
+		
 	}
 
 
@@ -126,21 +140,7 @@ public class ValueParseTests {
 		return "'" + s + "'";
 	}
 	
-	private static String paren(String s) {
-		return "(" + s + ")";
-	}
-	
-	private static String square(String s) {
-		return "[" + s + "]";
-	}
-	
-	private static String curly(String s) {
-		return "{" + s + "}";
-	}
-	
-	private static String angle(String s) {
-		return "<" + s + ">";
-	}
+
 	
 	private void assertValuesEquals(Object[] expected, Values actual) {
 		assertEquals(expected.length, actual.size());

@@ -83,8 +83,7 @@ public class IniSectionTests {
 		assertEquals(1, sections.size());	
 		assertEquals("SQLSERVER2008", section.getName());
 		assertEquals("\"XXXXX-XXXXX-XXXXX-XXXXX-XXXXX\"", section.getValues("PID").get(0));
-		assertEquals("\"True\"", section.getValues("IACCEPTSQLSERVERLICENSETERMS").get(0));
-		
+		assertEquals("\"True\"", section.getValues("IACCEPTSQLSERVERLICENSETERMS").get(0));	
 		
 		assertEquals("\"FilesOnlyMode\"", section.getValues("RSINSTALLMODE").get(0));
 			

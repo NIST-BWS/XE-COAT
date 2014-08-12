@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import gov.nist.ixe.stringsource.StringSource;
 import gov.nist.ixe.stringsource.StringSourceConverters;
 import gov.nist.ixe.stringsource.StringSourcePersistence;
+import gov.nist.ixe.templates.jaxb.ServiceList;
 import gov.nist.ixe.templates.templateservices.tests.TemplateServicesTests;
 
 import java.io.IOException;
@@ -41,9 +42,11 @@ public abstract class Tests extends TemplateServicesTests {
 	
 	private void RoundTrip(String iniFileName, String serviceName) throws IOException, URISyntaxException {
 		StringSource ini = StringSourcePersistence.inferFromSystemResource(iniFilename);
-		ts.splitInf(ini.getData(), ini.getContentType("plain"), serviceName);
+		ServiceList sl = ts.splitInf(ini.getData(), ini.getContentType("plain"), serviceName);
 		StringSource rt = StringSourceConverters.fromResponse(ts.processDefaultTemplate(serviceName));
 		assertEquals(ini.getString(), rt.getString());
+		assertEquals(1, sl.servicesSize());
+		assertEquals(serviceName, sl.getService(0).getName());
 	}
 
 }
