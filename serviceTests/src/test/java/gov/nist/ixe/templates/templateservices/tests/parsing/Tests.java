@@ -56,9 +56,9 @@ public abstract class Tests extends TemplateServicesTests {
 	@Parameters
 	public static Collection<Object[]> testParameters() {
 		Object[][] data = new Object[][] {
-				{ProcessStyle.Default, "process/default.xml"},
-				{ProcessStyle.Named, "process/default.xml"},
-				{ProcessStyle.Posted, "process/process"}
+				{ProcessStyle.Default, "process"},
+				{ProcessStyle.Named,   "process/default.xml"},
+				{ProcessStyle.Posted,  "process/process"}
 		};
 		return Arrays.asList(data);
 	}

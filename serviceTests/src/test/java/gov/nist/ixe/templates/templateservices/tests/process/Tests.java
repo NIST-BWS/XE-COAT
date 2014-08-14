@@ -3,15 +3,24 @@ package gov.nist.ixe.templates.templateservices.tests.process;
 import static gov.nist.ixe.templates.TemplateServicesUtil.processTemplate;
 import static gov.nist.ixe.templates.TemplateServicesUtil.setConfig;
 import static gov.nist.ixe.templates.TemplateServicesUtil.setSchema;
+import static gov.nist.ixe.templates.TemplateServicesUtil.setTemplate;
 import static org.junit.Assert.assertEquals;
+import gov.nist.ixe.stringsource.StringSource;
+import gov.nist.ixe.stringsource.StringSourcePersistence;
 import gov.nist.ixe.templates.BuildUri;
 import gov.nist.ixe.templates.Constants;
+import gov.nist.ixe.templates.Constants.HttpHeader;
 import gov.nist.ixe.templates.exception.ResourceNotFoundException;
 import gov.nist.ixe.templates.jaxb.Link;
 import gov.nist.ixe.templates.templateservices.tests.TemplateServicesTests;
 import gov.nist.ixe.templates.tests.Examples;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
+
+import javax.xml.ws.Response;
 
 import org.junit.Test;
 
@@ -34,7 +43,7 @@ public abstract class Tests extends TemplateServicesTests {
 
 
 	@Test
-	public void havingAProcessLinkRequiresAPrimarySchemaAndDefaultConfig() {
+	public void HavingAProcessLinkRequiresAPrimarySchemaAndDefaultConfig() {
 
 		ts.createService(serviceName);
 		ts.setTemplate(serviceName, Examples.TEMPLATE.getData(), Examples.TEMPLATE.getContentType("plain"));
@@ -57,6 +66,12 @@ public abstract class Tests extends TemplateServicesTests {
 				Constants.Rel.PROCESS, 
 				BuildUri.getProcessUri(serverRootUri, serviceName),
 				processors.get(0));
+		
+		assertLinkEquals(
+				Constants.NAMED_PROCESS_NAME_PREFIX + Constants.DEFAULT_CONFIGURATION_NAME,
+				Constants.Rel.PROCESS, 
+				BuildUri.getNamedProcessUri(serverRootUri, serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
+				processors.get(1));
 
 		assertEquals(Constants.PROCESS_RESOURCE_NAME, processors.get(0).getName());			
 		assertEquals(Constants.Rel.PROCESS, processors.get(0).getRel());
@@ -67,7 +82,7 @@ public abstract class Tests extends TemplateServicesTests {
 
 
 	@Test
-	public void havingConfigurationsYieldsNamedProcessLinks() {
+	public void HavingConfigurationsYieldsNamedProcessLinks() {
 
 		// TO DO: This is an extremely fragile test
 		String config0Name = "config0";
@@ -125,6 +140,56 @@ public abstract class Tests extends TemplateServicesTests {
 				Constants.Rel.TEMPLATE, 
 				BuildUri.getTemplateUri(rootUri, serviceName),
 				resources.get(7));
+	}
+	
+	@Test
+	public void NamedProcessShouldReturnCorrectHeaders() throws IOException, URISyntaxException {
+
+		StringSource template = StringSourcePersistence.inferFromSystemResource("txt/dummy.vm");
+		StringSource schema = StringSourcePersistence.inferFromSystemResource("txt/dummy.xsd");
+		StringSource config = StringSourcePersistence.inferFromSystemResource("txt/dummy.xml");
+		
+		ts.createService(serviceName);
+		setTemplate(ts, serviceName, template);
+		setConfig(ts, serviceName, "named.xml", config);
+		setSchema(ts, serviceName, "main.xsd", schema);
+		
+		javax.ws.rs.core.Response r = ts.processTemplateByName(serviceName, "named.xml");
+		assertEquals("process/named.xml", r.getHeaderString(HttpHeader.RESOURCE_NAME));
+		assertEquals("process", r.getHeaderString(HttpHeader.REL));
+	}
+	
+	@Test
+	public void DefaultProcessShouldReturnCorrectHeaders() throws IOException, URISyntaxException {
+
+		StringSource template = StringSourcePersistence.inferFromSystemResource("txt/dummy.vm");
+		StringSource schema = StringSourcePersistence.inferFromSystemResource("txt/dummy.xsd");
+		StringSource config = StringSourcePersistence.inferFromSystemResource("txt/dummy.xml");
+		
+		ts.createService(serviceName);
+		setTemplate(ts, serviceName, template);
+		setConfig(ts, serviceName, "default.xml", config);
+		setSchema(ts, serviceName, "main.xsd", schema);
+		
+		javax.ws.rs.core.Response r = ts.processDefaultTemplate(serviceName);
+		assertEquals("process", r.getHeaderString(HttpHeader.RESOURCE_NAME));
+		assertEquals("process", r.getHeaderString(HttpHeader.REL));
+	}
+	
+	@Test
+	public void ProcessViaPayloadShouldReturnCorrectHeaders() throws IOException, URISyntaxException {
+
+		StringSource template = StringSourcePersistence.inferFromSystemResource("txt/dummy.vm");
+		StringSource schema = StringSourcePersistence.inferFromSystemResource("txt/dummy.xsd");
+		StringSource config = StringSourcePersistence.inferFromSystemResource("txt/dummy.xml");
+		
+		ts.createService(serviceName);
+		setTemplate(ts, serviceName, template);
+		setSchema(ts, serviceName, "main.xsd", schema);
+		
+		javax.ws.rs.core.Response r = ts.processTemplate(serviceName, config.getData(), config.getContentType("xml"));
+		assertEquals("process/process", r.getHeaderString(HttpHeader.RESOURCE_NAME));
+		assertEquals("process", r.getHeaderString(HttpHeader.REL));
 	}
 	
 

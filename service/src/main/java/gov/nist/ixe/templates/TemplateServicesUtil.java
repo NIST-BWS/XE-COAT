@@ -14,7 +14,7 @@ public class TemplateServicesUtil {
 		ts.setSchema(serviceName, schemaName, schema.getData(), schema.getContentType("xml"));
 	}
 
-	public static void setTemplate(ITemplateServices ts, String serviceName,StringSource template) {
+	public static void setTemplate(ITemplateServices ts, String serviceName, StringSource template) {
 		ts.setTemplate(serviceName, template.getData(), template.getContentType("plain"));
 	}
 

@@ -176,10 +176,10 @@ public class TemplateServices implements ITemplateServices {
 	}
 
 	private Response generateTemplate(String serviceName, StringSource config,
-			Link configLink, Link processLink) {
+			Link configLink, Link processLink, String resourceName) {
 		trace();
 		
-		String resourceName = Constants.NAMED_PROCESS_NAME_PREFIX + configLink.getName();
+		//String resourceName = Constants.NAMED_PROCESS_NAME_PREFIX + configLink.getName();
 
 		requirePrimarySchema(serviceName);
 		requireTemplate(serviceName);
@@ -301,7 +301,7 @@ public class TemplateServices implements ITemplateServices {
 			StringSource output = VelocityUtil.processTemplate(template,
 					"ROOT", configObj);
 			return StringSourceConverters.toResponse(output, "plain", 
-					serviceName, Constants.Rel.PROCESS, configLink.getName());
+					serviceName, Constants.Rel.PROCESS, resourceName);
 
 		} catch (JAXBException jaxbe) {
 
@@ -346,14 +346,21 @@ public class TemplateServices implements ITemplateServices {
 		StringSource config = new StringSource(payload, contentType);
 		return generateTemplate(serviceName, config,
 				Link.ProcessPayload(storage, getRootUri(), serviceName),
-				Link.Process(storage, getRootUri(), serviceName));
+				Link.Process(storage, getRootUri(), serviceName),
+				Constants.NAMED_PROCESS_NAME_PREFIX + Constants.PROCESS_RESOURCE_NAME);
 
 	}
 
 	public Response processDefaultTemplate(String serviceName) {
 		trace();
-		return processTemplateByName(serviceName,
+		StringSource config = getStorageProvider().getConfig(serviceName,
 				Constants.DEFAULT_CONFIGURATION_NAME);
+		Response result = generateTemplate(serviceName, config, 
+				Link.Config(storage, getRootUri(), serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
+				Link.NamedProcess(storage, getRootUri(), serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
+				Constants.PROCESS_RESOURCE_NAME);
+		return result;
+		//return processTemplateByName(serviceName,Constants.DEFAULT_CONFIGURATION_NAME);
 	}
 
 	public Response processTemplateByName(String serviceName, String configName) {
@@ -362,8 +369,8 @@ public class TemplateServices implements ITemplateServices {
 				configName);
 		Response result = generateTemplate(serviceName, config, 
 				Link.Config(storage, getRootUri(), serviceName, configName),
-				Link.NamedProcess(storage, getRootUri(), serviceName,
-						configName));
+				Link.NamedProcess(storage, getRootUri(), serviceName, configName),
+				Constants.NAMED_PROCESS_NAME_PREFIX + configName);
 		return result;
 	}
 
