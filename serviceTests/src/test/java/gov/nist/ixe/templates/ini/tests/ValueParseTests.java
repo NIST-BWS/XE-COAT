@@ -89,6 +89,9 @@ public class ValueParseTests {
 				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Integer.class, new Object[] { 222, 222, 222, 222 },  e,   " ", e,   "222 222 222 222" },
 				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Integer.class, new Object[] { 222, 222, 222, 222 },  "!", "  ", "%", "!222%  !222%  !222%  !222%" },
 				
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { -2, -4, -6, -8 }, e, ", ", e, " -2, -4,  -6, -8" }
+				//{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { -2,  4, -6,  8 }, e, ", ", e, "-02, 04, -06, 08" } 
+				
 		};
 		return Arrays.asList(data);
 	}

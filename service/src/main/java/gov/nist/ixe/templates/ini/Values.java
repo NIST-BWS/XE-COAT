@@ -193,7 +193,7 @@ public class Values extends ArrayList<Object> {
 	}
 	
 
-	private static Pattern nonWordPrefix = Pattern.compile("^[^\\w]*");
+	private static Pattern nonWordPrefix = Pattern.compile("^[^-\\w]*"); 
 	private static Pattern nonWordSuffix = Pattern.compile("[^\\w]*$");
 
 	private void populateLeftRightDelimiters(String[] trimmedValues) {
