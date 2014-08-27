@@ -89,8 +89,15 @@ public class ValueParseTests {
 				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Integer.class, new Object[] { 222, 222, 222, 222 },  e,   " ", e,   "222 222 222 222" },
 				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Integer.class, new Object[] { 222, 222, 222, 222 },  "!", "  ", "%", "!222%  !222%  !222%  !222%" },
 				
-				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { -2, -4, -6, -8 }, e, ", ", e, " -2, -4,  -6, -8" }
-				//{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { -2,  4, -6,  8 }, e, ", ", e, "-02, 04, -06, 08" } 
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { -2, -4, -6, -8 }, e, ", ", e, " -2, -4,  -6, -8" },
+				
+				// In these test, the values delimiter can't be determined, so we fall back to the defaults
+				{ KeyValueLineValuesSplitterStyle.CommasOnly,     Integer.class, new Object[] { 2, 4, 6, 8 }, e, ",", e, "02, 04, 06, 08" },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Integer.class, new Object[] { 2, 4, 6, 8 }, e, " ", e, "02 04 06 08" },
+				{ KeyValueLineValuesSplitterStyle.SpacesOnly,     Integer.class, new Object[] { 2, 4, 6, 8 }, e, " ", e, "02  04  06  08" },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, Integer.class, new Object[] { 2, 4, 6, 8 }, e, ",", e, "02, 04, 06, 08" },
+				{ KeyValueLineValuesSplitterStyle.CommasOrSpaces, Integer.class, new Object[] { 2, -4, 6, 8 }, e, " ", e, "02 -04 06 08" }
+				
 				
 		};
 		return Arrays.asList(data);

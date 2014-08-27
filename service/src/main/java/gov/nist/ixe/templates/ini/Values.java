@@ -2,6 +2,7 @@ package gov.nist.ixe.templates.ini;
 
 import static gov.nist.ixe.Logging.trace;
 import gov.nist.ixe.StringUtil;
+import gov.nist.ixe.UnreachableCodeException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -88,6 +89,7 @@ public class Values extends ArrayList<Object> {
 	}
 	
 	private String originalSource = null;
+	
 	public static Values parse(String source, int lineNumber, KeyValueLineValuesSplitterStyle style) {
 				
 		
@@ -133,7 +135,7 @@ public class Values extends ArrayList<Object> {
 		}
 		
 		result.populateMostDetailedCommonType();
-		result.populateValuesDelimiter();
+		result.populateValuesDelimiter(style);
 		
 		
 		return result;
@@ -301,12 +303,38 @@ public class Values extends ArrayList<Object> {
 	}
 	
 	private String valuesDelimiter;
-	private void populateValuesDelimiter() {
+	private void populateValuesDelimiter(KeyValueLineValuesSplitterStyle style) {
 		if (this.size() > 1) { 
-			valuesDelimiter = extractValuesDelimiter(this, originalSource, commonLeftDelimiter, commonRightDelimiter);
+			valuesDelimiter = extractValuesDelimiter(this, originalSource, commonLeftDelimiter, commonRightDelimiter);			
 		} else {
 			valuesDelimiter = "";
 		}
+		
+		if (valuesDelimiter == null) {
+			
+			// Sometime we can't determine the values delimiter. This can happen
+			// if formatting is lost when we try to infer the values from the string;
+			// for example, '01' becomes '1', and therefore, we can't infer
+			// the values delimiter based on the way we build the dynamic regex 
+			// that seeks the values delimiter.
+			//
+			if (style == KeyValueLineValuesSplitterStyle.SpacesOnly) {
+				valuesDelimiter = " ";
+			} else if (style == KeyValueLineValuesSplitterStyle.CommasOnly) {
+				valuesDelimiter = ",";
+			} else if (style == KeyValueLineValuesSplitterStyle.CommasOrSpaces) {
+				Matcher unquotedCommaMatcher = commaPattern.matcher(originalSource);
+				if (unquotedCommaMatcher.find()) {
+					valuesDelimiter = ",";
+				} else {
+					valuesDelimiter = " ";	
+				}
+			} else {
+				throw new UnreachableCodeException();
+			}
+			
+		}
+		
 	}
 	
 	private static String extractValuesDelimiter(ArrayList<Object> recastObjects, String source, String leftDelim, String rightDelim) {
@@ -332,10 +360,7 @@ public class Values extends ArrayList<Object> {
 		}
 		
 		
-		if (result == null) {
-			// If we can't determine the delimiter, then just use a space. 
-			result = " ";
-		}
+	
 		
 		return result;
 		
