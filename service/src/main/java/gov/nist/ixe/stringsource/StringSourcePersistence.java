@@ -18,7 +18,7 @@ public class StringSourcePersistence {
 	public static StringSource readFrom(File f) throws IOException {
 		File realFile = getRealFile(f);
 		String filename = realFile.getName();
-		String charset = filename.substring(filename.lastIndexOf(".")+1);
+		String charset = filename.substring(filename.lastIndexOf('.') + 1);
 		return new StringSource(readAll(realFile), charset);	
 
 	}
@@ -45,7 +45,8 @@ public class StringSourcePersistence {
 			throw new StringSourceFilePersistenceException
 			(StringSourceFilePersistenceException.ErrorMessage.FILENAME_DOES_NOT_IMPLY_DIRECTORY);
 		}
-		return seekDir.listFiles((new StringSourcePersistence()).new StringSourceFileFilter(f));
+		return seekDir.listFiles(new StringSourceFileFilter(f));
+		//return seekDir.listFiles((new StringSourcePersistence()).new StringSourceFileFilter(f));
 	}
 
 	public static File getRealFile(File f) throws FileNotFoundException {
@@ -80,13 +81,13 @@ public class StringSourcePersistence {
 	
 	public static File getFakeFile(File realFile) {
 		String filename = realFile.getAbsolutePath();
-		return new File(filename.substring(0, filename.lastIndexOf(".")));
+		return new File(filename.substring(0, filename.lastIndexOf('.')));
 	}
 
-	private class StringSourceFileFilter implements FileFilter {
+	private static class StringSourceFileFilter implements FileFilter {
 
 		protected File f;
-		public StringSourceFileFilter(File f) {	this.f = f;	}
+		private StringSourceFileFilter(File f) {	this.f = f;	}
 
 		@Override
 		public boolean accept(File pathname) {

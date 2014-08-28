@@ -55,7 +55,7 @@ public class ResourceNotFoundException extends RuntimeException {
 	private String _message;
 	
 	
-	public static ResourceNotFoundException CreateFromNameOfMissingResource(String name) {
+	public static ResourceNotFoundException createFromNameOfMissingResource(String name) {
 		
 		ResourceNotFoundException ex = new ResourceNotFoundException();
 		ex._message = MISSING_RESOUCE_NAME_MESSAGE_PREFIX + "'" + name + "'.";

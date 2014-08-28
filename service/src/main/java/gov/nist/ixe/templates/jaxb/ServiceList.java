@@ -61,15 +61,15 @@ public class ServiceList {
 	
 	public ServiceList(IStorageProvider storage, String rootUri) {
 		for (String serviceName : storage.getServiceNames()) {
-			services.add(Link.Service(storage, rootUri, serviceName));
+			services.add(Link.service(storage, rootUri, serviceName));
 		}
-		iniSplitter = Link.IniSplitter(storage, rootUri);
+		iniSplitter = Link.iniSplitter(storage, rootUri);
 	}
 	
-	public static ServiceList NewlyCreatedService
+	public static ServiceList newlyCreatedService
 	(IStorageProvider storage, String rootUri, String serviceName) {
 		ServiceList result = new ServiceList();
-		result.services.add(Link.Service(storage, rootUri, serviceName));
+		result.services.add(Link.service(storage, rootUri, serviceName));
 		return result;
 	}
 	

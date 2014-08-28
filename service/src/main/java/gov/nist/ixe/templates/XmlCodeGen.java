@@ -63,11 +63,13 @@ public class XmlCodeGen {
 		
 		// Get the real backing store for the schema file
 		schemaFile = StringSourcePersistence.getRealFile(schemaFile);
-		InputSource is = new InputSource(new FileInputStream(schemaFile));
+		FileInputStream fis = new FileInputStream(schemaFile);
+		InputSource is = new InputSource(fis);
 		is.setSystemId(schemaFile.getAbsolutePath().replace("\\", "/"));
 		
 		sc.parseSchema(is);		
 		if (scel.getErrors().size() > 0) {
+			fis.close();
 			throw new CodeGenException(schemaLink, scel, true);
 		}
 		

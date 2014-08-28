@@ -64,11 +64,11 @@ public class KeyValueLine {
 			String lhs = lhsMatch.group(1);
 			
 			if (!line.equals(lhs + result.values + result.comment)) {
-				throw IniParseException.MalformedKeyValueLine(line, lineNumber);
+				throw IniParseException.malformedKeyValueLine(line, lineNumber);
 			}
 			
 		} else {			
-			throw IniParseException.MissingOrMalformedKey(line, lineNumber);			
+			throw IniParseException.missingOrMalformedKey(line, lineNumber);			
 		}
 		
 		

@@ -3,13 +3,14 @@ package gov.nist.ixe.templates.ini;
 import gov.nist.ixe.XmlUtil;
 
 public class XmlValue {
-	protected String Value="";
-	protected String Type="";
+	protected String value="";
+	protected String type="";
+	
 	public String getValue() {
-		return Value;
+		return value;
 	}		
 	public String getEscapedValue() {	
-		return XmlUtil.EscapeForXml(Value);
+		return XmlUtil.EscapeForXml(value);
 	}
-	public String getType() { return Type; }
+	public String getType() { return type; }
 }

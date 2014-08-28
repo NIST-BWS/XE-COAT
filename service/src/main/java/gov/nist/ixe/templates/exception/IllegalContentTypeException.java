@@ -53,7 +53,7 @@ public class IllegalContentTypeException extends RuntimeException {
 		_message = message;
 	}
 	
-	public static IllegalContentTypeException InvalidType(String rel) {
+	public static IllegalContentTypeException invalidType(String rel) {
 		IllegalContentTypeException ex = new IllegalContentTypeException();
 		ex._message = "'" + rel + "' is not a valid content/charset type.";
 		return ex;

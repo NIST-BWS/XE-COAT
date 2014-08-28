@@ -96,7 +96,7 @@ public class Values extends ArrayList<Object> {
 		if (source == null) source = "";
 		source = source.trim();
 		
-		String[] values = null, commaValues, spaceValues;
+		String[] values = {}, commaValues, spaceValues;
 		
 		if (style == KeyValueLineValuesSplitterStyle.CommasOnly) {
 			commaValues = commaPattern.split(source, -1);

@@ -53,12 +53,12 @@ public class IniParseException extends RuntimeException {
 	}
 	
 	
-	public static IniParseException MalformedKeyValueLine(String sourceData, int lineNumber) {
+	public static IniParseException malformedKeyValueLine(String sourceData, int lineNumber) {
 		IniParseException ex = new IniParseException(MALFORMED_KEY_VALUE_LINE, sourceData, lineNumber);
 		return ex;
 	}
 	
-	public static IniParseException MissingOrMalformedKey(String sourceData, int lineNumber) {
+	public static IniParseException missingOrMalformedKey(String sourceData, int lineNumber) {
 		IniParseException ex = new IniParseException(MISSING_OR_MALFORMED_KEY, sourceData, lineNumber);
 		return ex;
 	}

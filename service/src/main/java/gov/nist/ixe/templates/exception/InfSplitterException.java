@@ -12,14 +12,14 @@ public class InfSplitterException extends RuntimeException {
 		this._message = e.getMessage();
 	}
 	
-	public static InfSplitterException CannotOverwriteExistingTemplate() {
+	public static InfSplitterException cannotOverwriteExistingTemplate() {
 		InfSplitterException ex = new InfSplitterException();
 		ex._message = CANNOT_OVERWRITE_EXISTING_TEMPLATE;
 		return ex;
 	}
 	
 	
-	public static InfSplitterException CouldNotDetermineDelimiter() {
+	public static InfSplitterException couldNotDetermineDelimiter() {
 		InfSplitterException ex = new InfSplitterException();
 		ex._message = COULD_NOT_DETERMINE_DELIMITER;
 		return ex;

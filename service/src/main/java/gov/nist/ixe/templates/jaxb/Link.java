@@ -138,7 +138,7 @@ public class Link {
 	}
 */
 	
-	public static Link Schema(IStorageProvider storage, String rootUri, String serviceName, String schemaName) {
+	public static Link schema(IStorageProvider storage, String rootUri, String serviceName, String schemaName) {
 		Link result = new Link();
 		result.setServiceName(serviceName);
 		result.setRel(Constants.Rel.SCHEMA);
@@ -153,7 +153,7 @@ public class Link {
 		
 	}
 	
-	public static Link Config(IStorageProvider storage, String rootUri, String serviceName, String configName) {
+	public static Link config(IStorageProvider storage, String rootUri, String serviceName, String configName) {
 		Link result = new Link();
 		result.setServiceName(serviceName);
 		result.setRel(Constants.Rel.CONFIG);
@@ -167,7 +167,7 @@ public class Link {
 		return result;
 	}
 	
-	public static Link Process(IStorageProvider storage, String rootUri, String serviceName) {
+	public static Link process(IStorageProvider storage, String rootUri, String serviceName) {
 		Link result = new Link();
 		result.setServiceName(serviceName);
 		result.setRel(Constants.Rel.PROCESS);
@@ -176,7 +176,7 @@ public class Link {
 		return result;	
 	}
 	
-	public static Link ProcessPayload(IStorageProvider storage, String rootUri, String serviceName) {
+	public static Link processPayload(IStorageProvider storage, String rootUri, String serviceName) {
 		Link result = new Link();
 		result.setServiceName(serviceName);
 		result.setRel(Constants.Rel.PROCESS);
@@ -185,7 +185,7 @@ public class Link {
 		return result;	
 	}
 	
-	public static Link NamedProcess(IStorageProvider storage, String rootUri, String serviceName, String configName) {
+	public static Link namedProcess(IStorageProvider storage, String rootUri, String serviceName, String configName) {
 		Link result = new Link();
 		result.setServiceName(serviceName);
 		result.setRel(Constants.Rel.PROCESS);
@@ -195,7 +195,7 @@ public class Link {
 	}
 	
 	
-	public static Link Template(IStorageProvider storage, String rootUri, String serviceName) {
+	public static Link template(IStorageProvider storage, String rootUri, String serviceName) {
 		Link result = new Link();
 		result.setServiceName(serviceName);
 		result.setRel(Constants.Rel.TEMPLATE);
@@ -209,7 +209,7 @@ public class Link {
 	
 	}
 	
-	public static Link Service(IStorageProvider storage, String rootUri, String serviceName) {
+	public static Link service(IStorageProvider storage, String rootUri, String serviceName) {
 		Link result = new Link();
 		
 		result.setRel(Constants.Rel.SERVICE);
@@ -224,7 +224,7 @@ public class Link {
 		return result;
 	}
 		
-	public static Link IniSplitter(IStorageProvider storage, String rootUri) {
+	public static Link iniSplitter(IStorageProvider storage, String rootUri) {
 		Link result = new Link();
 		result.setRel(Constants.Rel.INI_SPLITTER);
 		result.setUri(BuildUri.getIniSplitterUri(rootUri));

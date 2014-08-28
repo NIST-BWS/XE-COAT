@@ -35,7 +35,7 @@ public class EntryPoint {
 		try {
 			parameters = go.parse(args);
 			
-			if (parameters != null) {
+			//if (parameters != null) {
 				if (parameters.containsKey('u')) {
 					uri = parameters.get('u');
 				}
@@ -43,7 +43,7 @@ public class EntryPoint {
 				if (parameters.containsKey('l')) {
 					storageLocation = parameters.get('l');
 				}
-			}
+			//}
 			
 			if (storageLocation != null) {
 				StorageProviderFactory.setDefaultFileStorageProviderLocation(storageLocation);
@@ -62,7 +62,7 @@ public class EntryPoint {
 			
 			System.out.println("Type 'quit' to terminate");
 			String line = null;
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			BufferedReader reader = new BufferedReader(System.console().reader());
 			
 			do {
 				line = reader.readLine();	
@@ -77,10 +77,5 @@ public class EntryPoint {
 			System.out.println(iae.getMessage());
 			go.printHelp();
 		}
-	}
-
-	static {
-		trace();
-		System.gc();
 	}
 }

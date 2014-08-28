@@ -84,13 +84,13 @@ public class IniSection {
 			
 			KeyValueLine keyValueLineCandidate = KeyValueLine.parse(line, i);
 			
-			if (keyValueLineCandidate == null) {
+			/*if (keyValueLineCandidate == null) {
 				if (strict) {
 					throw new IniParseException(IniParseException.ErrorMessage.EXPECTED_KEY_VALUE_LINE, line, i);	
 				} else {
 					continue;
 				}
-			} 
+			} */
 			
 			String key = keyValueLineCandidate.getKey();
 			result.sourceMap.put(key, keyValueLineCandidate);

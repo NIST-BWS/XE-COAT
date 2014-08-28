@@ -152,10 +152,10 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(serviceName, tge.getServiceName());
 		assertEquals(resourceName, tge.getResourceName());
 		
-		
 		assertEquals(1, errors.size());
 		assertEquals("Element type \"xs:element\" must be followed by either attribute specifications, \">\" or \"/>\".",
 				errors.get(0).getMessage());
+		
 		assertEquals(48, errors.get(0).getLineNumber());
 		assertEquals(57, errors.get(0).getColumnNumber());
 		

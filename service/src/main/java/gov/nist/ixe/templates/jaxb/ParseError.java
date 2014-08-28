@@ -74,7 +74,7 @@ public class ParseError {
 	}
 	
 	
-	public static ParseError MainSchemaHasMultipleRootElements(Link link, XSElementDecl offendingElement) 
+	public static ParseError mainSchemaHasMultipleRootElements(Link link, XSElementDecl offendingElement) 
 	{
 		ParseError pe = new ParseError();
 		pe.link = link;

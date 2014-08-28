@@ -73,7 +73,7 @@ public class ServiceResources extends ResourceList {
 
 		boolean hasTemplate = storage.hasTemplate(serviceName);
 		if (hasTemplate) {
-			resources.add(Link.Template(storage, rootUri, serviceName));
+			resources.add(Link.template(storage, rootUri, serviceName));
 		}
 
 		// Populate 'PROCESS' links
@@ -88,9 +88,9 @@ public class ServiceResources extends ResourceList {
 		}
 		if (hasTemplate && hasPrimarySchema && hasDefaultConfig) {
 
-			resources.add(Link.Process(storage, rootUri, serviceName));
+			resources.add(Link.process(storage, rootUri, serviceName));
 			for (String configName : storage.getConfigNames(serviceName)) {
-				resources.add(Link.NamedProcess(storage, rootUri, serviceName,
+				resources.add(Link.namedProcess(storage, rootUri, serviceName,
 						configName));
 			}
 
@@ -98,12 +98,12 @@ public class ServiceResources extends ResourceList {
 
 		for (String schemaName : storage.getSchemaNames(serviceName)) {
 			resources.add(Link
-					.Schema(storage, rootUri, serviceName, schemaName));
+					.schema(storage, rootUri, serviceName, schemaName));
 		}
 
 		for (String configName : storage.getConfigNames(serviceName)) {
 			resources.add(Link
-					.Config(storage, rootUri, serviceName, configName));
+					.config(storage, rootUri, serviceName, configName));
 		}
 
 	}

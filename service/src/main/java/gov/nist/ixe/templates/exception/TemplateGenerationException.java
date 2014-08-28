@@ -29,12 +29,12 @@ public class TemplateGenerationException extends RuntimeException {
 		_resourceName = resourceName;		
 	}
 	
-	public static TemplateGenerationException MainSchemaHasMultipleRootElements(String serviceName, String resourceName, Link link, XSElementDecl offendingElement) {
+	public static TemplateGenerationException mainSchemaHasMultipleRootElements(String serviceName, String resourceName, Link link, XSElementDecl offendingElement) {
 		
 		TemplateGenerationException ex = new TemplateGenerationException(serviceName, resourceName);
 		ex._serviceName = serviceName;
 		ex._resourceName = resourceName;
-		ex.parseErrors.add(ParseError.MainSchemaHasMultipleRootElements(link, offendingElement));
+		ex.parseErrors.add(ParseError.mainSchemaHasMultipleRootElements(link, offendingElement));
 		
 		return ex;
 	}

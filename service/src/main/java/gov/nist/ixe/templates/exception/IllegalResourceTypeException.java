@@ -44,19 +44,19 @@ package gov.nist.ixe.templates.exception;
 public class IllegalResourceTypeException extends RuntimeException {
 	
 	
-	private String _message;
-	public String getMessage() { return _message; }
+	private String message;
+	public String getMessage() { return message; }
 
 	private IllegalResourceTypeException() {}
 
 	public IllegalResourceTypeException(String message) {
 		super(message);
-		_message = message;
+		this.message = message;
 	}
 	
-	public static IllegalResourceTypeException InvalidType(String rel) {
+	public static IllegalResourceTypeException invalidType(String rel) {
 		IllegalResourceTypeException ex = new IllegalResourceTypeException();
-		ex._message = "'" + rel + "' is not a valid resource type.";
+		ex.message = "'" + rel + "' is not a valid resource type.";
 		return ex;
 	}
 

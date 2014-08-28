@@ -223,6 +223,7 @@ public class TemplateServices implements ITemplateServices {
 				InputSource configIS = (new StringSourceUriPair(config,
 						configLink.getUri())).getInputSource();
 				InputSource[] schemaISs = new InputSource[schemas.size()];
+				
 				for (int i = 0; i < schemas.size(); i++) {
 					schemaISs[i] = schemas.get(i).getInputSource();
 				}
@@ -279,7 +280,7 @@ public class TemplateServices implements ITemplateServices {
 					Link link = getServiceResources(serviceName)
 							.getPrimarySchemaLink();
 					throw TemplateGenerationException
-							.MainSchemaHasMultipleRootElements(serviceName, resourceName, link,
+							.mainSchemaHasMultipleRootElements(serviceName, resourceName, link,
 									elements.get(1));
 				}
 
@@ -316,7 +317,7 @@ public class TemplateServices implements ITemplateServices {
 			}
 			throw tge;
 		} catch (ParseErrorException pee) {
-			Link templateLink = Link.Template(getStorageProvider(),
+			Link templateLink = Link.template(getStorageProvider(),
 					getRootUri(), serviceName);
 			ParseError pe = new ParseError(templateLink, pee);
 			TemplateGenerationException tge = new TemplateGenerationException(serviceName, resourceName);
@@ -345,8 +346,8 @@ public class TemplateServices implements ITemplateServices {
 		trace();
 		StringSource config = new StringSource(payload, contentType);
 		return generateTemplate(serviceName, config,
-				Link.ProcessPayload(storage, getRootUri(), serviceName),
-				Link.Process(storage, getRootUri(), serviceName),
+				Link.processPayload(storage, getRootUri(), serviceName),
+				Link.process(storage, getRootUri(), serviceName),
 				Constants.NAMED_PROCESS_NAME_PREFIX + Constants.PROCESS_RESOURCE_NAME);
 
 	}
@@ -356,8 +357,8 @@ public class TemplateServices implements ITemplateServices {
 		StringSource config = getStorageProvider().getConfig(serviceName,
 				Constants.DEFAULT_CONFIGURATION_NAME);
 		Response result = generateTemplate(serviceName, config, 
-				Link.Config(storage, getRootUri(), serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
-				Link.NamedProcess(storage, getRootUri(), serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
+				Link.config(storage, getRootUri(), serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
+				Link.namedProcess(storage, getRootUri(), serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
 				Constants.PROCESS_RESOURCE_NAME);
 		return result;
 		//return processTemplateByName(serviceName,Constants.DEFAULT_CONFIGURATION_NAME);
@@ -368,8 +369,8 @@ public class TemplateServices implements ITemplateServices {
 		StringSource config = getStorageProvider().getConfig(serviceName,
 				configName);
 		Response result = generateTemplate(serviceName, config, 
-				Link.Config(storage, getRootUri(), serviceName, configName),
-				Link.NamedProcess(storage, getRootUri(), serviceName, configName),
+				Link.config(storage, getRootUri(), serviceName, configName),
+				Link.namedProcess(storage, getRootUri(), serviceName, configName),
 				Constants.NAMED_PROCESS_NAME_PREFIX + configName);
 		return result;
 	}
@@ -539,7 +540,7 @@ public class TemplateServices implements ITemplateServices {
 			}
 		}
 		if (!validResource) {
-			throw IllegalResourceTypeException.InvalidType(rel);
+			throw IllegalResourceTypeException.invalidType(rel);
 		}
 	}
 
@@ -658,8 +659,8 @@ public class TemplateServices implements ITemplateServices {
 		IStorageProvider storage = getStorageProvider();
 		String rootUri = getRootUri();
 
-		Link oldServiceLink = Link.Service(storage, rootUri, serviceName);
-		Link newServiceLink = Link.Service(storage, rootUri, newName);
+		Link oldServiceLink = Link.service(storage, rootUri, serviceName);
+		Link newServiceLink = Link.service(storage, rootUri, newName);
 
 		RenameResult parentRR = new RenameResult();
 		parentRR.setOldLink(oldServiceLink);
@@ -694,8 +695,8 @@ public class TemplateServices implements ITemplateServices {
 		IStorageProvider storage = getStorageProvider();
 		String rootUri = getRootUri();
 
-		Link oldLink = Link.Schema(storage, rootUri, serviceName, schemaName);
-		Link newLink = Link.Schema(storage, rootUri, serviceName, newName);
+		Link oldLink = Link.schema(storage, rootUri, serviceName, schemaName);
+		Link newLink = Link.schema(storage, rootUri, serviceName, newName);
 
 		RenameResult rr = new RenameResult();
 		rr.setOldLink(oldLink);
@@ -721,8 +722,8 @@ public class TemplateServices implements ITemplateServices {
 		IStorageProvider storage = getStorageProvider();
 		String rootUri = getRootUri();
 
-		Link oldLink = Link.Config(storage, rootUri, serviceName, configName);
-		Link newLink = Link.Config(storage, rootUri, serviceName, newName);
+		Link oldLink = Link.config(storage, rootUri, serviceName, configName);
+		Link newLink = Link.config(storage, rootUri, serviceName, newName);
 
 		RenameResult rr = new RenameResult();
 		rr.setOldLink(oldLink);
@@ -750,19 +751,19 @@ public class TemplateServices implements ITemplateServices {
 		if (Constants.Rel.TEMPLATE.equals(rel)) {
 			setTemplate(serviceName, payload, contentType);
 			result.getResources().add(
-					Link.Template(storage, getRootUri(), serviceName));
+					Link.template(storage, getRootUri(), serviceName));
 		}
 
 		if (Constants.Rel.CONFIG.equals(rel)) {
 			setConfig(serviceName, name, payload, contentType);
 			result.getResources().add(
-					Link.Config(storage, getRootUri(), serviceName, name));
+					Link.config(storage, getRootUri(), serviceName, name));
 		}
 
 		if (Constants.Rel.SCHEMA.equals(rel)) {
 			setSchema(serviceName, name, payload, contentType);
 			result.getResources().add(
-					Link.Schema(storage, getRootUri(), serviceName, name));
+					Link.schema(storage, getRootUri(), serviceName, name));
 		}
 		
 		if (Constants.Rel.INI_SPLITTER.equals(rel)) {			
@@ -820,7 +821,7 @@ public class TemplateServices implements ITemplateServices {
 		}
 
 		ServiceList result = 
-				ServiceList.NewlyCreatedService(storage, getRootUri(), serviceName);
+				ServiceList.newlyCreatedService(storage, getRootUri(), serviceName);
 		
 		return result;
 

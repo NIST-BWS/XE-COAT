@@ -60,6 +60,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -121,7 +122,7 @@ public class FileStorageProvider implements IStorageProvider {
 
 		File service = getServiceFile(serviceName);
 		if (!service.exists()) {
-			throw ResourceNotFoundException.CreateFromNameOfMissingResource(serviceName);
+			throw ResourceNotFoundException.createFromNameOfMissingResource(serviceName);
 		}
 
 		File subDir = new File(getServiceFile(serviceName), subDirName);
@@ -327,16 +328,10 @@ public class FileStorageProvider implements IStorageProvider {
 	}
 	
 	private void forbidReservedName(String name) throws IllegalResourceNameException {
-		if (name == Constants.Rel.CONFIG ||
-				name == Constants.Rel.CONFIG_HISTORY ||
-				name == Constants.Rel.PROCESS ||
-				name == Constants.Rel.SCHEMA ||
-				name == Constants.Rel.SCHEMA_HISTORY ||
-				name == Constants.Rel.TEMPLATE ||
-				name == Constants.Rel.TEMPLATE_HISTORY ||
-				name == "history" || name == "historic" || name == "service" || name == "rename" ) {
+		
+		if (Arrays.asList(Constants.RESERVED_NAMES).contains(name)) {
 			throw IllegalResourceNameException.ReservedName(name);
-		}
+		}		
 	}
 
 	private void createServiceDirIfNeeded(String serviceName) {
@@ -428,7 +423,7 @@ public class FileStorageProvider implements IStorageProvider {
 		try {
 			result = readFrom(resourceFile);
 		} catch (FileNotFoundException ex) {
-			throw ResourceNotFoundException.CreateFromNameOfMissingResource(resourceName);
+			throw ResourceNotFoundException.createFromNameOfMissingResource(resourceName);
 		} catch (IOException ex) {
 			throw new StorageProviderException(StorageProviderException.ErrorMessage.IO_ERROR);
 		}
@@ -495,7 +490,7 @@ public class FileStorageProvider implements IStorageProvider {
 		File service = getServiceFile(serviceName);
 
 		if (!service.exists())
-			throw ResourceNotFoundException.CreateFromNameOfMissingResource(serviceName);
+			throw ResourceNotFoundException.createFromNameOfMissingResource(serviceName);
 
 		File resource = uncheckedGetResourceFile(serviceName, subDirName, resourceName);
 		File realFile = null;
@@ -516,7 +511,7 @@ public class FileStorageProvider implements IStorageProvider {
 		ArrayList<HistoryInfo> historyInfo = new ArrayList<HistoryInfo>();
 		for (File f : getResourceTombstoneFiles(serviceName, subDirName, resourceName)) {
 			try {
-				long ms = Long.parseLong(f.getName().substring(1, f.getName().indexOf(".", 1)));
+				long ms = Long.parseLong(f.getName().substring(1, f.getName().indexOf('.', 1)));
 				long sz = getRealFile(f).length();
 				historyInfo.add(new HistoryInfo(ms, sz));
 			} catch (NumberFormatException pe) {
@@ -542,7 +537,7 @@ public class FileStorageProvider implements IStorageProvider {
 		ArrayList<Date> timestamps = new ArrayList<Date>();
 		for (File f : getResourceTombstoneFiles(serviceName, subDirName, resourceName)) {
 			try {
-				long ms = Long.parseLong(f.getName().substring(1, f.getName().indexOf(".", 1)));
+				long ms = Long.parseLong(f.getName().substring(1, f.getName().indexOf('.', 1)));
 				timestamps.add(new Date(ms));
 			} catch (NumberFormatException pe) {
 				throw new StorageProviderException(pe);
@@ -571,7 +566,7 @@ public class FileStorageProvider implements IStorageProvider {
 				result = readFrom(resourceFile);
 			}
 		} catch (FileNotFoundException ex) {
-			throw ResourceNotFoundException.CreateFromNameOfMissingResource(resourceName);
+			throw ResourceNotFoundException.createFromNameOfMissingResource(resourceName);
 		} catch (IOException ex) {
 			throw new StorageProviderException(StorageProviderException.ErrorMessage.IO_ERROR);
 		}

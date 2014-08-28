@@ -59,6 +59,8 @@ public class Constants {
 		HISTORY_RESOURCE_NAME,
 		Rel.CONFIG,
 		Rel.CONFIG_HISTORY,
+		Atom.HISTORY,		
+		Atom.HISTORIC,
 		Rel.INI_SPLITTER,
 		Rel.PROCESS,
 		Rel.SERVICE,
@@ -80,7 +82,7 @@ public class Constants {
 		public static final String REL = "X-COAT-Rel";
 		
 	}
-	
+
 	
 	public static class Rel {
 		

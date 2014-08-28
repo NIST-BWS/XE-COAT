@@ -166,8 +166,8 @@ public class XmlModel {
 			target.isMultivalued = false;
 			XmlValue value = new XmlValue();
 
-			value.Value = values.getUnquotedString(0);
-			value.Type = xmlTypeMap.get(values.get(0).getClass());
+			value.value = values.getUnquotedString(0);
+			value.type = xmlTypeMap.get(values.get(0).getClass());
 			target.getValues().add(value);
 		} else {
 			target.isMultivalued = true;
@@ -176,12 +176,12 @@ public class XmlModel {
 
 			for (int i = 0; i < values.size(); i++) {
 				XmlValue v = new XmlValue();
-				v.Value = values.getUnquotedString(i);
+				v.value = values.getUnquotedString(i);
 				Class<?> vType = ASSUMED_CLASS_FOR_NULL_VALUES;
 				if (values.get(i) != null) {
 					vType = values.get(i).getClass();
 				}
-				v.Type = xmlTypeMap.get(vType);
+				v.type = xmlTypeMap.get(vType);
 				target.getValues().add(v);
 			}
 
