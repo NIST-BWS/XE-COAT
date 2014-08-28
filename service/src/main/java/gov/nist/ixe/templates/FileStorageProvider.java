@@ -343,7 +343,8 @@ public class FileStorageProvider implements IStorageProvider {
 				throw new StorageProviderException(StorageProviderException.ErrorMessage.DIRECTORY_EXPECTED);
 			}
 		} else {
-			service.mkdirs();	 		
+			FileUtil.mkdirs(service);
+			//service.mkdirs();	 		
 		}	
 	}
 
@@ -611,12 +612,11 @@ public class FileStorageProvider implements IStorageProvider {
 			save(newResource, newResourceFile);
 
 			// Delete the old resource
-			getRealFile(uncheckedGetResourceFile(serviceName, subDirName, oldResourceName)).delete();
-
-
+			FileUtil.delete(getRealFile(uncheckedGetResourceFile(serviceName, subDirName, oldResourceName)));
+	
 			// Delete the old resource history
 			for (File f : getResourceTombstoneFiles(serviceName, subDirName, oldResourceName)) {
-				getRealFile(f).delete();
+				FileUtil.delete(getRealFile(f));
 			}		
 
 		} catch (IOException ex) {

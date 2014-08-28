@@ -32,13 +32,13 @@ public class XmlUtilTests {
 	
 	@Test
 	public void ValidationAgainstASingleSchemaWorks() throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
-		XmlUtil.ValidateXml(load(dummySchema), load(dummyConfig));
+		XmlUtil.validateXml(load(dummySchema), load(dummyConfig));
 	}
 	
 	@Test
 	public void ValidationAgainstMultipleSchemasWorks() throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
-		XmlUtil.ValidateXml(new InputSource[] { load(dummySchema), load(sqlSchema) }, load(dummyConfig));
-		XmlUtil.ValidateXml(new InputSource[] { load(dummySchema), load(sqlSchema) }, load(sqlConfig));
+		XmlUtil.validateXml(new InputSource[] { load(dummySchema), load(sqlSchema) }, load(dummyConfig));
+		XmlUtil.validateXml(new InputSource[] { load(dummySchema), load(sqlSchema) }, load(sqlConfig));
 	}
 	
 

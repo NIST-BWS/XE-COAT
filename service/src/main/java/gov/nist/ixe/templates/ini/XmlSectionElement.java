@@ -25,7 +25,7 @@ public class XmlSectionElement extends XmlFragment {
 	}
 	
 	public String getEscapedSimpleValue() { 		
-		return XmlUtil.EscapeForXml(getSimpleValue()); 
+		return XmlUtil.escapeForXml(getSimpleValue()); 
 	}
 	
 	public List<XmlValue> getValues() { 

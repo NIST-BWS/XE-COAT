@@ -78,7 +78,7 @@ public abstract class Tests extends TemplateServicesTests {
 		//save(schema, serviceName, "xsd");
 		//save(ini, serviceName, "ini");
 		
-		XmlUtil.ValidateXml(
+		XmlUtil.validateXml(
 				StringSourceUriPair.InputSource(schema, "schema"), 
 				StringSourceUriPair.InputSource(config, "config")
 				);

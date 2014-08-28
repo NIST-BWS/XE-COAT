@@ -10,7 +10,7 @@ public class XmlValue {
 		return value;
 	}		
 	public String getEscapedValue() {	
-		return XmlUtil.EscapeForXml(value);
+		return XmlUtil.escapeForXml(value);
 	}
 	public String getType() { return type; }
 }

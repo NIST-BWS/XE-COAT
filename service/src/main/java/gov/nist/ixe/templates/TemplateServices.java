@@ -186,9 +186,9 @@ public class TemplateServices implements ITemplateServices {
 
 		File scratchDir = FileUtil.getRandomTempDirectory("generateTemplate");
 		File compilationDir = new File(scratchDir, "compilation");
-		compilationDir.mkdirs();
+		FileUtil.mkdirs(compilationDir);
 		File schemaDir = new File(scratchDir, "schemas");
-		schemaDir.mkdirs();
+		FileUtil.mkdirs(schemaDir);
 
 		File mainSchemaFile = null;
 
@@ -227,7 +227,7 @@ public class TemplateServices implements ITemplateServices {
 				for (int i = 0; i < schemas.size(); i++) {
 					schemaISs[i] = schemas.get(i).getInputSource();
 				}
-				XmlUtil.ValidateXml(schemaISs, configIS);
+				XmlUtil.validateXml(schemaISs, configIS);
 			} catch (SAXParseException spe) {
 				ParseError pe = new ParseError(configLink, spe, false);
 				TemplateGenerationException tge = new TemplateGenerationException(serviceName, resourceName);
@@ -811,7 +811,7 @@ public class TemplateServices implements ITemplateServices {
 					config.getContentType("xml"));
 			
 
-			XmlUtil.ValidateXml(
+			XmlUtil.validateXml(
 					StringSourceUriPair.InputSource(schema, "schema"),
 					StringSourceUriPair.InputSource(config, "config"));
 

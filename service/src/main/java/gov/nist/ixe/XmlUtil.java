@@ -58,7 +58,7 @@ import org.xml.sax.SAXParseException;
 
 public class XmlUtil {
 	
-	public static String EscapeForXml(String value) {
+	public static String escapeForXml(String value) {
 		return value
 				.replace("&",  "&amp;") // make sure ampersands are replaced first
 				.replace("\"", "&quot;")
@@ -67,12 +67,12 @@ public class XmlUtil {
 				.replace(">",  "&gt;");
 	}
 
-	public static void ValidateXml(InputSource schema, InputSource instance) throws ParserConfigurationException, SAXException, IOException {
-		ValidateXml(new InputSource[]{schema}, instance);
+	public static void validateXml(InputSource schema, InputSource instance) throws ParserConfigurationException, SAXException, IOException {
+		validateXml(new InputSource[]{schema}, instance);
 	}
 
 	
-	public static void ValidateXml(InputSource[] schemas, InputSource instance) throws ParserConfigurationException, SAXException, IOException {
+	public static void validateXml(InputSource[] schemas, InputSource instance) throws ParserConfigurationException, SAXException, IOException {
 		trace();
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

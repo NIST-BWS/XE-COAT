@@ -89,11 +89,40 @@ public class FileUtil {
 		return tempDir;
 	}
 	
+	public static void delete(File target) {
+		if (target.exists()) {
+			boolean deleteOk = target.delete();
+			if (!deleteOk) {
+				throw FileOperationException.couldNotDeleteFile(target);
+			} else {
+				Logging.info("File/directory %s deleted", target.getAbsolutePath());
+			}
+		}
+	}
+	
+	public static void mkdir(File target) {
+		boolean mkdirOk = target.mkdir();
+		if (!mkdirOk) {
+			throw FileOperationException.couldNotCreateDirectory(target);
+		} else {
+			Logging.info("Created directory %s", target.getAbsolutePath());
+		}
+	}
+
+	public static void mkdirs(File target) {
+		boolean mkdirOk = target.mkdirs();
+		if (!mkdirOk) {
+			throw FileOperationException.couldNotCreateDirectory(target);
+		} else {
+			Logging.info("Created directory %s", target.getAbsolutePath());
+		}
+	}
+	
 	public static void copyDirectory(File source, File target)
 	throws IOException {
 		if (source.isDirectory()) {			
 			if (!target.exists()) {
-				target.mkdir();	
+				FileUtil.mkdir(target);	
 			}			
 			for (String child : source.list()) {
 				copyDirectory(new File(source, child), new File(target, child));
@@ -110,9 +139,10 @@ public class FileUtil {
 				}
 			} finally {
 				os.close();
+				is.close();
 			}
 
-			is.close();
+			// is.close
 			
 		}
 	}

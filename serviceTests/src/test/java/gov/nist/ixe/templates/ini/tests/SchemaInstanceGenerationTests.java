@@ -74,7 +74,7 @@ public class SchemaInstanceGenerationTests {
 		schema = schema.getCopyWithoutBOM();
 
 
-		XmlUtil.ValidateXml(
+		XmlUtil.validateXml(
 				StringSourceUriPair.InputSource(schema, "schema"),
 				StringSourceUriPair.InputSource(instance, "instance")
 				);
