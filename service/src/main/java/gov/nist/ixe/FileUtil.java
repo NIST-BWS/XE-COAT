@@ -110,11 +110,21 @@ public class FileUtil {
 	}
 
 	public static void mkdirs(File target) {
+		if (target.exists() && target.isDirectory()) return;
 		boolean mkdirOk = target.mkdirs();
 		if (!mkdirOk) {
 			throw FileOperationException.couldNotCreateDirectory(target);
 		} else {
 			Logging.info("Created directory %s", target.getAbsolutePath());
+		}
+	}
+	
+	public static void renameTo(File from, File to) {
+		boolean renameOk = from.renameTo(to);
+		if (!renameOk) {
+			throw FileOperationException.couldNotRenameFile(from, to);			
+		} else {
+			Logging.info("Renamed '%s' to '%s'", from.getAbsolutePath(), to.getAbsolutePath());
 		}
 	}
 	
@@ -128,18 +138,21 @@ public class FileUtil {
 				copyDirectory(new File(source, child), new File(target, child));
 			}
 		} else {			
-			InputStream is = new FileInputStream(source);
-			OutputStream os = new FileOutputStream(target);
-			
+			InputStream is = null; 
+			OutputStream os = null;			
 			byte[] buffer = new byte[1024];
+			
 			int length;
 			try {
+				is = new FileInputStream(source);
+				os = new FileOutputStream(target);
 				while ((length = is.read(buffer)) > 0) {
 					os.write(buffer, 0, length);							
 				}
+			
 			} finally {
-				os.close();
-				is.close();
+				if (os != null) { os.close(); }
+				if (is != null) { is.close(); }
 			}
 
 			// is.close

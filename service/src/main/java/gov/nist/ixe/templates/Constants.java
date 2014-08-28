@@ -43,7 +43,6 @@ package gov.nist.ixe.templates;
 
 
 public class Constants {
-
 	
 	public static final String NAMESPACE                  = "http://templates.xe.nist.gov";
 	public static final String DEFAULT_CONFIGURATION_NAME = Atom.DEFAULT + "." + Atom.XML;
@@ -62,6 +61,7 @@ public class Constants {
 		Atom.HISTORY,		
 		Atom.HISTORIC,
 		Rel.INI_SPLITTER,
+		Atom.NULL,
 		Rel.PROCESS,
 		Rel.SERVICE,
 		Rel.SCHEMA,
@@ -70,9 +70,8 @@ public class Constants {
 		Rel.TEMPLATE,
 		Rel.TEMPLATE_HISTORY,	
 		Rel.UPLOAD,
+		Atom.UNDEFINED,
 		Atom.VERSION,
-		"null",
-		"undefined"
 	};
 	
 	public static class HttpHeader {
@@ -120,7 +119,7 @@ public class Constants {
 	
 	public static class Uri {
 		
-		public class Param {
+		public static class Param {
 			public static final String CONFIG        = Atom.CONFIG;
 			public static final String CONFIG_NAME   = Atom.CONFIG_NAME;
 			public static final String CONTENT_TYPE  = Atom.CONTENT_TYPE;
@@ -185,6 +184,7 @@ public class Constants {
 		private static final String MAIN            = "main";
 		private static final String NAME            = "name";
 		private static final String NEW_NAME        = "new" + NAME_SUFFIX;
+		private static final String NULL			= "null";
 		private static final String PROCESS         = "process";
 		private static final String PLAIN           = "plain";
 		private static final String REL             = "rel";
@@ -198,6 +198,7 @@ public class Constants {
 		private static final String TEMPLATE        = "template";
 		private static final String TEMPLATE_NAME   = TEMPLATE + NAME_SUFFIX;
 		private static final String TIMESTAMP       = "template";
+		private static final String UNDEFINED       = "undefined";
 		private static final String UPLOAD          = "upload";
 		private static final String VERSION         = "version";
 		private static final String XSD             = "xsd";

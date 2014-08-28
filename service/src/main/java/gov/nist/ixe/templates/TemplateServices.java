@@ -498,9 +498,9 @@ public class TemplateServices implements ITemplateServices {
 		return storage;
 	}
 
-	public static void CleanStorage() {
+	public static void cleanStorage() {
 		trace();
-		storageProviderFactory.CleanStorage();
+		storageProviderFactory.cleanStorage();
 	}
 
 	private static void validateServiceOrResourceName(String name)
@@ -508,7 +508,7 @@ public class TemplateServices implements ITemplateServices {
 		forbidEmptyName(name);
 		forbidReservedName(name);
 		if (!name.matches("^[a-zA-Z0-9_. ()][a-zA-Z0-9_. ()\\\\\\- ]*")) {
-			throw IllegalResourceNameException.IllegalFormat(name);
+			throw IllegalResourceNameException.illegalFormat(name);
 		}
 	}
 
@@ -549,7 +549,7 @@ public class TemplateServices implements ITemplateServices {
 		trace();
 
 		if (name == null || name.trim().equals("")) {
-			throw IllegalResourceNameException.EmptyName();
+			throw IllegalResourceNameException.emptyName();
 		}
 	}
 
@@ -557,7 +557,7 @@ public class TemplateServices implements ITemplateServices {
 			throws IllegalResourceNameException {
 		for (String reservedName : Constants.RESERVED_NAMES) {
 			if (reservedName.equals(name)) {
-				throw IllegalResourceNameException.ReservedName(name);
+				throw IllegalResourceNameException.reservedName(name);
 			}
 		}
 	}
@@ -812,11 +812,13 @@ public class TemplateServices implements ITemplateServices {
 			
 
 			XmlUtil.validateXml(
-					StringSourceUriPair.InputSource(schema, "schema"),
-					StringSourceUriPair.InputSource(config, "config"));
+					StringSourceUriPair.inputSource(schema, "schema"),
+					StringSourceUriPair.inputSource(config, "config"));
 
-
+		} catch (RuntimeException re) {
+			throw new InfSplitterException(re);
 		} catch (Exception ex) {
+			// Non-runtime exception
 			throw new InfSplitterException(ex);
 		}
 

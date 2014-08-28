@@ -8,15 +8,13 @@ public class HostlessTemplateServicesTestFixture
 
 	@Override
 	public void before() {
-		TemplateServices.CleanStorage();
+		TemplateServices.cleanStorage();
 		
 	}
 
 	@Override
 	public void after() {
-		
-		
-		TemplateServices.CleanStorage();		
+		TemplateServices.cleanStorage();		
 	}
 
 	@Override

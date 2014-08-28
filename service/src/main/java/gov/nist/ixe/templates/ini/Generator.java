@@ -77,17 +77,20 @@ public class Generator {
 				if (!("".equals(endOfLine.trim()))) {
 					endOfLine = " " + endOfLine;
 				}
-				String line = startOfLine + vv + endOfLine;
+				StringBuffer line = new StringBuffer();
+				line.append(startOfLine).append(vv).append(endOfLine);
+				//String line = startOfLine + vv + endOfLine;
 				
 				// If the line ends with a velocity foreach macro, then place a dummy
 				// marker to prevent Velocity from swallowing up the newlines (for example, when
 				// two lines in a row have a macro).
 				//
-				if (vv.startsWith("#foreach") && line.endsWith(vv)) { 
-					line = line + "$eol";
+				if (vv.startsWith("#foreach") && line.toString().endsWith(vv)) { 
+					line.append("$eol");
+					//line = line + "$eol";
 				}
 
-				output.set(lineNumber, line);
+				output.set(lineNumber, line.toString());
 			}
 		}
 		

@@ -86,7 +86,7 @@ public class FileStorageProvider implements IStorageProvider {
 
 		File root = new File(location);
 		Logging.info(location);
-		if (!root.exists()) { root.mkdirs(); }
+		if (!root.exists()) { FileUtil.mkdirs(root); }
 		_location = root.getAbsolutePath();
 	}
 
@@ -312,10 +312,9 @@ public class FileStorageProvider implements IStorageProvider {
 		File serviceFile = getServiceFile(serviceName);
 		File newServiceFile = getServiceFile(newName);
 		if (newServiceFile.exists()) {
-			throw IllegalResourceNameException.NameAlreadyExists(newName);
+			throw IllegalResourceNameException.nameAlreadyExists(newName);
 		}
-		serviceFile.renameTo(newServiceFile);
-		
+		FileUtil.renameTo(serviceFile, newServiceFile);		
 	}
 			
 
@@ -323,14 +322,14 @@ public class FileStorageProvider implements IStorageProvider {
 		trace();
 
 		if (isTombstonePath(name)) {
-			throw IllegalResourceNameException.ReservedName(name);
+			throw IllegalResourceNameException.reservedName(name);
 		}
 	}
 	
 	private void forbidReservedName(String name) throws IllegalResourceNameException {
 		
 		if (Arrays.asList(Constants.RESERVED_NAMES).contains(name)) {
-			throw IllegalResourceNameException.ReservedName(name);
+			throw IllegalResourceNameException.reservedName(name);
 		}		
 	}
 
@@ -360,7 +359,7 @@ public class FileStorageProvider implements IStorageProvider {
 				throw new StorageProviderException(StorageProviderException.ErrorMessage.DIRECTORY_EXPECTED);
 			}
 		} else {
-			subDir.mkdirs();
+			FileUtil.mkdir(subDir);
 		}
 	}
 
@@ -391,7 +390,7 @@ public class FileStorageProvider implements IStorageProvider {
 			File service = getServiceFile(serviceName);
 			File tombstone;
 			tombstone = new File(getTombstonePath(service));//.getName()));
-			service.renameTo(tombstone);
+			FileUtil.renameTo(service, tombstone);
 		}
 	}
 
@@ -455,9 +454,7 @@ public class FileStorageProvider implements IStorageProvider {
 		
 		if (realFile != null && realFile.exists()) {
 			File tombstone = new File(getTombstonePath(realFile));
-			realFile.renameTo(tombstone);
-			info(String.format("Renamed file '%s' to tombstone file '%s'",
-					realFile.getAbsolutePath(), tombstone.getAbsolutePath()));
+			FileUtil.renameTo(realFile, tombstone);			
 		}
 
 		try {
@@ -503,7 +500,7 @@ public class FileStorageProvider implements IStorageProvider {
 
 		if (realFile != null) {
 			File tombstone = new File(getTombstonePath(realFile.getAbsolutePath()));
-			realFile.renameTo(tombstone);
+			FileUtil.renameTo(realFile, tombstone);
 		}
 
 	}
@@ -594,7 +591,7 @@ public class FileStorageProvider implements IStorageProvider {
 			File newResourceFile = uncheckedGetResourceFile(serviceName, subDirName, newResourceName);
 			File realNewResourceFile = tryGettingRealFile(newResourceFile);
 			if (realNewResourceFile != null && realNewResourceFile.exists()) {
-				throw IllegalResourceNameException.NameAlreadyExists(newResourceName);
+				throw IllegalResourceNameException.nameAlreadyExists(newResourceName);
 			}
 			
 			

@@ -1,6 +1,7 @@
 package gov.nist.ixe.templates;
 
 import static gov.nist.ixe.Logging.trace;
+import gov.nist.ixe.FileUtil;
 import gov.nist.ixe.StringUtil;
 import gov.nist.ixe.stringsource.StringSource;
 import gov.nist.ixe.stringsource.StringSourcePersistence;
@@ -80,7 +81,7 @@ public class XmlCodeGen {
 		
 		JCodeModel codeModel = model.generateCode(null, null);
 		
-		compilationDir.mkdirs();
+		FileUtil.mkdirs(compilationDir);
 		codeModel.build(compilationDir);
 		return schemaFile;
 		

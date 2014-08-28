@@ -102,10 +102,16 @@ public class EncodingUtil {
 	
 	public static String detectNewline(File f, String charset) throws IOException {
 		trace();
+		String result = null;
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(f);
+			result = detectNewline(fis, charset);
+		} finally {
+			if (fis != null) fis.close();
+		}
 		
-		FileInputStream fis = new FileInputStream(f);
-		String result = detectNewline(fis, charset);
-		fis.close();
+		
 		
 		return result;
 	}

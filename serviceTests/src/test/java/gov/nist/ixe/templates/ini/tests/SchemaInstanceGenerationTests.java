@@ -75,8 +75,8 @@ public class SchemaInstanceGenerationTests {
 
 
 		XmlUtil.validateXml(
-				StringSourceUriPair.InputSource(schema, "schema"),
-				StringSourceUriPair.InputSource(instance, "instance")
+				StringSourceUriPair.inputSource(schema, "schema"),
+				StringSourceUriPair.inputSource(instance, "instance")
 				);
 
 	}

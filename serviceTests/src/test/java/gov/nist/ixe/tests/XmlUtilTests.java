@@ -27,7 +27,7 @@ public class XmlUtilTests {
 	
 	private InputSource load(String fileName) throws IOException, URISyntaxException {
 		StringSource ss = StringSourcePersistence.inferFromSystemResource(fileName);
-		return StringSourceUriPair.InputSource(ss, fileName);
+		return StringSourceUriPair.inputSource(ss, fileName);
 	}
 	
 	@Test

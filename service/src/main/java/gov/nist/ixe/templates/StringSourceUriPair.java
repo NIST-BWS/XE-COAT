@@ -23,7 +23,7 @@ public class StringSourceUriPair {
 		return is;
 	}
 	
-	public static InputSource InputSource(StringSource ss, String uri) {
+	public static InputSource inputSource(StringSource ss, String uri) {
 		StringSourceUriPair ssup = new StringSourceUriPair(ss, uri);
 		return ssup.getInputSource();
 	}

@@ -18,12 +18,12 @@ public class HostedTemplateServicesTestFixture implements
 
 	@Override
 	public void before() {
-		TemplateServices.CleanStorage();
+		TemplateServices.cleanStorage();
 	}
 
 	@Override
 	public void after() {		
-		TemplateServices.CleanStorage();
+		TemplateServices.cleanStorage();
 	}
 
 	@Override

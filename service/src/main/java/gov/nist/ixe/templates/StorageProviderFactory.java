@@ -37,7 +37,7 @@ public class StorageProviderFactory {
 		return _storage;
 	}
 	
-	public void CleanStorage() {
+	public void cleanStorage() {
 		trace();
 		_storage.clear();
 	}
