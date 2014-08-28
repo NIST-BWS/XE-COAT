@@ -20,7 +20,7 @@ public class FileOperationException extends RuntimeException {
 
 	public static FileOperationException couldNotRenameFile(File from, File to) {
 		FileOperationException ex = new FileOperationException();
-		ex.message = String.format(ErrorMessage.COULD_NOT_RENAME_TO_0, to.getAbsolutePath());
+		ex.message = String.format(ErrorMessage.COULD_NOT_RENAME_TO, to.getAbsolutePath());
 		ex.targetFile = from;
 		return ex;
 	}
@@ -38,7 +38,7 @@ public class FileOperationException extends RuntimeException {
 				"The target could not be deleted.";
 		public static final String COULD_NOT_CREATE_DIRECTORY = 
 				"The target directory could not created.";
-		public static final String COULD_NOT_RENAME_TO_0 = 
+		public static final String COULD_NOT_RENAME_TO = 
 				"The target could not be renamed to %s.";
 	}
 	

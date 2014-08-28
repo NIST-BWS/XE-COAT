@@ -99,11 +99,26 @@ public class StringSourcePersistence {
 	
 	private static byte[] readAll(File f) throws IOException {
 		
+		
 		RandomAccessFile file = new RandomAccessFile(f, "r");
+		if (file.length() > Integer.MAX_VALUE) {
+			file.close();
+			throw new StringSourceFilePersistenceException
+			(StringSourceFilePersistenceException.ErrorMessage.FILE_TOO_LARGE);
+		}
+		
+		int fileLength = (int) file.length();
 		
 		byte[] b = new byte[(int)file.length()];
-		file.read(b);
+		int numread = file.read(b);
 		file.close();
+		
+		if (numread != fileLength) {
+			throw new StringSourceFilePersistenceException
+			(StringSourceFilePersistenceException.ErrorMessage.READ_UNEXCPECTED_NUMBER_OF_BYTES);
+			//Logging.warn("numread = %d, file.length()=%d", numread, file.length());
+		}
+		
 		return b;
 	}
 

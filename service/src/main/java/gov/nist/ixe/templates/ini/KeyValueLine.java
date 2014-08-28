@@ -1,7 +1,6 @@
 package gov.nist.ixe.templates.ini;
 
 import static gov.nist.ixe.Logging.trace;
-import gov.nist.ixe.templates.exception.InfSplitterException;
 import gov.nist.ixe.templates.ini.exception.IniParseException;
 
 import java.util.regex.Matcher;
@@ -99,10 +98,10 @@ public class KeyValueLine {
 	private String originalLine;
 	private int lineNumber;
 
-	private String key;   	
+	private String key = "";   	
 	private int keyStart = -1;	
 	
-	private String values; 	
+	private String values = ""; 	
 	private int valuesStart = -1;       
 	
 	private String comment = ""; 

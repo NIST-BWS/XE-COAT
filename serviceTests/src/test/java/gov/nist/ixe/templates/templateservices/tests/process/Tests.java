@@ -15,12 +15,9 @@ import gov.nist.ixe.templates.jaxb.Link;
 import gov.nist.ixe.templates.templateservices.tests.TemplateServicesTests;
 import gov.nist.ixe.templates.tests.Examples;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-
-import javax.xml.ws.Response;
 
 import org.junit.Test;
 

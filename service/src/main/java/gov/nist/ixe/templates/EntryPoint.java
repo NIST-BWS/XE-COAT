@@ -5,7 +5,6 @@ import gov.nist.ixe.GetOpt;
 import gov.nist.ixe.GetOpt.Parameter;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.Map;
 
@@ -20,8 +19,7 @@ public class EntryPoint {
 		trace();
 		
 		System.setProperty("jersey.config.server.tracing", "ALL");
-		System.setProperty("jersey.config.server.tracing.threshold", "VERBOSE");
-		 
+		System.setProperty("jersey.config.server.tracing.threshold", "VERBOSE");		 
 		
 		String uri = "http://0.0.0.0:7774/";
 		String storageLocation = null;

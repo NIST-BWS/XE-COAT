@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name="HistoricLinkType", namespace=Constants.NAMESPACE)
 public class HistoricLink extends Link {
+	
+
 	public HistoricLink() {
 		
 	}
@@ -26,6 +28,6 @@ public class HistoricLink extends Link {
 	public long getSizeInBytes() { return this.sizeInBytes; }
 	public void setSizeInBytes(long sizeInBytes) { this.sizeInBytes = sizeInBytes; }
 
-	
+	private static final long serialVersionUID = 6509777731647117403L;
 	
 }

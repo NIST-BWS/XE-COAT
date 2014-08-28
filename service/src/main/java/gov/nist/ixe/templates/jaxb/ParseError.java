@@ -3,6 +3,8 @@ package gov.nist.ixe.templates.jaxb;
 import static gov.nist.ixe.Logging.warn;
 import gov.nist.ixe.templates.Constants;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -15,8 +17,8 @@ import com.sun.xml.xsom.XSElementDecl;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name="ParseErrorType", namespace=Constants.NAMESPACE)
-public class ParseError {
-	
+public class ParseError implements Serializable {
+		
 	private Link link;
 	private int lineNumber;
 	private int columnNumber;
@@ -86,6 +88,8 @@ public class ParseError {
 	
 	
 	public ParseError() {}
+	
+	private static final long serialVersionUID = -5975239305947225951L;
 	
 	
 }

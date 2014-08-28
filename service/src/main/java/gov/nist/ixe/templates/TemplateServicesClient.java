@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------------------------------+
+/*-----------------------------------------------------------------------------------------------------+
  |                             National Institute of Standards and Technology                          |
  |                                        Biometric Clients Lab                                        |
  +-----------------------------------------------------------------------------------------------------+
@@ -125,7 +125,7 @@ public class TemplateServicesClient implements ITemplateServices {
 			response = ib.method(method);
 		}	
 	
-		ReverseMapException(response);
+		reverseMapException(response);
 		
 		if (returnTypeClass == Response.class) {
 			result = (T) response;
@@ -136,7 +136,7 @@ public class TemplateServicesClient implements ITemplateServices {
 		return result;
 	}
 	
-	private void ReverseMapException(Response response) {
+	private void reverseMapException(Response response) {
 		
 		StatusType status = response.getStatusInfo();
 		

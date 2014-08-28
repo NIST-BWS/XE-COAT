@@ -1,6 +1,5 @@
-/*----------------------------------------------------------------------------------------------------+
+/*-----------------------------------------------------------------------------------------------------+
  |                             National Institute of Standards and Technology                          |
- |                                        Biometric Clients Lab                                        |
  +-----------------------------------------------------------------------------------------------------+
   File author(s):
   	   Ross J. Micheals (ross.micheals@nist.gov)
@@ -40,13 +39,12 @@
  +----------------------------------------------------------------------------------------------------*/
 
 package gov.nist.ixe.templates;
-import static gov.nist.ixe.Logging.info;
 import static gov.nist.ixe.Logging.trace;
 import static gov.nist.ixe.stringsource.StringSourcePersistence.getFakeFile;
-import static gov.nist.ixe.stringsource.StringSourcePersistence.tryGettingRealFile;
 import static gov.nist.ixe.stringsource.StringSourcePersistence.getRealFile;
 import static gov.nist.ixe.stringsource.StringSourcePersistence.readFrom;
 import static gov.nist.ixe.stringsource.StringSourcePersistence.save;
+import static gov.nist.ixe.stringsource.StringSourcePersistence.tryGettingRealFile;
 import gov.nist.ixe.FileUtil;
 import gov.nist.ixe.Logging;
 import gov.nist.ixe.stringsource.StringSource;
@@ -452,7 +450,7 @@ public class FileStorageProvider implements IStorageProvider {
 		}
 		
 		
-		if (realFile != null && realFile.exists()) {
+		if (realFile.exists()) {
 			File tombstone = new File(getTombstonePath(realFile));
 			FileUtil.renameTo(realFile, tombstone);			
 		}

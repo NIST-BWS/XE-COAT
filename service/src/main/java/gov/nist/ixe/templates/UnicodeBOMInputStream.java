@@ -229,7 +229,10 @@ public class UnicodeBOMInputStream extends InputStream
   {
     if (!skipped)
     {
-      in.skip(bom.bytes.length);
+      long numskipped = in.skip(bom.bytes.length);
+      if (numskipped != bom.bytes.length) {
+    	  throw new IOException("Invalid input stream; could not property slip the BOM");
+      }
       skipped = true;
     }
     return this;

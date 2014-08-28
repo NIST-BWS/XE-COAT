@@ -11,35 +11,35 @@ import java.io.File;
 //
 
 public class StorageProviderFactory {
-	private static String _defaultFileStorageProviderLocation = null;
-	private FileStorageProvider _storage;
+	private static String defaultFileStorageProviderLocation = null;
+	private FileStorageProvider storage;
 	
 	public static void setDefaultFileStorageProviderLocation(String location) {
 		trace();
-		_defaultFileStorageProviderLocation = location;
+		defaultFileStorageProviderLocation = location;
 	}
 	
 	public static String getDefaultFileStorageProviderLocation() {
-		if (_defaultFileStorageProviderLocation == null) {
-			_defaultFileStorageProviderLocation = 
+		if (defaultFileStorageProviderLocation == null) {
+			defaultFileStorageProviderLocation = 
 					FileUtil.getRandomTempDirectoryName("StorageProviderFactory");
 		} 
-		return _defaultFileStorageProviderLocation;
+		return defaultFileStorageProviderLocation;
 	}
 	
 	public StorageProviderFactory() {
 		trace();
-		_storage = new FileStorageProvider(getDefaultFileStorageProviderLocation());
+		storage = new FileStorageProvider(getDefaultFileStorageProviderLocation());
 	}
 	
 	public IStorageProvider getStorageProvider() {
 		trace();
-		return _storage;
+		return storage;
 	}
 	
 	public void cleanStorage() {
 		trace();
-		_storage.clear();
+		storage.clear();
 	}
 	
 	private static void printFiles(File start, String prepend) {	
