@@ -17,11 +17,11 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 #end
 #foreach ($element in $section.Elements)   
-#if ($element.Multivalued)
+#if ($element.IsMultivalued)
 #if ($element.Values.size() > 0)
   <$element.ElementName>
 #foreach ($value in $element.Values)
-#if ($element.OfMixedTypes)
+#if ($element.IsOfMixedTypes)
    <element xsi:type="$value.Type">$value.EscapedValue</element>
 #else
    <element>$value.EscapedValue</element>

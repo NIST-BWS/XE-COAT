@@ -163,16 +163,19 @@ public class XmlModel {
 	private static void injectValues(XmlSectionElement target, Values values) {
 
 		if (values.size() == 1) {
-			target.isMultivalued = false;
+			//target.isMultivalued = false;
+			target.setIsMultivalued(false);
 			XmlValue value = new XmlValue();
 
 			value.value = values.getUnquotedString(0);
 			value.type = xmlTypeMap.get(values.get(0).getClass());
 			target.getValues().add(value);
 		} else {
-			target.isMultivalued = true;
-			target.isOfMixedTypes = values.getMostDetailedCommonType().equals(
-					Object.class);
+			target.setIsMultivalued(true);
+			target.setIsOfMixedTypes(values.getMostDetailedCommonType().equals(Object.class));
+			//target.isMultivalued = true;
+			//target.isOfMixedTypes = values.getMostDetailedCommonType().equals(Object.class);
+					
 
 			for (int i = 0; i < values.size(); i++) {
 				XmlValue v = new XmlValue();

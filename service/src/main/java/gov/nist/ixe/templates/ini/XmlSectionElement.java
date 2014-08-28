@@ -7,16 +7,23 @@ import java.util.List;
 
 public class XmlSectionElement extends XmlFragment {
 	private List<XmlValue> values = new ArrayList<XmlValue>();
-	protected boolean isMultivalued;
-	protected boolean isOfMixedTypes;
+	private boolean isMultivalued;
+	private boolean isOfMixedTypes;
 	
-	public boolean isMultivalued() { 
+	public boolean getIsMultivalued() { 
 		return isMultivalued; 
 	}
+	protected void setIsMultivalued(boolean value) {
+		isMultivalued = value;
+	}
 	
-	public boolean isOfMixedTypes() { 
+	public boolean getIsOfMixedTypes() { 
 		return isOfMixedTypes; 
 	}
+	protected void setIsOfMixedTypes(boolean value) { 
+		isOfMixedTypes = value; 
+	}
+	
 	
 	public String getSimpleValue() { 
 		String result = "";
