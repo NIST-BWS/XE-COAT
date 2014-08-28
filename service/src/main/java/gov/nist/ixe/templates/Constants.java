@@ -53,7 +53,7 @@ public class Constants {
 	public static final String NAMED_PROCESS_NAME_PREFIX = PROCESS_RESOURCE_NAME + Atom.NAME_PREFIX_DELIMITER;
 	public static final String NAMED_HISTORY_NAME_PREFIX = HISTORY_RESOURCE_NAME + Atom.NAME_PREFIX_DELIMITER;
 	
-	public static final String[] RESERVED_NAMES = {				
+	static final String[] RESERVED_NAMES = {				
 		PROCESS_RESOURCE_NAME,
 		HISTORY_RESOURCE_NAME,
 		Rel.CONFIG,
@@ -101,7 +101,7 @@ public class Constants {
 		public static final String UPLOAD           = Atom.UPLOAD;		
 	}
 	
-	public static final String[] DOCUMENT_RESOURCE_TYPES = {
+	 static final String[] DOCUMENT_RESOURCE_TYPES = {
 		Rel.CONFIG, Rel.SCHEMA, Rel.TEMPLATE, Rel.INI_SPLITTER
 	};
 	

@@ -1,8 +1,10 @@
 package gov.nist.ixe.templates.jaxb;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class LinkComparator implements Comparator<Link> {
+public class LinkComparator implements Comparator<Link>, Serializable {
+
 
 	@Override
 	public int compare(Link l1, Link l2) {
@@ -16,4 +18,6 @@ public class LinkComparator implements Comparator<Link> {
 		return result;
 	}
 
+	private static final long serialVersionUID = -8892444348149571482L;
+	
 }

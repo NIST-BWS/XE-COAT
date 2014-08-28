@@ -45,6 +45,8 @@ import gov.nist.ixe.templates.BuildUri;
 import gov.nist.ixe.templates.Constants;
 import gov.nist.ixe.templates.IStorageProvider;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -53,12 +55,11 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name="LinkType", namespace=Constants.NAMESPACE)
-public class Link {
+public class Link implements Serializable {
 	
 	public Link() {
 		
-	}
-	
+	}	
 
 	@XmlElement(name="serviceName", namespace=Constants.NAMESPACE) private String serviceName;
 	@XmlElement(name="rel", namespace=Constants.NAMESPACE) private String rel;
@@ -231,5 +232,6 @@ public class Link {
 		return result;
 	}
 		
+	private static final long serialVersionUID = 1839637335396022352L;
 	
 }

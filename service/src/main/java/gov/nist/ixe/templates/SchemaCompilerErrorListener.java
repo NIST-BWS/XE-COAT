@@ -2,6 +2,7 @@ package gov.nist.ixe.templates;
 
 import gov.nist.ixe.templates.jaxb.Link;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,8 @@ import org.xml.sax.SAXParseException;
 
 import com.sun.tools.xjc.api.ErrorListener;
 
-public class SchemaCompilerErrorListener implements ErrorListener {
-	
+public class SchemaCompilerErrorListener implements ErrorListener, Serializable {
+		
 	public SchemaCompilerErrorListener(Link linkToOriginalSchema) {
 		this.linkToOriginalSchema = linkToOriginalSchema;
 	}
@@ -48,5 +49,5 @@ public class SchemaCompilerErrorListener implements ErrorListener {
 		return linkToOriginalSchema;
 	}
 	
-
+	private static final long serialVersionUID = 5225323011267061130L;
 }
