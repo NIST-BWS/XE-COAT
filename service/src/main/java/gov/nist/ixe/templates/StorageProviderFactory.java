@@ -3,8 +3,6 @@ package gov.nist.ixe.templates;
 import static gov.nist.ixe.Logging.trace;
 import gov.nist.ixe.FileUtil;
 
-import java.io.File;
-
 // We use another layer of indirection so that the TemplateServices service
 // (and their test classes) not need to have any direct information about
 // what storage provider is being used.
@@ -42,13 +40,13 @@ public class StorageProviderFactory {
 		storage.clear();
 	}
 	
-	private static void printFiles(File start, String prepend) {	
+	/*private static void printFiles(File start, String prepend) {	
 		if (start.isDirectory()) {
 			for (File f:start.listFiles()) {
 				printFiles(f, prepend + prepend);
 			}
 		}
 		System.out.println(prepend + start.getAbsolutePath());
-	}
+	}*/
 }
  

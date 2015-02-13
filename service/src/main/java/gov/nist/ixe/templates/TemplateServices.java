@@ -217,6 +217,8 @@ public class TemplateServices implements ITemplateServices {
 			XmlCodeGen.compile(compilationDir, compilationDir.getAbsolutePath());
 
 			try {
+				// Validate the XML. 
+				// 
 				// Make (SAX) InputSources out of the StringSources so we can
 				// have thorough error messages.
 				//
