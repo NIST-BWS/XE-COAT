@@ -96,6 +96,10 @@ public class StringUtil {
 	}
 	
 	public static String longestCommonPrefix(String[] strs, int max) {
+		
+		if (max < 0) {
+			throw new IllegalArgumentException("Maximum common prefix size must be non-negative.");
+		}
 
 		// Adapted from http://tinyurl.com/nhzjrnb (Runhe Tian)
 		String prefix = "";
