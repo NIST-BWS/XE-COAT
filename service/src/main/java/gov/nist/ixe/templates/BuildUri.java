@@ -48,11 +48,9 @@ import javax.ws.rs.core.UriBuilder;
 
 public class BuildUri {
 	
-	
-	
 	// ---
 	// Core operation URIs
-	//
+	// ---
 	
 	public static String getVersionUri(String rootUri) {
 		UriBuilder builder = UriBuilder.fromUri(rootUri);
@@ -126,11 +124,6 @@ public class BuildUri {
 		args.put(Constants.Uri.Param.CONFIG_NAME, configName);
 		return builder.buildFromMap(args).toString();
 	}
-	
-
-
-	
-	
 	
 	// --- 
 	// Rename URIs

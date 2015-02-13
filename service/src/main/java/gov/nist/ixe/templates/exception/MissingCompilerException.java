@@ -17,7 +17,7 @@ public class MissingCompilerException extends RuntimeException {
 		super(e);
 	}
 
-	public static final String MISSING_COMPILER_MESSAGE= "Java compiler could not be instantiated.";
+	public static final String MISSING_COMPILER_MESSAGE = "Java compiler could not be instantiated.";
 	
 	private static final long serialVersionUID = 6681086793125983421L;
 
