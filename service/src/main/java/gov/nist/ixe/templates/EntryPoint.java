@@ -5,6 +5,7 @@ import gov.nist.ixe.GetOpt;
 import gov.nist.ixe.GetOpt.Parameter;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.Map;
 
@@ -60,12 +61,14 @@ public class EntryPoint {
 			
 			System.out.println("Type 'quit' to terminate");
 			String line = null;
-			BufferedReader reader = new BufferedReader(System.console().reader());
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			
 			do {
 				line = reader.readLine();	
 			} while(!"quit".equalsIgnoreCase(line));
 				
+			
 			server.shutdownNow();
 			
 			System.out.println("Service terminated. Exiting...");

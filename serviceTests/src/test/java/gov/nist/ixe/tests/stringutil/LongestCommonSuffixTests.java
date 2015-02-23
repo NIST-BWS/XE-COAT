@@ -19,11 +19,11 @@ public class LongestCommonSuffixTests {
 		Object[][] data = new Object[][] {
 				{ "bcd", new String[] { "abcd", "bbcd", "cbcd"}, 4 },			
 				{ "bcd", new String[] { "abcd", "bbcd", "cbcd"}, 3 },
-				{ "cd",  new String[] { "abcd", "bbcd", "cbcd"}, 2 },
-				{ "d",   new String[] { "abcd", "bbcd", "cbcd"}, 1 },
-				{ "",    new String[] { "abcd", "bbcd", "cbcd"}, 0 },
-				{ "ab",  new String[] { "ab" }, 2 },
-				{ "",    new String[] { "ab", "cd", "ef"}, 2 }
+				{  "cd", new String[] { "abcd", "bbcd", "cbcd"}, 2 },
+				{   "d", new String[] { "abcd", "bbcd", "cbcd"}, 1 },
+				{    "", new String[] { "abcd", "bbcd", "cbcd"}, 0 },
+				{  "ab", new String[] { "ab" }, 2 },
+				{    "", new String[] { "ab", "cd", "ef"}, 2 }
 		};
 		return Arrays.asList(data);
 	}
