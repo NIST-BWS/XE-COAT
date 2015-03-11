@@ -59,6 +59,10 @@ public class EntryPoint {
 			
 			HttpServer server = JerseyUtil.createGrizzlyServer(new URI(uri));
 			
+			// https://java.net/jira/browse/GRIZZLY-1747
+			TemplateServicesClient client = new TemplateServicesClient(uri);
+			client.testConnectionViaGet();
+			
 			System.out.println("Type 'quit' to terminate");
 			String line = null;
 			
