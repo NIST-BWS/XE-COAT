@@ -129,7 +129,7 @@ public class TemplateServicesClient implements ITemplateServices {
 		
 		if (returnTypeClass == Response.class) {
 			result = (T) response;
-		} else	if (returnTypeClass != null) {
+		} else if (returnTypeClass != null) {
 			result = response.readEntity(returnTypeClass);
 		}	
 				 
@@ -326,15 +326,24 @@ public class TemplateServicesClient implements ITemplateServices {
 	public String testConnectionViaGet() {
 		return makeRequest(BuildUri.getTestConnectionUri(getRootUri()), GET, String.class);
 	}
+	public Response testConnectionViaGetAsResponse() {
+		return makeRequest(BuildUri.getTestConnectionUri(getRootUri()), GET, Response.class);
+	}
 
 	@Override
 	public String testConnectionViaPost() {
 		return makeRequest(BuildUri.getTestConnectionUri(getRootUri()), POST, String.class);
 	}
+	public Response testConnectionViaPostAsResponse() {
+		return makeRequest(BuildUri.getTestConnectionUri(getRootUri()), POST, Response.class);
+	}
 
 	@Override
 	public String testConnectionViaDelete() { 
 		return makeRequest(BuildUri.getTestConnectionUri(getRootUri()), DELETE, String.class);
+	}
+	public Response testConnectionViaDeleteAsResponse() {
+		return makeRequest(BuildUri.getTestConnectionUri(getRootUri()), DELETE, Response.class);
 	}
 
 

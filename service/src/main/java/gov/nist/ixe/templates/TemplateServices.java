@@ -851,18 +851,24 @@ public class TemplateServices implements ITemplateServices {
 	
 
 	@Override
-	public String testConnectionViaGet() {
-		return getVersion();
+	public String testConnectionViaGet() {		
+		trace();
+		addRelToResponseHeader(Constants.Rel.TEST_CONNECTION);
+		return Version.getVersion();
 	}
 
 	@Override
 	public String testConnectionViaPost() {
-		return getVersion();
+		trace();
+		addRelToResponseHeader(Constants.Rel.TEST_CONNECTION);
+		return Version.getVersion();
 	}
 
 	@Override
 	public String testConnectionViaDelete() {
-		return getVersion();
+		trace();
+		addRelToResponseHeader(Constants.Rel.TEST_CONNECTION);
+		return Version.getVersion();
 	}
 
 	

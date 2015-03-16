@@ -191,10 +191,13 @@ public class FileStorageProvider implements IStorageProvider {
 		trace();
 
 		ArrayList<File> resources = new ArrayList<File>();
-
-		for (File f : start.listFiles()) {
-			if (f.isFile() && !isTombstonePath(f.getAbsolutePath())) {
-				resources.add(f);
+		
+		File[] files = start.listFiles();
+		if (files != null) {
+			for (File f : files) {
+				if (f.isFile() && !isTombstonePath(f.getAbsolutePath())) {
+					resources.add(f);
+				}
 			}
 		}
 
@@ -268,11 +271,14 @@ public class FileStorageProvider implements IStorageProvider {
 		trace();
 
 		ArrayList<String> services = new ArrayList<String>();
-
-		for (File f : new File(getLocation()).listFiles()) {
-			if (f.isDirectory() && !isTombstonePath(f.getAbsolutePath())) {
-				services.add(f.getName());
-			}	
+		
+		File[] files = new File(getLocation()).listFiles();
+		if (files != null) {
+			for (File f : files ) {
+				if (f.isDirectory() && !isTombstonePath(f.getAbsolutePath())) {
+					services.add(f.getName());
+				}	
+			}
 		}
 
 		Collections.sort(services);

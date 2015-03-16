@@ -39,5 +39,27 @@ public class Hosted extends Tests {
 		assertEquals(Constants.Rel.VERSION, response.getHeaderString(Constants.HttpHeader.REL));
 	}
 	
+	@Test public void testConnectionViaGetReturnsExpectedHeaders() {
+		TemplateServicesClient client = fixture.getTemplateServicesClient();
+		Response response = client.testConnectionViaGetAsResponse();
+		assertEquals(Constants.Rel.TEST_CONNECTION, response.getHeaderString(Constants.HttpHeader.REL));				
+	}
 	
+	@Test public void testConnectionViaPostReturnsExpectedHeaders() {
+		TemplateServicesClient client = fixture.getTemplateServicesClient();
+		Response response = client.testConnectionViaPostAsResponse();
+		assertEquals(Constants.Rel.TEST_CONNECTION, response.getHeaderString(Constants.HttpHeader.REL));				
+	}
+	
+	@Test public void testConnectionViaDeleteReturnsExpectedHeaders() {
+		TemplateServicesClient client = fixture.getTemplateServicesClient();
+		Response response = client.testConnectionViaPostAsResponse();
+		assertEquals(Constants.Rel.TEST_CONNECTION, response.getHeaderString(Constants.HttpHeader.REL));				
+	}
+	
+	@Test public void getServiceListReturnsExpectedHeaders() {
+		TemplateServicesClient client = fixture.getTemplateServicesClient();
+		Response response = client.getServiceListAsResponse();
+		assertEquals(Constants.Rel.SERVICE_LIST, response.getHeaderString(Constants.HttpHeader.REL));
+	}
 }

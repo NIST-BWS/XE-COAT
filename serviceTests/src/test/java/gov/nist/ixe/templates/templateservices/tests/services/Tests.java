@@ -25,6 +25,10 @@ public abstract class Tests extends TemplateServicesTests {
 	@Test public void testConnectionViaDeleteWorksCorrectly() {
 		assertEquals(Version.getVersion(), ts.testConnectionViaDelete());
 	}
+	
+	@Test public void withNoServicesGetServicesWorksCorrectly() {
+		ServiceList services = ts.getServiceList();
+	}
 
 
 	@Test public void getServicesWorksCorrectly() {
