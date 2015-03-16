@@ -190,17 +190,31 @@ public class TemplateServicesClient implements ITemplateServices {
 	
 	public String getVersion() {		
 		return makeRequest(BuildUri.getVersionUri(getRootUri()), GET, String.class);
+	}	
+	public Response getVersionAsResponse() {
+		return makeRequest(BuildUri.getVersionUri(getRootUri()), GET, Response.class);
 	}
 
 	public ServiceList getServiceList() throws ResourceNotFoundException {
 		return makeRequest(getRootUri(), GET, ServiceList.class);
 	}
+	public Response getServiceListAsResponse() throws ResourceNotFoundException {
+		return makeRequest(getRootUri(), GET, Response.class);
+	}	
+	
 	public ServiceResources getServiceResources(String serviceName) {
 		return makeRequest(BuildUri.getServiceUri(getRootUri(), serviceName), GET, ServiceResources.class);
+	}
+	public Response getServiceResourcesAsResponse(String serviceName) { 
+		return makeRequest(BuildUri.getServiceUri(getRootUri(), serviceName), GET, Response.class);
 	}
 	public void createService(String serviceName) {
 		makeRequest(BuildUri.getServiceUri(getRootUri(), serviceName), POST);
 	}
+	public Response createServiceAsResponse(String serviceName) {
+		return makeRequest(BuildUri.getServiceUri(getRootUri(), serviceName), POST, Response.class);
+	}
+	
 
 
 	public Response processDefaultTemplate(String serviceName) {

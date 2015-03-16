@@ -89,16 +89,33 @@ public class Constants {
 			return rel1 + Atom.COMPOUND_RESOURCE_DELIMITER + rel2;
 		}
 		
-		public static final String CONFIG           = Atom.CONFIG;
-		public static final String CONFIG_HISTORY   = compoundRel(Atom.HISTORY, Rel.CONFIG);		
-		public static final String INI_SPLITTER     = compoundRel(Atom.SPLITTER, Atom.INI); 
-		public static final String PROCESS          = Atom.PROCESS;
-		public static final String SCHEMA           = Atom.SCHEMA;
-		public static final String SCHEMA_HISTORY   = compoundRel(Atom.HISTORY, Rel.SCHEMA);
-		public static final String SERVICE          = Atom.SERVICE;
-		public static final String TEMPLATE         = Atom.TEMPLATE;
-		public static final String TEMPLATE_HISTORY = compoundRel(Atom.HISTORY, Rel.TEMPLATE);
-		public static final String UPLOAD           = Atom.UPLOAD;		
+		public static final String CONFIG            = Atom.CONFIG;
+		public static final String CONFIG_HISTORY    = compoundRel(Atom.HISTORY, Rel.CONFIG);
+		public static final String CONFIG_RENAMER 	 = compoundRel(Atom.RENAMER, Rel.CONFIG); 
+		
+		public static final String HISTORIC_CONFIG   = compoundRel(Atom.HISTORIC, Rel.CONFIG);
+		public static final String HISTORIC_SCHEMA   = compoundRel(Atom.HISTORIC, Rel.SCHEMA);
+		public static final String HISTORIC_TEMPLATE = compoundRel(Atom.HISTORIC, Rel.TEMPLATE);
+		
+		public static final String INI_SPLITTER      = compoundRel(Atom.SPLITTER, Atom.INI); 
+		
+		public static final String PROCESS           = Atom.PROCESS;
+		
+		public static final String SCHEMA            = Atom.SCHEMA;
+		public static final String SCHEMA_HISTORY    = compoundRel(Atom.HISTORY, Rel.SCHEMA);
+		public static final String SCHEMA_RENAMER    = compoundRel(Atom.RENAMER, Rel.SCHEMA);
+		
+		public static final String SERVICE           = Atom.SERVICE;
+		public static final String SERVICE_LIST      = Atom.SERVICE_LIST;
+		
+		public static final String TEST_CONNECTION   = Atom.TEST_CONNECTION;
+		
+		public static final String TEMPLATE          = Atom.TEMPLATE;
+		public static final String TEMPLATE_HISTORY  = compoundRel(Atom.HISTORY, Rel.TEMPLATE);
+
+		public static final String UPLOAD            = Atom.UPLOAD;
+		
+		public static final String VERSION 			 = Atom.VERSION;
 	}
 	
 	 static final String[] DOCUMENT_RESOURCE_TYPES = {
@@ -189,10 +206,12 @@ public class Constants {
 		private static final String PLAIN           = "plain";
 		private static final String REL             = "rel";
 		private static final String RENAME          = "rename";
+		private static final String RENAMER         = "renamer";
 		private static final String SPLITTER        = "splitter";
 		private static final String SCHEMA          = "schema";
 		private static final String SCHEMA_NAME     = SCHEMA + NAME_SUFFIX;
 		private static final String SERVICE         = "service";
+		private static final String SERVICE_LIST    = "serviceList";
 		private static final String SERVICE_NAME    = SERVICE + NAME_SUFFIX;
 		private static final String TEST_CONNECTION = "test-connection";
 		private static final String TEMPLATE        = "template";

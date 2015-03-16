@@ -117,7 +117,7 @@ public interface ITemplateServices {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path(Constants.Uri.VERSION)
-	public String getVersion();
+	public String getVersion();	
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)

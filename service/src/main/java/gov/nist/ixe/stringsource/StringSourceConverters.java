@@ -18,13 +18,6 @@ public class StringSourceConverters {
 		return result;
 	}
 
-//	public static StringSource fromResponse2(Response response) {
-//		byte[] data = response.readEntity(byte[].class);
-//		String charset = (String) (response.getMetadata().get("Content-Type")
-//				.get(0).toString());
-//		return new StringSource(data, charset);
-//	}
-
 	public static StringSource fromResponse(Response response) {
 		StringSource result = null;
 		byte[] data = null;

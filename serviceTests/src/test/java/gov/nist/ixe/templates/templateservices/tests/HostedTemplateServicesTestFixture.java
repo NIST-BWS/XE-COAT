@@ -41,8 +41,12 @@ public class HostedTemplateServicesTestFixture implements
 		return client;
 	}
 	
+	public TemplateServicesClient getTemplateServicesClient() {
+		return client;
+	}
+	
 	private static org.glassfish.grizzly.http.server.HttpServer grizzlyServer = null; 
-	private static ITemplateServices client = null;
+	private static TemplateServicesClient client = null;
 	
 	@BeforeClass public static void beforeClass() {
 		

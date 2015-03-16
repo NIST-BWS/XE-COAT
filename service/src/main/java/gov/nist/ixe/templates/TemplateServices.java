@@ -80,10 +80,12 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -103,6 +105,7 @@ import com.sun.xml.xsom.parser.XSOMParser;
 public class TemplateServices implements ITemplateServices {
 
 	private @Context UriInfo uriInfo;
+	private @Context HttpServletResponse servletResponse;
 	
 	private static StorageProviderFactory storageProviderFactory = new StorageProviderFactory();
 	private static IStorageProvider storage = storageProviderFactory
@@ -121,11 +124,14 @@ public class TemplateServices implements ITemplateServices {
 	}
 	
 	public String getVersion() {
+		trace();
+		addRelToResponseHeader(Constants.Rel.VERSION);
 		return Version.getVersion();
 	}
 
 	public ServiceList getServiceList() {
 		trace();
+		addRelToResponseHeader(Constants.Rel.SERVICE_LIST);
 		return new ServiceList(getStorageProvider(), getRootUri());
 	}
 
@@ -134,7 +140,11 @@ public class TemplateServices implements ITemplateServices {
 		trace();
 
 		validateServiceOrResourceName(serviceName);
-
+		
+		addRelToResponseHeader(Constants.Rel.SERVICE);
+		addServiceNameToResponseHeader(serviceName);
+		addResourceNameToResponseHeader(serviceName);
+		
 		return new ServiceResources(getStorageProvider(), getRootUri(),
 				serviceName);
 	}
@@ -147,6 +157,10 @@ public class TemplateServices implements ITemplateServices {
 
 		getStorageProvider().addService(serviceName);
 
+		addRelToResponseHeader(Constants.Rel.SERVICE_LIST);
+		addServiceNameToResponseHeader(serviceName);
+		addResourceNameToResponseHeader(serviceName);		
+
 		info(String.format("Service '%s' was created.", serviceName));
 	}
 
@@ -156,6 +170,10 @@ public class TemplateServices implements ITemplateServices {
 		forbidEmptyName(serviceName);
 
 		getStorageProvider().deleteService(serviceName);
+		
+		addRelToResponseHeader(Constants.Rel.SERVICE_LIST);
+		addServiceNameToResponseHeader(serviceName);
+		addResourceNameToResponseHeader(serviceName);	
 
 		info(String.format("Service '%s' was deleted.", serviceName));
 	}
@@ -856,5 +874,24 @@ public class TemplateServices implements ITemplateServices {
 	public void setEnforceRequiredContentType(boolean value) {
 		enforceRequiredContentType = value;		
 	}
-
+	
+	private void addToResponseHeader(String key, String value) {
+		if (servletResponse != null) {
+			servletResponse.addHeader(key, value);
+		}
+	}
+		
+	private void addRelToResponseHeader(String rel) {
+		addToResponseHeader(Constants.HttpHeader.REL, rel);
+	}
+	
+	private void addServiceNameToResponseHeader(String serviceName) {
+		addToResponseHeader(Constants.HttpHeader.SERVICE_NAME, serviceName);
+	}
+	
+	private void addResourceNameToResponseHeader(String resourceName) {
+		addToResponseHeader(Constants.HttpHeader.RESOURCE_NAME, resourceName);
+	}
+	
+	
 }
