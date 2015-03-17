@@ -628,9 +628,15 @@ public class TemplateServices implements ITemplateServices {
 				serviceName, d);
 		Response result = StringSourceConverters.toResponse(template,
 				Constants.ContentType.SubType.PLAIN, 
-				serviceName, Constants.Rel.TEMPLATE, Constants.TEMPLATE_RESOURCE_NAME);
+				serviceName, Constants.Rel.HISTORIC_TEMPLATE, Constants.TEMPLATE_RESOURCE_NAME);
+		
+		
+		result.getHeaders().add(Constants.HttpHeader.HISTORIC_REL_OF, 
+				Constants.Rel.TEMPLATE);
 		result.getHeaders().add(Constants.HttpHeader.HISTORIC_VERSION_OF, 
 				BuildUri.getTemplateUri(getRootUri(), serviceName));
+	
+		
 		return result;
 	}
 
@@ -659,11 +665,17 @@ public class TemplateServices implements ITemplateServices {
 		Date d = getStorageProvider().fromStringToDate(timestamp);
 		StringSource schema = getStorageProvider().getHistoricSchema(
 				serviceName, schemaName, d);
+		
 		Response result = StringSourceConverters.toResponse(schema,
 				Constants.ContentType.SubType.XML, 
-				serviceName, Constants.Rel.SCHEMA, schemaName);
+				serviceName, Constants.Rel.HISTORIC_SCHEMA, schemaName);
+
+		result.getHeaders().add(Constants.HttpHeader.HISTORIC_REL_OF, 
+				Constants.Rel.SCHEMA);
 		result.getHeaders().add(Constants.HttpHeader.HISTORIC_VERSION_OF, 
 				BuildUri.getSchemaUri(getRootUri(), serviceName, schemaName));
+		
+		
 		return result;
 	}
 
@@ -692,9 +704,13 @@ public class TemplateServices implements ITemplateServices {
 		StringSource config = getStorageProvider().getHistoricConfig(
 				serviceName, configName, d);
 		Response result = StringSourceConverters.toResponse(config, Constants.ContentType.SubType.XML, 
-				serviceName, Constants.Rel.CONFIG, configName);
+				serviceName, Constants.Rel.HISTORIC_CONFIG, configName);
+		
+		result.getHeaders().add(Constants.HttpHeader.HISTORIC_REL_OF, 
+				Constants.Rel.CONFIG);
 		result.getHeaders().add(Constants.HttpHeader.HISTORIC_VERSION_OF, 
 				BuildUri.getConfigUri(getRootUri(), serviceName, configName));
+		
 		return result;
 	}
 

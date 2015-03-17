@@ -32,17 +32,19 @@ public abstract class Tests extends TemplateServicesTests {
 	public void schemaHistoryCanBeRetrievedCorrectly() 
 			throws ResourceNotFoundException, ParseException, UnsupportedEncodingException {
 
+		String resourceName = "schema0";
+		
 		ts.createService(serviceName);
 
-		setSchema(ts, serviceName, "schema0", Examples.DUMMY0);	
+		setSchema(ts, serviceName, resourceName, Examples.DUMMY0);	
 		long t0 = new Date().getTime();
-		setSchema(ts, serviceName, "schema0", Examples.DUMMY1);
+		setSchema(ts, serviceName, resourceName, Examples.DUMMY1);
 		long t1 = new Date().getTime();
-		setSchema(ts, serviceName, "schema0", Examples.DUMMY2);
+		setSchema(ts, serviceName, resourceName, Examples.DUMMY2);
 		long t2 = new Date().getTime();
 		
-		String originalUri = BuildUri.getSchemaUri(serverRootUri, serviceName, "schema0");
-		ResourceHistory rh = ts.getSchemaHistory(serviceName, "schema0");
+		String originalUri = BuildUri.getSchemaUri(serverRootUri, serviceName, resourceName);
+		ResourceHistory rh = ts.getSchemaHistory(serviceName, resourceName);
 
 		assertEquals(2, rh.getHistoricLinks().size());
 		assertEquals(originalUri, rh.getOriginalUri());
@@ -62,19 +64,29 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(Examples.DUMMY0.getData().length, (int) hl0.getSizeInBytes());
 		assertEquals(Examples.DUMMY1.getData().length, (int) hl1.getSizeInBytes());
 
-		Response r1 = ts.getHistoricSchema(serviceName, "schema0", Long.toString(T0));
-		Response r2 = ts.getHistoricSchema(serviceName, "schema0", Long.toString(T1));
-		Response r = ts.getSchema(serviceName, "schema0");
+		Response r0 = ts.getHistoricSchema(serviceName, resourceName, Long.toString(T0));
+		Response r1 = ts.getHistoricSchema(serviceName, resourceName, Long.toString(T1));
+		Response r = ts.getSchema(serviceName, resourceName);
 		
 		// Check the output headers
 		
-		assertEquals(originalUri, r1.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
-		assertEquals(originalUri, r2.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
-		assertEquals(Constants.Rel.SCHEMA, r1.getHeaderString(Constants.HttpHeader.REL));
-		assertEquals(Constants.Rel.SCHEMA, r2.getHeaderString(Constants.HttpHeader.REL));
+		assertEquals(Constants.Rel.HISTORIC_SCHEMA, r0.getHeaderString(Constants.HttpHeader.REL));
+		assertEquals(Constants.Rel.HISTORIC_SCHEMA, r1.getHeaderString(Constants.HttpHeader.REL));
 		
-		StringSource s0 = StringSourceConverters.fromResponse(r1);
-		StringSource s1 = StringSourceConverters.fromResponse(r2);				
+		assertEquals(serviceName, r0.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
+		assertEquals(serviceName, r1.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
+		
+		assertEquals(resourceName, r0.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+		assertEquals(resourceName, r1.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+			
+		assertEquals(originalUri, r0.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
+		assertEquals(originalUri, r1.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));	
+		
+		assertEquals(Constants.Rel.SCHEMA, r0.getHeaderString(Constants.HttpHeader.HISTORIC_REL_OF));
+		assertEquals(Constants.Rel.SCHEMA, r1.getHeaderString(Constants.HttpHeader.HISTORIC_REL_OF));
+		
+		StringSource s0 = StringSourceConverters.fromResponse(r0);
+		StringSource s1 = StringSourceConverters.fromResponse(r1);				
 		StringSource s = StringSourceConverters.fromResponse(r);
 
 		assertEquals(Examples.DUMMY0.getString(), s0.getString());
@@ -89,17 +101,17 @@ public abstract class Tests extends TemplateServicesTests {
 			throws ResourceNotFoundException, ParseException, UnsupportedEncodingException {
 
 		ts.createService(serviceName);
+		String resourceName = "config0";
 
-
-		setConfig(ts, serviceName, "c", Examples.DUMMY0);	
+		setConfig(ts, serviceName, resourceName, Examples.DUMMY0);	
 		long t0 = new Date().getTime();
-		setConfig(ts, serviceName, "c", Examples.DUMMY1);
+		setConfig(ts, serviceName, resourceName, Examples.DUMMY1);
 		long t1 = new Date().getTime();
-		setConfig(ts, serviceName, "c", Examples.DUMMY2);
+		setConfig(ts, serviceName, resourceName, Examples.DUMMY2);
 		long t2 = new Date().getTime();
 
-		ResourceHistory rh = ts.getConfigHistory(serviceName, "c");
-		String originalUri = BuildUri.getConfigUri(serverRootUri, serviceName, "c");
+		ResourceHistory rh = ts.getConfigHistory(serviceName, resourceName);
+		String originalUri = BuildUri.getConfigUri(serverRootUri, serviceName, resourceName);
 		
 		assertEquals(2, rh.getHistoricLinks().size());
 		assertEquals(originalUri, rh.getOriginalUri());
@@ -114,22 +126,31 @@ public abstract class Tests extends TemplateServicesTests {
 		assertWithin(T0, t0, t1);
 		assertWithin(T1, t1, t2);
 		
-		Response r0 = ts.getHistoricConfig(serviceName, "c", Long.toString(T0));
-		Response r1 = ts.getHistoricConfig(serviceName, "c", Long.toString(T1));
-		Response r = ts.getConfig(serviceName, "c");
+		Response r0 = ts.getHistoricConfig(serviceName, resourceName, Long.toString(T0));
+		Response r1 = ts.getHistoricConfig(serviceName, resourceName, Long.toString(T1));
+		Response r = ts.getConfig(serviceName, resourceName);
 		
+		assertEquals(Constants.Rel.HISTORIC_CONFIG, r0.getHeaderString(Constants.HttpHeader.REL));
+		assertEquals(Constants.Rel.HISTORIC_CONFIG, r1.getHeaderString(Constants.HttpHeader.REL));
 		
+		assertEquals(serviceName, r0.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
+		assertEquals(serviceName, r1.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
+		
+		assertEquals(resourceName, r0.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+		assertEquals(resourceName, r1.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+			
 		assertEquals(originalUri, r0.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
-		assertEquals(originalUri, r1.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
-		assertEquals(Constants.Rel.CONFIG, r0.getHeaderString(Constants.HttpHeader.REL));
-		assertEquals(Constants.Rel.CONFIG, r1.getHeaderString(Constants.HttpHeader.REL));
+		assertEquals(originalUri, r1.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));	
 		
-		StringSource c0 = StringSourceConverters.fromResponse(r0);
-		StringSource c1 = StringSourceConverters.fromResponse(r1);
+		assertEquals(Constants.Rel.CONFIG, r0.getHeaderString(Constants.HttpHeader.HISTORIC_REL_OF));
+		assertEquals(Constants.Rel.CONFIG, r1.getHeaderString(Constants.HttpHeader.HISTORIC_REL_OF));
+		
+		StringSource c1 = StringSourceConverters.fromResponse(r0);
+		StringSource c2 = StringSourceConverters.fromResponse(r1);
 		StringSource c = StringSourceConverters.fromResponse(r);
 
-		assertEquals(Examples.DUMMY0.getString(), c0.getString());
-		assertEquals(Examples.DUMMY1.getString(), c1.getString());
+		assertEquals(Examples.DUMMY0.getString(), c1.getString());
+		assertEquals(Examples.DUMMY1.getString(), c2.getString());
 		assertEquals(Examples.DUMMY2.getString(), c.getString());
 
 	}
@@ -167,15 +188,23 @@ public abstract class Tests extends TemplateServicesTests {
 		
 		Response r0 = ts.getHistoricTemplate(serviceName, Long.toString(T0));
 		Response r1 = ts.getHistoricTemplate(serviceName, Long.toString(T1));
-		Response r = ts.getTemplate(serviceName);
+		Response r = ts.getTemplate(serviceName);		
 		
+		assertEquals(Constants.Rel.HISTORIC_TEMPLATE, r0.getHeaderString(Constants.HttpHeader.REL));
+		assertEquals(Constants.Rel.HISTORIC_TEMPLATE, r1.getHeaderString(Constants.HttpHeader.REL));
 		
+		assertEquals(serviceName, r0.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
+		assertEquals(serviceName, r1.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
 		
+		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r0.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r1.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+			
 		assertEquals(originalUri, r0.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
-		assertEquals(originalUri, r1.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
-		assertEquals(Constants.Rel.TEMPLATE, r0.getHeaderString(Constants.HttpHeader.REL));
-		assertEquals(Constants.Rel.TEMPLATE, r1.getHeaderString(Constants.HttpHeader.REL));
-
+		assertEquals(originalUri, r1.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));	
+		
+		assertEquals(Constants.Rel.TEMPLATE, r0.getHeaderString(Constants.HttpHeader.HISTORIC_REL_OF));
+		assertEquals(Constants.Rel.TEMPLATE, r1.getHeaderString(Constants.HttpHeader.HISTORIC_REL_OF));
+		
 		StringSource tmpl0 = StringSourceConverters.fromResponse(r0);
 		StringSource tmpl1 = StringSourceConverters.fromResponse(r1);
 		StringSource tmpl = StringSourceConverters.fromResponse(r);
@@ -274,7 +303,7 @@ public abstract class Tests extends TemplateServicesTests {
 
 	}
 	
-	
+		
 	
 	
 }

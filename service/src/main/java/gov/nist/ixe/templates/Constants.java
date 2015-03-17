@@ -77,6 +77,7 @@ public class Constants {
 	public static class HttpHeader {
 		public static final String EXCEPTION_TYPE = "X-COAT-Exception-Type";
 		public static final String EXCEPTION_MESSAGE = "X-COAT-Exception-Message";
+		public static final String HISTORIC_REL_OF = "X-COAT-Historic-Rel-Of";
 		public static final String HISTORIC_VERSION_OF = "X-COAT-Historic-Version-Of";		
 		public static final String NEW_NAME = "X-COAT-New-Name";
 		public static final String OLD_NAME = "X-COAT-Old-Name";
