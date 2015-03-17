@@ -104,8 +104,7 @@ public class TemplateServicesClient implements ITemplateServices {
 	public <T> T makeRequest(String uri, String method, Class<T> returnTypeClass, byte[] payload, String payloadContentType) {
 		return makeRequest(uri, method, returnTypeClass, payload, payloadContentType, null);	
 	}
-	
-	
+		
 	@SuppressWarnings("unchecked")
 	public <T> T makeRequest(String uri, String method, Class<T> returnTypeClass, byte[] payload, String payloadContentType,
 			MultivaluedMap<String,Object> headers) {
@@ -151,8 +150,8 @@ public class TemplateServicesClient implements ITemplateServices {
 		
 			String message = status.getReasonPhrase();
 
-			String exceptionType = response.getHeaderString(TemplateServiceExceptionMapper.IXE_TEMPLATE_EXCEPTION_TYPE);
-			String exceptionMessage = response.getHeaderString(TemplateServiceExceptionMapper.IXE_TEMPLATE_EXCEPTION_MESSAGE);
+			String exceptionType = response.getHeaderString(Constants.HttpHeader.EXCEPTION_TYPE);
+			String exceptionMessage = response.getHeaderString(Constants.HttpHeader.EXCEPTION_MESSAGE);
 
 			if (IllegalResourceNameException.class.getSimpleName().equals(exceptionType)) {
 				throw new IllegalResourceNameException(exceptionMessage);
@@ -179,7 +178,6 @@ public class TemplateServicesClient implements ITemplateServices {
 		}
 		
 	}
-
 
 	@SuppressWarnings("unchecked")
 	private <T> T unmarshall(Class<T> cls, InputStream is) throws JAXBException {
@@ -261,18 +259,33 @@ public class TemplateServicesClient implements ITemplateServices {
 	public void deleteTemplate(String serviceName) {
 		makeRequest(BuildUri.getTemplateUri(getRootUri(), serviceName), DELETE);		
 	}
+	public Response deleteTemplateAsResponse(String serviceName) {
+		return makeRequest(BuildUri.getTemplateUri(getRootUri(), serviceName), DELETE, Response.class);		
+	}
 	public void deleteService(String serviceName) {
 		makeRequest(BuildUri.getServiceUri(getRootUri(), serviceName), DELETE);
+	}
+	public Response deleteServiceAsResponse(String serviceName) {
+		return makeRequest(BuildUri.getServiceUri(getRootUri(), serviceName), DELETE, Response.class);
 	}
 	public void deleteSchema(String serviceName, String schemaName) {
 		makeRequest(BuildUri.getSchemaUri(getRootUri(), serviceName, schemaName), DELETE, null);
 	}
+	public Response deleteSchemaAsResponse(String serviceName, String schemaName) {
+		return makeRequest(BuildUri.getSchemaUri(getRootUri(), serviceName, schemaName), DELETE, Response.class);
+	}
 	public void deleteConfig(String serviceName, String configName) {
 		makeRequest(BuildUri.getConfigUri(getRootUri(), serviceName, configName), DELETE, null);
 	}
+	public Response deleteConfigAsResponse(String serviceName, String configName) {
+		return makeRequest(BuildUri.getConfigUri(getRootUri(), serviceName, configName), DELETE, Response.class);
+	}
 
-	public ResourceHistory getTemplateHistory(String serviceName)throws ResourceNotFoundException {
+	public ResourceHistory getTemplateHistory(String serviceName) throws ResourceNotFoundException {
 		return makeRequest(BuildUri.getTemplateHistoryUri(getRootUri(), serviceName), GET, ResourceHistory.class);		
+	}
+	public Response getTemplateHistoryAsResponse(String serviceName) throws ResourceNotFoundException {
+		return makeRequest(BuildUri.getTemplateHistoryUri(getRootUri(), serviceName), GET, Response.class);		
 	}
 
 	public Response getHistoricTemplate(String serviceName, String timestamp)
@@ -285,6 +298,10 @@ public class TemplateServicesClient implements ITemplateServices {
 			throws ResourceNotFoundException {
 		return makeRequest(BuildUri.getSchemaHistoryUri(getRootUri(), serviceName, schemaName), GET, ResourceHistory.class);
 	}
+	public Response getSchemaHistoryAsResponse(String serviceName, String schemaName) throws ResourceNotFoundException {
+		return makeRequest(BuildUri.getSchemaHistoryUri(getRootUri(), serviceName, schemaName), GET, Response.class);		
+	}
+
 
 	public Response getHistoricSchema(String serviceName, String schemaName, String timestamp)
 			throws ResourceNotFoundException {
@@ -295,6 +312,9 @@ public class TemplateServicesClient implements ITemplateServices {
 	public ResourceHistory getConfigHistory(String serviceName, String configName) 
 			throws ResourceNotFoundException {
 		return makeRequest(BuildUri.getConfigHistoryUri(getRootUri(), serviceName, configName), GET, ResourceHistory.class);
+	}
+	public Response getConfigHistoryAsResponse(String serviceName, String schemaName) throws ResourceNotFoundException {
+		return makeRequest(BuildUri.getConfigHistoryUri(getRootUri(), serviceName, schemaName), GET, Response.class);		
 	}
 
 	public Response getHistoricConfig(String serviceName, String configName, String timestamp)
@@ -307,19 +327,31 @@ public class TemplateServicesClient implements ITemplateServices {
 	public RenameResult renameService(String serviceName, String newName) 
 			throws ResourceNotFoundException {
 		return makeRequest(BuildUri.getRenameServiceUri(getRootUri(), serviceName, newName), POST, RenameResult.class);		
+	}
+	public Response renameServiceAsResponse(String serviceName, String newName) 
+			throws ResourceNotFoundException {
+		return makeRequest(BuildUri.getRenameServiceUri(getRootUri(), serviceName, newName), POST, Response.class);		
 	}	
 
 	public RenameResult renameSchema(String serviceName, String schemaName, String newName) {
 		return makeRequest(BuildUri.getRenameSchemaUri(getRootUri(), serviceName, schemaName, newName), POST, RenameResult.class);
 	}
+	public Response renameSchemaAsResponse(String serviceName, String schemaName, String newName) {
+		return makeRequest(BuildUri.getRenameSchemaUri(getRootUri(), serviceName, schemaName, newName), POST, Response.class);
+	}
 
 	public RenameResult renameConfig(String serviceName, String configName, String newName) {
 		return makeRequest(BuildUri.getRenameConfigUri(getRootUri(), serviceName, configName, newName), POST, RenameResult.class);
 	}
+	public Response renameConfigAsResponse(String serviceName, String configName, String newName) {
+		return makeRequest(BuildUri.getRenameConfigUri(getRootUri(), serviceName, configName, newName), POST, Response.class);
+	}
 
 	public ResourceList upload(String serviceName, String rel, String name, byte[] payload, String contentType) {
-		// makeRequest(String uri, String method, Class<T> returnTypeClass, byte[] payload, String payloadContentType)
 		return makeRequest(BuildUri.getUploadUri(getRootUri(), serviceName, rel, name), POST, ResourceList.class, payload, contentType);
+	}
+	public Response uploadAsResponse(String serviceName, String rel, String name, byte[] payload, String contentType) {
+		return makeRequest(BuildUri.getUploadUri(getRootUri(), serviceName, rel, name), POST, Response.class, payload, contentType);
 	}
 
 	@Override

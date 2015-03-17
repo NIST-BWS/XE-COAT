@@ -62,4 +62,15 @@ public class Hosted extends Tests {
 		Response response = client.getServiceListAsResponse();
 		assertEquals(Constants.Rel.SERVICE_LIST, response.getHeaderString(Constants.HttpHeader.REL));
 	}
+	
+	@Test public void deleteServiceReturnsExpectedHeaders() {
+		TemplateServicesClient client = fixture.getTemplateServicesClient();
+		String serviceName = "service0";		
+		client.createService(serviceName);
+		Response response = client.deleteServiceAsResponse(serviceName);
+		assertEquals(Constants.Rel.SERVICE_LIST, response.getHeaderString(Constants.HttpHeader.REL));
+		assertEquals(serviceName, response.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
+		assertEquals(serviceName, response.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+	}
+	
 }

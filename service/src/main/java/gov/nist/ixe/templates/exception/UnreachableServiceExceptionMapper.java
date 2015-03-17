@@ -1,6 +1,7 @@
 package gov.nist.ixe.templates.exception;
 
 import gov.nist.ixe.StringUtil;
+import gov.nist.ixe.templates.Constants;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -28,8 +29,8 @@ import javax.ws.rs.ext.Provider;
 	public Response toResponse(UnreachableServiceException ex) {
 		
 		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).
-				header(IXE_TEMPLATE_EXCEPTION_TYPE, ex.getOriginalExceptionSimpleName()).
-				header(IXE_TEMPLATE_EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(ex.getOriginalException().getMessage())).
+				header(Constants.HttpHeader.EXCEPTION_TYPE, ex.getOriginalExceptionSimpleName()).
+				header(Constants.HttpHeader.EXCEPTION_MESSAGE, StringUtil.removeNewlinesAndTabs(ex.getOriginalException().getMessage())).
 				build();
 	
 				

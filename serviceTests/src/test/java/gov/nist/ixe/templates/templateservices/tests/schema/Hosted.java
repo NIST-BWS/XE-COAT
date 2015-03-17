@@ -54,5 +54,26 @@ public class Hosted extends Tests {
 		
 	}
 	
+	@Test
+	public void deleteSchemaShouldReturnCorrectHeaders() {
+		String serviceName = "service0";
+		String resourceName = "schema0";
+		
+		TemplateServicesClient client = fixture.getTemplateServicesClient();
+		
+		client.createService(serviceName);		
+		StringSource resource = Examples.SCHEMA;
+		
+		client.setSchemaAsResponse(serviceName, resourceName,
+				resource.getData(), resource.getContentType("xml"));
+		Response r = client.deleteSchemaAsResponse(serviceName, resourceName);
+		
+		
+		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
+		assertEquals(resourceName, r.getHeaderString(HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.Rel.SCHEMA, r.getHeaderString(HttpHeader.REL));
+		
+	}
+	
 	
 }

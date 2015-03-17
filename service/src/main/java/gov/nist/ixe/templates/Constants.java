@@ -75,12 +75,15 @@ public class Constants {
 	};
 	
 	public static class HttpHeader {
+		public static final String EXCEPTION_TYPE = "X-COAT-Exception-Type";
+		public static final String EXCEPTION_MESSAGE = "X-COAT-Exception-Message";
 		public static final String HISTORIC_VERSION_OF = "X-COAT-Historic-Version-Of";		
+		public static final String NEW_NAME = "X-COAT-New-Name";
+		public static final String OLD_NAME = "X-COAT-Old-Name";
 		public static final String RESOURCE_NAME = "X-COAT-ResourceName";
 		public static final String REL = "X-COAT-Rel";
 		public static final String SERVER = "Server";
 		public static final String SERVICE_NAME = "X-COAT-ServiceName";
-		
 	}
 
 	
@@ -117,6 +120,7 @@ public class Constants {
 		public static final String UPLOAD            = Atom.UPLOAD;
 		
 		public static final String VERSION 			 = Atom.VERSION;
+		public static final String SERVICE_RENAMER   = compoundRel(Atom.RENAMER, Rel.SERVICE);
 	}
 	
 	 static final String[] DOCUMENT_RESOURCE_TYPES = {

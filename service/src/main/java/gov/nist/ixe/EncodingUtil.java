@@ -189,7 +189,7 @@ public class EncodingUtil {
 		
 		@SuppressWarnings("serial")	Map<String,String> params =
 				new HashMap<String, String>(){{	put("charset",charset);	}};    
-		return (new MediaType("text", subType, params)).toString();
+		return (new MediaType("text", subType, params)).toString().replace(" ", "");
 	}
 	
 	public static String defaultPlainTextContentType() {

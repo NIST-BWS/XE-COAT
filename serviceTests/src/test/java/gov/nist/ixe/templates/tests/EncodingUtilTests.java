@@ -40,8 +40,8 @@ public class EncodingUtilTests {
 //	
 	@Test
 	public void charsetToTextContentTypeBuildsContentTypeCorrectly() {
-		assertEquals("text/xml; charset=abc", EncodingUtil.charsetToTextContentType("xml", "abc"));
-		assertEquals("text/XML; charset=def", EncodingUtil.charsetToTextContentType("XML", "def"));
+		assertEquals("text/xml;charset=abc", EncodingUtil.charsetToTextContentType("xml", "abc"));
+		assertEquals("text/XML;charset=def", EncodingUtil.charsetToTextContentType("XML", "def"));
 	
 	}
 	

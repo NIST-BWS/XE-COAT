@@ -124,13 +124,13 @@ public class TemplateServices implements ITemplateServices {
 	
 	public String getVersion() {
 		trace();
-		addRelToResponseHeader(Constants.Rel.VERSION);
+		setRelInResponseHeader(Constants.Rel.VERSION);
 		return Version.getVersion();
 	}
 
 	public ServiceList getServiceList() {
 		trace();
-		addRelToResponseHeader(Constants.Rel.SERVICE_LIST);
+		setRelInResponseHeader(Constants.Rel.SERVICE_LIST);
 		return new ServiceList(getStorageProvider(), getRootUri());
 	}
 
@@ -140,9 +140,9 @@ public class TemplateServices implements ITemplateServices {
 
 		validateServiceOrResourceName(serviceName);
 		
-		addRelToResponseHeader(Constants.Rel.SERVICE);
-		addServiceNameToResponseHeader(serviceName);
-		addResourceNameToResponseHeader(serviceName);
+		setRelInResponseHeader(Constants.Rel.SERVICE);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(serviceName);
 		
 		return new ServiceResources(getStorageProvider(), getRootUri(),
 				serviceName);
@@ -156,9 +156,9 @@ public class TemplateServices implements ITemplateServices {
 
 		getStorageProvider().addService(serviceName);
 
-		addRelToResponseHeader(Constants.Rel.SERVICE_LIST);
-		addServiceNameToResponseHeader(serviceName);
-		addResourceNameToResponseHeader(serviceName);		
+		setRelInResponseHeader(Constants.Rel.SERVICE_LIST);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(serviceName);		
 
 		info(String.format("Service '%s' was created.", serviceName));
 	}
@@ -170,9 +170,9 @@ public class TemplateServices implements ITemplateServices {
 
 		getStorageProvider().deleteService(serviceName);
 		
-		addRelToResponseHeader(Constants.Rel.SERVICE_LIST);
-		addServiceNameToResponseHeader(serviceName);
-		addResourceNameToResponseHeader(serviceName);	
+		setRelInResponseHeader(Constants.Rel.SERVICE_LIST);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(serviceName);	
 
 		info(String.format("Service '%s' was deleted.", serviceName));
 	}
@@ -410,9 +410,9 @@ public class TemplateServices implements ITemplateServices {
 			requireSpecificContentType(contentType, "text/plain");
 		}
 		
-		addRelToResponseHeader(Constants.Rel.TEMPLATE);
-		addServiceNameToResponseHeader(serviceName);
-		addResourceNameToResponseHeader(Constants.TEMPLATE_RESOURCE_NAME);
+		setRelInResponseHeader(Constants.Rel.TEMPLATE);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(Constants.TEMPLATE_RESOURCE_NAME);
 		
 		StringSource template = new StringSource(payload, contentType);
 		getStorageProvider().setTemplate(serviceName, template);
@@ -424,6 +424,10 @@ public class TemplateServices implements ITemplateServices {
 		trace();
 
 		validateServiceOrResourceName(serviceName);
+				
+		setRelInResponseHeader(Constants.Rel.TEMPLATE);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(Constants.TEMPLATE_RESOURCE_NAME);
 
 		getStorageProvider().deleteTemplate(serviceName);
 
@@ -457,9 +461,9 @@ public class TemplateServices implements ITemplateServices {
 			requireSpecificContentType(contentType, "text/xml");
 		}
 		
-		addRelToResponseHeader(Constants.Rel.SCHEMA);
-		addServiceNameToResponseHeader(serviceName);
-		addResourceNameToResponseHeader(schemaName);	
+		setRelInResponseHeader(Constants.Rel.SCHEMA);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(schemaName);	
 		
 		StringSource schema = new StringSource(payload, contentType);
 		getStorageProvider().addSchema(serviceName, schemaName, schema);
@@ -472,6 +476,10 @@ public class TemplateServices implements ITemplateServices {
 
 		validateServiceOrResourceName(serviceName);
 		forbidEmptyName(schemaName);
+		
+		setRelInResponseHeader(Constants.Rel.SCHEMA);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(schemaName);	
 
 		getStorageProvider().deleteSchema(serviceName, schemaName);
 
@@ -503,9 +511,9 @@ public class TemplateServices implements ITemplateServices {
 			requireSpecificContentType(contentType, "text/xml");
 		}
 		
-		addRelToResponseHeader(Constants.Rel.CONFIG);
-		addServiceNameToResponseHeader(serviceName);
-		addResourceNameToResponseHeader(configName);	
+		setRelInResponseHeader(Constants.Rel.CONFIG);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(configName);	
 		
 		getStorageProvider().addConfig(serviceName, configName,
 				new StringSource(payload, contentType));
@@ -519,6 +527,10 @@ public class TemplateServices implements ITemplateServices {
 
 		validateServiceOrResourceName(serviceName);
 		forbidEmptyName(configName);
+		
+		setRelInResponseHeader(Constants.Rel.CONFIG);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(configName);
 
 		getStorageProvider().deleteConfig(serviceName, configName);
 
@@ -597,6 +609,11 @@ public class TemplateServices implements ITemplateServices {
 	public ResourceHistory getTemplateHistory(String serviceName)
 			throws ResourceNotFoundException {
 		trace();
+		
+		setRelInResponseHeader(Constants.Rel.TEMPLATE_HISTORY);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(Constants.TEMPLATE_RESOURCE_NAME);			
+		
 		return new ResourceHistory(getStorageProvider(), getRootUri(),
 				serviceName, Constants.Rel.TEMPLATE,
 				Constants.TEMPLATE_RESOURCE_NAME);
@@ -623,6 +640,10 @@ public class TemplateServices implements ITemplateServices {
 
 		forbidEmptyName(serviceName);
 		forbidEmptyName(schemaName);
+		
+		setRelInResponseHeader(Constants.Rel.SCHEMA_HISTORY);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(schemaName);					
 
 		return new ResourceHistory(getStorageProvider(), getRootUri(),
 				serviceName, Constants.Rel.SCHEMA, schemaName);
@@ -652,6 +673,10 @@ public class TemplateServices implements ITemplateServices {
 
 		forbidEmptyName(serviceName);
 		forbidEmptyName(configName);
+		
+		setRelInResponseHeader(Constants.Rel.CONFIG_HISTORY);
+		setServiceNameInResponseHeader(serviceName);
+		setResourceNameInResponseHeader(configName);					
 
 		return new ResourceHistory(getStorageProvider(), getRootUri(),
 				serviceName, Constants.Rel.CONFIG, configName);
@@ -706,6 +731,9 @@ public class TemplateServices implements ITemplateServices {
 		}
 		
 		
+		setRelInResponseHeader(Constants.Rel.SERVICE_RENAMER);
+		setNamesInResponseHeader(serviceName, newName);
+		
 		return parentRR;
 	}
 
@@ -728,6 +756,10 @@ public class TemplateServices implements ITemplateServices {
 
 		Link oldLink = Link.schema(storage, rootUri, serviceName, schemaName);
 		Link newLink = Link.schema(storage, rootUri, serviceName, newName);
+		
+		setRelInResponseHeader(Constants.Rel.SCHEMA_RENAMER);
+		setServiceNameInResponseHeader(serviceName);
+		setNamesInResponseHeader(schemaName, newName);
 
 		RenameResult rr = new RenameResult();
 		rr.setOldLink(oldLink);
@@ -755,6 +787,10 @@ public class TemplateServices implements ITemplateServices {
 
 		Link oldLink = Link.config(storage, rootUri, serviceName, configName);
 		Link newLink = Link.config(storage, rootUri, serviceName, newName);
+		
+		setRelInResponseHeader(Constants.Rel.CONFIG_RENAMER);
+		setServiceNameInResponseHeader(serviceName);
+		setNamesInResponseHeader(configName, newName);
 
 		RenameResult rr = new RenameResult();
 		rr.setOldLink(oldLink);
@@ -863,21 +899,21 @@ public class TemplateServices implements ITemplateServices {
 	@Override
 	public String testConnectionViaGet() {		
 		trace();
-		addRelToResponseHeader(Constants.Rel.TEST_CONNECTION);
+		setRelInResponseHeader(Constants.Rel.TEST_CONNECTION);
 		return Version.getVersion();
 	}
 
 	@Override
 	public String testConnectionViaPost() {
 		trace();
-		addRelToResponseHeader(Constants.Rel.TEST_CONNECTION);
+		setRelInResponseHeader(Constants.Rel.TEST_CONNECTION);
 		return Version.getVersion();
 	}
 
 	@Override
 	public String testConnectionViaDelete() {
 		trace();
-		addRelToResponseHeader(Constants.Rel.TEST_CONNECTION);
+		setRelInResponseHeader(Constants.Rel.TEST_CONNECTION);
 		return Version.getVersion();
 	}
 
@@ -891,23 +927,30 @@ public class TemplateServices implements ITemplateServices {
 		enforceRequiredContentType = value;		
 	}
 	
-	private void addToResponseHeader(String key, String value) {
+	private void setResponseHeader(String key, String value) {
 		if (servletResponse != null) {
-			servletResponse.addHeader(key, value);
+			servletResponse.setHeader(key, value);
 		}
 	}
 		
-	private void addRelToResponseHeader(String rel) {
-		addToResponseHeader(Constants.HttpHeader.REL, rel);
+	private void setRelInResponseHeader(String rel) {
+		setResponseHeader(Constants.HttpHeader.REL, rel);
 	}
 	
-	private void addServiceNameToResponseHeader(String serviceName) {
-		addToResponseHeader(Constants.HttpHeader.SERVICE_NAME, serviceName);
+	private void setServiceNameInResponseHeader(String serviceName) {
+		setResponseHeader(Constants.HttpHeader.SERVICE_NAME, serviceName);
 	}
 	
-	private void addResourceNameToResponseHeader(String resourceName) {
-		addToResponseHeader(Constants.HttpHeader.RESOURCE_NAME, resourceName);
+	private void setResourceNameInResponseHeader(String resourceName) {
+		setResponseHeader(Constants.HttpHeader.RESOURCE_NAME, resourceName);
 	}
+	
+	private void setNamesInResponseHeader(String oldName, String newName) {
+		setResponseHeader(Constants.HttpHeader.OLD_NAME, oldName);
+		setResponseHeader(Constants.HttpHeader.NEW_NAME, newName);
+	}
+	
+	
 	
 	
 }

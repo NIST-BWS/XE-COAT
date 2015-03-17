@@ -54,4 +54,25 @@ public class Hosted extends Tests {
 		
 	}
 	
+	@Test
+	public void deleteConfigShouldReturnCorrectHeaders() {
+		String serviceName = "service0";
+		String resourceName = "config0";
+		
+		TemplateServicesClient client = fixture.getTemplateServicesClient();
+		
+		client.createService(serviceName);		
+		StringSource resource = Examples.CONFIG;
+		
+		client.setConfigAsResponse(serviceName, resourceName,
+				resource.getData(), resource.getContentType("xml"));
+		Response r = client.deleteConfigAsResponse(serviceName, resourceName);
+		
+		
+		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
+		assertEquals(resourceName, r.getHeaderString(HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.Rel.CONFIG, r.getHeaderString(HttpHeader.REL));
+		
+	}
+	
 }

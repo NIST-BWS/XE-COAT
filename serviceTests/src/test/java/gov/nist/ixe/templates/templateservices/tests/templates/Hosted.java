@@ -46,7 +46,27 @@ public class Hosted extends Tests {
 		StringSource resource = Examples.TEMPLATE;
 		
 		Response r = client.setTemplateAsResponse(serviceName, 
-				resource.getData(), "text/plain");
+				resource.getData(), resource.getContentType("plain"));
+		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
+		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r.getHeaderString(HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.Rel.TEMPLATE, r.getHeaderString(HttpHeader.REL));
+		
+	}
+	
+	@Test
+	public void deleteTemplateShouldReturnCorrectHeaders() {
+		String serviceName = "service0";		
+		
+		TemplateServicesClient client = fixture.getTemplateServicesClient();
+		
+		client.createService(serviceName);		
+		StringSource resource = Examples.TEMPLATE;
+		
+		client.setTemplateAsResponse(serviceName, 
+				resource.getData(), resource.getContentType("plain"));
+		Response r = client.deleteTemplateAsResponse(serviceName);
+		
+		
 		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
 		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r.getHeaderString(HttpHeader.RESOURCE_NAME));
 		assertEquals(Constants.Rel.TEMPLATE, r.getHeaderString(HttpHeader.REL));
