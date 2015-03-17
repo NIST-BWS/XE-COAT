@@ -725,7 +725,7 @@ public class TemplateServices implements ITemplateServices {
 		ServiceResources oldResources = getServiceResources(serviceName);		
 		
 		getStorageProvider().renameService(serviceName, newName);
-		info(String.format("Serivce '%s' renamed to '%s'.", serviceName,
+		info(String.format("Service '%s' renamed to '%s'.", serviceName,
 				newName));
 
 		IStorageProvider storage = getStorageProvider();
@@ -745,8 +745,7 @@ public class TemplateServices implements ITemplateServices {
 			rr.setNewLink(newResources.getLinkByNameAndRel(oldLink.getName(), oldLink.getRel()));
 			parentRR.getRenamedResources().add(rr);
 		}
-		
-		
+				
 		setRelInResponseHeader(Constants.Rel.SERVICE_RENAMER);
 		setNamesInResponseHeader(serviceName, newName);
 		
@@ -764,7 +763,7 @@ public class TemplateServices implements ITemplateServices {
 		forbidReservedName(newName);
 		getStorageProvider().renameSchema(serviceName, schemaName, newName);
 
-		info(String.format("Serivce '%s' renamed schema '%s' to '%s'.",
+		info(String.format("Schema '%s' renamed schema '%s' to '%s'.",
 				serviceName, schemaName, newName));
 
 		IStorageProvider storage = getStorageProvider();
@@ -795,7 +794,7 @@ public class TemplateServices implements ITemplateServices {
 		forbidReservedName(newName);
 		getStorageProvider().renameConfig(serviceName, configName, newName);
 
-		info(String.format("Serivce '%s' renamed config '%s' to '%s'.",
+		info(String.format("Config '%s' renamed config '%s' to '%s'.",
 				serviceName, configName, newName));
 
 		IStorageProvider storage = getStorageProvider();
