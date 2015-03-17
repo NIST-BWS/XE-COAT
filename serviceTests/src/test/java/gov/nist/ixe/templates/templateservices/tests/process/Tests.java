@@ -152,6 +152,7 @@ public abstract class Tests extends TemplateServicesTests {
 		setSchema(ts, serviceName, "main.xsd", schema);
 		
 		javax.ws.rs.core.Response r = ts.processTemplateByName(serviceName, "named.xml");
+		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
 		assertEquals("process/named.xml", r.getHeaderString(HttpHeader.RESOURCE_NAME));
 		assertEquals("process", r.getHeaderString(HttpHeader.REL));
 	}
@@ -169,6 +170,7 @@ public abstract class Tests extends TemplateServicesTests {
 		setSchema(ts, serviceName, "main.xsd", schema);
 		
 		javax.ws.rs.core.Response r = ts.processDefaultTemplate(serviceName);
+		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
 		assertEquals("process", r.getHeaderString(HttpHeader.RESOURCE_NAME));
 		assertEquals("process", r.getHeaderString(HttpHeader.REL));
 	}
@@ -185,6 +187,7 @@ public abstract class Tests extends TemplateServicesTests {
 		setSchema(ts, serviceName, "main.xsd", schema);
 		
 		javax.ws.rs.core.Response r = ts.processTemplate(serviceName, config.getData(), config.getContentType("xml"));
+		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
 		assertEquals("process/process", r.getHeaderString(HttpHeader.RESOURCE_NAME));
 		assertEquals("process", r.getHeaderString(HttpHeader.REL));
 	}

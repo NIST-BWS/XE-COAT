@@ -85,7 +85,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -177,7 +176,7 @@ public class TemplateServices implements ITemplateServices {
 
 		info(String.format("Service '%s' was deleted.", serviceName));
 	}
-
+		
 	private void requirePrimarySchema(String serviceName) {
 		trace();
 
@@ -197,8 +196,6 @@ public class TemplateServices implements ITemplateServices {
 			Link configLink, Link processLink, String resourceName) {
 		trace();
 		
-		//String resourceName = Constants.NAMED_PROCESS_NAME_PREFIX + configLink.getName();
-
 		requirePrimarySchema(serviceName);
 		requireTemplate(serviceName);
 
@@ -381,7 +378,6 @@ public class TemplateServices implements ITemplateServices {
 				Link.namedProcess(storage, getRootUri(), serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
 				Constants.PROCESS_RESOURCE_NAME);
 		return result;
-		//return processTemplateByName(serviceName,Constants.DEFAULT_CONFIGURATION_NAME);
 	}
 
 	public Response processTemplateByName(String serviceName, String configName) {
@@ -409,10 +405,15 @@ public class TemplateServices implements ITemplateServices {
 		trace();
 
 		validateServiceOrResourceName(serviceName);
-		if (enforceRequiredContentType) 
+		
+		if (enforceRequiredContentType) {
 			requireSpecificContentType(contentType, "text/plain");
-
-
+		}
+		
+		addRelToResponseHeader(Constants.Rel.TEMPLATE);
+		addServiceNameToResponseHeader(serviceName);
+		addResourceNameToResponseHeader(Constants.TEMPLATE_RESOURCE_NAME);
+		
 		StringSource template = new StringSource(payload, contentType);
 		getStorageProvider().setTemplate(serviceName, template);
 		info(String.format("The template for service '%s' was set.",
@@ -451,9 +452,14 @@ public class TemplateServices implements ITemplateServices {
 		validateServiceOrResourceName(schemaName);
 		forbidEmptyName(schemaName);
 		forbidReservedName(schemaName);
-		if (enforceRequiredContentType)
+		
+		if (enforceRequiredContentType) {
 			requireSpecificContentType(contentType, "text/xml");
-
+		}
+		
+		addRelToResponseHeader(Constants.Rel.SCHEMA);
+		addServiceNameToResponseHeader(serviceName);
+		addResourceNameToResponseHeader(schemaName);	
 		
 		StringSource schema = new StringSource(payload, contentType);
 		getStorageProvider().addSchema(serviceName, schemaName, schema);
@@ -492,8 +498,15 @@ public class TemplateServices implements ITemplateServices {
 		validateServiceOrResourceName(configName);
 		forbidEmptyName(configName);
 		forbidReservedName(configName);
-		if (enforceRequiredContentType)
+		
+		if (enforceRequiredContentType) {
 			requireSpecificContentType(contentType, "text/xml");
+		}
+		
+		addRelToResponseHeader(Constants.Rel.CONFIG);
+		addServiceNameToResponseHeader(serviceName);
+		addResourceNameToResponseHeader(configName);	
+		
 		getStorageProvider().addConfig(serviceName, configName,
 				new StringSource(payload, contentType));
 
@@ -534,8 +547,7 @@ public class TemplateServices implements ITemplateServices {
 
 	private static void requireSpecificContentType(String actual,
 			String expected) {
-		
-		
+				
 		boolean result = false;
 		try {
 			MediaType actualMT = MediaType.valueOf(actual);
@@ -662,15 +674,14 @@ public class TemplateServices implements ITemplateServices {
 	}
 
 	public RenameResult renameService(String serviceName, String newName) {
+		
 		forbidEmptyName(serviceName);
 		forbidEmptyName(newName);
 		forbidReservedName(newName);
 		
-		validateServiceOrResourceName(newName);
+		validateServiceOrResourceName(newName);		
 		
-		
-		ServiceResources oldResources = getServiceResources(serviceName);
-		
+		ServiceResources oldResources = getServiceResources(serviceName);		
 		
 		getStorageProvider().renameService(serviceName, newName);
 		info(String.format("Serivce '%s' renamed to '%s'.", serviceName,
@@ -847,8 +858,7 @@ public class TemplateServices implements ITemplateServices {
 		
 		return result;
 
-	}
-	
+	}	
 
 	@Override
 	public String testConnectionViaGet() {		

@@ -27,7 +27,7 @@ public abstract class Tests extends TemplateServicesTests {
 	}
 	
 	@Test public void withNoServicesGetServicesWorksCorrectly() {
-		ServiceList services = ts.getServiceList();
+		ts.getServiceList();
 	}
 
 

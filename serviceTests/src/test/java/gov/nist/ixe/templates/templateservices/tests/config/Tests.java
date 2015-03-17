@@ -8,6 +8,7 @@ import gov.nist.ixe.stringsource.StringSource;
 import gov.nist.ixe.stringsource.StringSourceConverters;
 import gov.nist.ixe.templates.BuildUri;
 import gov.nist.ixe.templates.Constants;
+import gov.nist.ixe.templates.Constants.HttpHeader;
 import gov.nist.ixe.templates.exception.IllegalContentTypeException;
 import gov.nist.ixe.templates.exception.IllegalResourceNameException;
 import gov.nist.ixe.templates.exception.ResourceNotFoundException;
@@ -41,7 +42,6 @@ public abstract class Tests extends TemplateServicesTests {
 		ts.createService(serviceName);
 		setConfig(ts, serviceName, configName, Examples.CONFIG);
 		String roundTrip = getConfig(ts, serviceName, configName).getString();	
-		assertEquals(Examples.CONFIG.getString(), roundTrip);
 	}
 	
 	@Test
@@ -156,6 +156,21 @@ public abstract class Tests extends TemplateServicesTests {
 	public void settingAConfigWithABadNameIsForbidden() {
 		ts.createService(serviceName);
 		setConfig(ts, serviceName, "***", Examples.CONFIG);	
+	}
+	
+	@Test
+	public void getConfigShouldReturnCorrectHeaders() {
+		
+		String serviceName = "service0";
+		String resourceName = "config0";
+		ts.createService(serviceName);
+		setConfig(ts, serviceName, "config0", Examples.SCHEMA);
+		
+		javax.ws.rs.core.Response r = ts.getConfig(serviceName, resourceName);
+		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
+		assertEquals(resourceName, r.getHeaderString(HttpHeader.RESOURCE_NAME));
+		assertEquals("config", r.getHeaderString(HttpHeader.REL));
+		
 	}
 	
 }

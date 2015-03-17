@@ -50,8 +50,8 @@ public class Constants {
 	public static final String TEMPLATE_RESOURCE_NAME     = Constants.Rel.TEMPLATE;
 	public static final String PROCESS_RESOURCE_NAME      = Atom.PROCESS;
 	public static final String HISTORY_RESOURCE_NAME      = Atom.HISTORY;
-	public static final String NAMED_PROCESS_NAME_PREFIX = PROCESS_RESOURCE_NAME + Atom.NAME_PREFIX_DELIMITER;
-	public static final String NAMED_HISTORY_NAME_PREFIX = HISTORY_RESOURCE_NAME + Atom.NAME_PREFIX_DELIMITER;
+	public static final String NAMED_PROCESS_NAME_PREFIX  = PROCESS_RESOURCE_NAME + Atom.NAME_PREFIX_DELIMITER;
+	public static final String NAMED_HISTORY_NAME_PREFIX  = HISTORY_RESOURCE_NAME + Atom.NAME_PREFIX_DELIMITER;
 	
 	static final String[] RESERVED_NAMES = {				
 		PROCESS_RESOURCE_NAME,
@@ -75,10 +75,11 @@ public class Constants {
 	};
 	
 	public static class HttpHeader {
-		public static final String HISTORIC_VERSION_OF = "X-COAT-Historic-Version-Of";
-		public static final String SERVICE_NAME = "X-COAT-ServiceName";
+		public static final String HISTORIC_VERSION_OF = "X-COAT-Historic-Version-Of";		
 		public static final String RESOURCE_NAME = "X-COAT-ResourceName";
 		public static final String REL = "X-COAT-Rel";
+		public static final String SERVER = "Server";
+		public static final String SERVICE_NAME = "X-COAT-ServiceName";
 		
 	}
 
@@ -170,12 +171,12 @@ public class Constants {
 		public  static final String SCHEMA_HISTORY   = NAMED_HISTORY_NAME_PREFIX + Uri.SCHEMA;
 		public  static final String CONFIG_HISTORY   = NAMED_HISTORY_NAME_PREFIX + Uri.CONFIG;
 		
-		private static final String HISTORIC_PREFIX = Atom.HISTORIC + "/{" + Param.TIMESTAMP + "}/";
+		private static final String HISTORIC_PREFIX   = Atom.HISTORIC + "/{" + Param.TIMESTAMP + "}/";
 		public  static final String HISTORIC_TEMPLATE = HISTORIC_PREFIX  + Uri.TEMPLATE;
 		public  static final String HISTORIC_CONFIG   = HISTORIC_PREFIX  + Uri.CONFIG;
 		public  static final String HISTORIC_SCHEMA   = HISTORIC_PREFIX  + Uri.SCHEMA;
 		
-		private static final String RENAME_PREFIX = Atom.RENAME + "/";
+		private static final String RENAME_PREFIX  = Atom.RENAME + "/";
 		public  static final String RENAME_SCHEMA  = RENAME_PREFIX + Uri.SCHEMA;
 		public  static final String RENAME_CONFIG  = RENAME_PREFIX + Uri.CONFIG;
 		public  static final String RENAME_SERVICE = RENAME_PREFIX + Atom.SERVICE + "/" + Uri.SERVICE;
@@ -222,8 +223,7 @@ public class Constants {
 		private static final String VERSION         = "version";
 		private static final String XSD             = "xsd";
 		private static final String XML             = "xml";
-				
-		
+						
 		private static final String NAME_PREFIX_DELIMITER = "/";
 		private static final String COMPOUND_RESOURCE_DELIMITER = "/";
 

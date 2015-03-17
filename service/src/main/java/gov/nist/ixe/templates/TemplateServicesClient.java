@@ -241,14 +241,21 @@ public class TemplateServicesClient implements ITemplateServices {
 
 	public void setTemplate(String serviceName, byte[] payload, String contentType) {
 		makeRequest(BuildUri.getTemplateUri(getRootUri(), serviceName), POST, payload, contentType);
-
+	}
+	public Response setTemplateAsResponse(String serviceName, byte[] payload, String contentType) {
+		return makeRequest(BuildUri.getTemplateUri(getRootUri(), serviceName), POST, Response.class, payload, contentType);
 	}
 	public void setSchema(String serviceName, String schemaName, byte[] payload, String contentType) {
 		makeRequest(BuildUri.getSchemaUri(getRootUri(), serviceName, schemaName), POST, payload, contentType);
 	}
+	public Response setSchemaAsResponse(String serviceName, String schemaName, byte[] payload, String contentType) {
+		return makeRequest(BuildUri.getSchemaUri(getRootUri(), serviceName, schemaName), POST, Response.class, payload, contentType);
+	}
 	public void setConfig(String serviceName, String configName, byte[] payload, String contentType) {
 		makeRequest(BuildUri.getConfigUri(getRootUri(), serviceName, configName), POST, payload, contentType);
-
+	}
+	public Response setConfigAsResponse(String serviceName, String configName, byte[] payload, String contentType) {
+		return makeRequest(BuildUri.getConfigUri(getRootUri(), serviceName, configName), POST, Response.class, payload, contentType);
 	}
 
 	public void deleteTemplate(String serviceName) {
@@ -259,11 +266,9 @@ public class TemplateServicesClient implements ITemplateServices {
 	}
 	public void deleteSchema(String serviceName, String schemaName) {
 		makeRequest(BuildUri.getSchemaUri(getRootUri(), serviceName, schemaName), DELETE, null);
-
 	}
 	public void deleteConfig(String serviceName, String configName) {
 		makeRequest(BuildUri.getConfigUri(getRootUri(), serviceName, configName), DELETE, null);
-
 	}
 
 	public ResourceHistory getTemplateHistory(String serviceName)throws ResourceNotFoundException {
@@ -348,3 +353,4 @@ public class TemplateServicesClient implements ITemplateServices {
 
 
 }
+
