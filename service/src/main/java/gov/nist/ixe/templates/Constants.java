@@ -54,7 +54,7 @@ public class Constants {
 		public static final String PROCESS  = Atom.PROCESS;
 		public static final String RENAME   = Atom.RENAME;
 		public static final String TEMPLATE = Atom.TEMPLATE;
-		
+		public static final String INI_SPLITTER = Atom.SPLITTER + "/" + Atom.INI;
 	}
 	
 	static final String[] RESERVED_NAMES = {				

@@ -28,7 +28,15 @@ public class HostedTemplateServicesClient extends TemplateServicesClient
 		MultivaluedMap<String,Object> headers = new MultivaluedHashMap<String,Object>();
 		
 		ArrayList<Object> testClass = new ArrayList<Object>();
-		testClass.add(description.getClassName());
+		
+		String className = description.getClassName();
+		String prefix = "gov.nist.ixe.";
+		if (className.startsWith(prefix)) {
+		    className = className.substring(prefix.length());
+		}
+			
+		testClass.add(className);
+		
 		headers.put("X-COAT-JUnitTestClass", testClass);
 		
 		ArrayList<Object> testMethod = new ArrayList<Object>();

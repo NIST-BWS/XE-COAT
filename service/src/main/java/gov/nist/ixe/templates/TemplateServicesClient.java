@@ -358,6 +358,9 @@ public class TemplateServicesClient implements ITemplateServices {
 	public ServiceList splitInf(byte[] payload, String contentType, String serviceName) {
 		return makeRequest(BuildUri.getIniSplitterUri(getRootUri(), serviceName), POST, ServiceList.class, payload, contentType); 
 	}
+	public Response splitInfAsResponse(byte[] payload, String contentType, String serviceName) {
+		return makeRequest(BuildUri.getIniSplitterUri(getRootUri(), serviceName), POST, Response.class, payload, contentType); 
+	}
 
 	@Override
 	public String testConnectionViaGet() {

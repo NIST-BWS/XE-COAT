@@ -910,6 +910,9 @@ public class TemplateServices implements ITemplateServices {
 		ServiceList result = 
 				ServiceList.newlyCreatedService(storage, getRootUri(), serviceName);
 		
+		setRelInResponseHeader(Constants.Rel.INI_SPLITTER);
+		setResourceNameInResponseHeader(Constants.ResourceName.INI_SPLITTER);
+		
 		return result;
 
 	}	
