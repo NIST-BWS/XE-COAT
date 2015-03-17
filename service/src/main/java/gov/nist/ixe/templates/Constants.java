@@ -47,15 +47,18 @@ public class Constants {
 	public static final String NAMESPACE                  = "http://templates.xe.nist.gov";
 	public static final String DEFAULT_CONFIGURATION_NAME = Atom.DEFAULT + "." + Atom.XML;
 	public static final String PRIMARY_SCHEMA_NAME        = Atom.MAIN + "." + Atom.XSD;
-	public static final String TEMPLATE_RESOURCE_NAME     = Constants.Rel.TEMPLATE;
-	public static final String PROCESS_RESOURCE_NAME      = Atom.PROCESS;
-	public static final String HISTORY_RESOURCE_NAME      = Atom.HISTORY;
-	public static final String NAMED_PROCESS_NAME_PREFIX  = PROCESS_RESOURCE_NAME + Atom.NAME_PREFIX_DELIMITER;
-	public static final String NAMED_HISTORY_NAME_PREFIX  = HISTORY_RESOURCE_NAME + Atom.NAME_PREFIX_DELIMITER;
+	public static final String NAMED_PROCESS_NAME_PREFIX  = ResourceName.PROCESS + Atom.NAME_PREFIX_DELIMITER;
+	public static final String NAMED_HISTORY_NAME_PREFIX  = Atom.HISTORY + Atom.NAME_PREFIX_DELIMITER;
+	
+	public static class ResourceName {		
+		public static final String PROCESS  = Atom.PROCESS;
+		public static final String RENAME   = Atom.RENAME;
+		public static final String TEMPLATE = Atom.TEMPLATE;
+		
+	}
 	
 	static final String[] RESERVED_NAMES = {				
-		PROCESS_RESOURCE_NAME,
-		HISTORY_RESOURCE_NAME,
+		ResourceName.PROCESS,
 		Rel.CONFIG,
 		Rel.CONFIG_HISTORY,
 		Atom.HISTORY,		
@@ -85,7 +88,21 @@ public class Constants {
 		public static final String REL = "X-COAT-Rel";
 		public static final String SERVER = "Server";
 		public static final String SERVICE_NAME = "X-COAT-ServiceName";
+		public static final String UPLOADED_REL = "X-COAT-Uploaded-Rel";
 	}
+	
+	static final String[] CUSTOM_HTTP_HEADERS = {
+		HttpHeader.EXCEPTION_TYPE,
+		HttpHeader.EXCEPTION_MESSAGE,
+		HttpHeader.HISTORIC_REL_OF,
+		HttpHeader.HISTORIC_VERSION_OF,		
+		HttpHeader.NEW_NAME,
+		HttpHeader.OLD_NAME,
+		HttpHeader.RESOURCE_NAME,
+		HttpHeader.REL,
+		HttpHeader.SERVICE_NAME,
+		HttpHeader.UPLOADED_REL,
+	};
 
 	
 	public static class Rel {

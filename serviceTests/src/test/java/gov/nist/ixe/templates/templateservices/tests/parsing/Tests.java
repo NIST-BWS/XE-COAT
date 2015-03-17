@@ -209,7 +209,7 @@ public abstract class Tests extends TemplateServicesTests {
 		if (style == ProcessStyle.Posted) {
 			expectedUri = BuildUri.getProcessPayloadUri(serverRootUri, serviceName);
 			expectedRel = Constants.Rel.PROCESS;
-			expectedName = Constants.PROCESS_RESOURCE_NAME;
+			expectedName = Constants.ResourceName.PROCESS;
 		}
 		assertLinkEquals(expectedName, expectedRel, expectedUri, errors.get(0).getLink());
 	}
@@ -237,7 +237,7 @@ public abstract class Tests extends TemplateServicesTests {
 		if (style == ProcessStyle.Posted) {
 			expectedUri = BuildUri.getProcessPayloadUri(serverRootUri, serviceName);
 			expectedRel = Constants.Rel.PROCESS;
-			expectedName = Constants.PROCESS_RESOURCE_NAME;
+			expectedName = Constants.ResourceName.PROCESS;
 		}
 		assertLinkEquals(expectedName, expectedRel, expectedUri, errors.get(0).getLink());
 	}
@@ -269,7 +269,7 @@ public abstract class Tests extends TemplateServicesTests {
 		if (style == ProcessStyle.Posted) {
 			expectedUri = BuildUri.getProcessPayloadUri(serverRootUri, serviceName);
 			expectedRel = Constants.Rel.PROCESS;
-			expectedName = Constants.PROCESS_RESOURCE_NAME;
+			expectedName = Constants.ResourceName.PROCESS;
 		}
 		assertLinkEquals(expectedName, expectedRel, expectedUri, errors.get(0).getLink());
 	}	

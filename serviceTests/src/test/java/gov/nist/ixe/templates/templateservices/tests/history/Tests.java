@@ -196,8 +196,8 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(serviceName, r0.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
 		assertEquals(serviceName, r1.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
 		
-		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r0.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
-		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r1.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.ResourceName.TEMPLATE, r0.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.ResourceName.TEMPLATE, r1.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
 			
 		assertEquals(originalUri, r0.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));
 		assertEquals(originalUri, r1.getHeaderString(Constants.HttpHeader.HISTORIC_VERSION_OF));	

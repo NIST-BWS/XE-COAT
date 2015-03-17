@@ -365,7 +365,7 @@ public class TemplateServices implements ITemplateServices {
 		return generateTemplate(serviceName, config,
 				Link.processPayload(storage, getRootUri(), serviceName),
 				Link.process(storage, getRootUri(), serviceName),
-				Constants.NAMED_PROCESS_NAME_PREFIX + Constants.PROCESS_RESOURCE_NAME);
+				Constants.NAMED_PROCESS_NAME_PREFIX + Constants.ResourceName.PROCESS);
 
 	}
 
@@ -376,7 +376,7 @@ public class TemplateServices implements ITemplateServices {
 		Response result = generateTemplate(serviceName, config, 
 				Link.config(storage, getRootUri(), serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
 				Link.namedProcess(storage, getRootUri(), serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
-				Constants.PROCESS_RESOURCE_NAME);
+				Constants.ResourceName.PROCESS);
 		return result;
 	}
 
@@ -397,7 +397,7 @@ public class TemplateServices implements ITemplateServices {
 		validateServiceOrResourceName(serviceName);
 		return StringSourceConverters.toResponse(getStorageProvider()
 				.getTemplate(serviceName), Constants.ContentType.SubType.PLAIN, 
-				serviceName, Constants.Rel.TEMPLATE, Constants.TEMPLATE_RESOURCE_NAME);
+				serviceName, Constants.Rel.TEMPLATE, Constants.ResourceName.TEMPLATE);
 	}
 
 	public void setTemplate(String serviceName, byte[] payload,
@@ -412,7 +412,7 @@ public class TemplateServices implements ITemplateServices {
 		
 		setRelInResponseHeader(Constants.Rel.TEMPLATE);
 		setServiceNameInResponseHeader(serviceName);
-		setResourceNameInResponseHeader(Constants.TEMPLATE_RESOURCE_NAME);
+		setResourceNameInResponseHeader(Constants.ResourceName.TEMPLATE);
 		
 		StringSource template = new StringSource(payload, contentType);
 		getStorageProvider().setTemplate(serviceName, template);
@@ -427,7 +427,7 @@ public class TemplateServices implements ITemplateServices {
 				
 		setRelInResponseHeader(Constants.Rel.TEMPLATE);
 		setServiceNameInResponseHeader(serviceName);
-		setResourceNameInResponseHeader(Constants.TEMPLATE_RESOURCE_NAME);
+		setResourceNameInResponseHeader(Constants.ResourceName.TEMPLATE);
 
 		getStorageProvider().deleteTemplate(serviceName);
 
@@ -612,11 +612,11 @@ public class TemplateServices implements ITemplateServices {
 		
 		setRelInResponseHeader(Constants.Rel.TEMPLATE_HISTORY);
 		setServiceNameInResponseHeader(serviceName);
-		setResourceNameInResponseHeader(Constants.TEMPLATE_RESOURCE_NAME);			
+		setResourceNameInResponseHeader(Constants.ResourceName.TEMPLATE);			
 		
 		return new ResourceHistory(getStorageProvider(), getRootUri(),
 				serviceName, Constants.Rel.TEMPLATE,
-				Constants.TEMPLATE_RESOURCE_NAME);
+				Constants.ResourceName.TEMPLATE);
 	}
 
 	public Response getHistoricTemplate(String serviceName, String timestamp)
@@ -628,7 +628,7 @@ public class TemplateServices implements ITemplateServices {
 				serviceName, d);
 		Response result = StringSourceConverters.toResponse(template,
 				Constants.ContentType.SubType.PLAIN, 
-				serviceName, Constants.Rel.HISTORIC_TEMPLATE, Constants.TEMPLATE_RESOURCE_NAME);
+				serviceName, Constants.Rel.HISTORIC_TEMPLATE, Constants.ResourceName.TEMPLATE);
 		
 		
 		result.getHeaders().add(Constants.HttpHeader.HISTORIC_REL_OF, 
@@ -851,6 +851,9 @@ public class TemplateServices implements ITemplateServices {
 		if (Constants.Rel.INI_SPLITTER.equals(rel)) {			
 			splitInf(payload, contentType, name);
 		}
+		
+		setRelInResponseHeader(Constants.Rel.UPLOAD);
+		setUploadedRelInResponseHeader(rel);
 
 		return result;
 	}
@@ -965,7 +968,8 @@ public class TemplateServices implements ITemplateServices {
 		setResponseHeader(Constants.HttpHeader.NEW_NAME, newName);
 	}
 	
-	
-	
+	private void setUploadedRelInResponseHeader(String uploadedRel) {
+		setResponseHeader(Constants.HttpHeader.UPLOADED_REL, uploadedRel);
+	}
 	
 }

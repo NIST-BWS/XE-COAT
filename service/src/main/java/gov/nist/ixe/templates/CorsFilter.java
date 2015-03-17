@@ -1,5 +1,7 @@
 package gov.nist.ixe.templates;
 
+import gov.nist.ixe.StringUtil;
+
 import java.io.IOException;
 
 import javax.ws.rs.container.ContainerRequestContext;
@@ -9,18 +11,8 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 public class CorsFilter implements ContainerResponseFilter {
-
 	
-	private String ALLOW_HEADERS = 
-			Constants.HttpHeader.EXCEPTION_TYPE + ", " +
-			Constants.HttpHeader.EXCEPTION_MESSAGE + ", " +
-			Constants.HttpHeader.OLD_NAME + ", " +
-			Constants.HttpHeader.NEW_NAME + ", " +
-			Constants.HttpHeader.REL + ", " +
-			Constants.HttpHeader.SERVICE_NAME + ", " +
-			Constants.HttpHeader.RESOURCE_NAME + ", " +
-			Constants.HttpHeader.HISTORIC_VERSION_OF + ", " +
-			Constants.HttpHeader.HISTORIC_REL_OF;
+	private String ALLOW_HEADERS = StringUtil.join(Constants.CUSTOM_HTTP_HEADERS);
 
 	@Override
 	public void filter(ContainerRequestContext request,

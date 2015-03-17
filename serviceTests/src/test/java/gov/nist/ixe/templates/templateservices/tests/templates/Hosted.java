@@ -48,7 +48,7 @@ public class Hosted extends Tests {
 		Response r = client.setTemplateAsResponse(serviceName, 
 				resource.getData(), resource.getContentType("plain"));
 		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
-		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r.getHeaderString(HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.ResourceName.TEMPLATE, r.getHeaderString(HttpHeader.RESOURCE_NAME));
 		assertEquals(Constants.Rel.TEMPLATE, r.getHeaderString(HttpHeader.REL));
 		
 	}
@@ -68,7 +68,7 @@ public class Hosted extends Tests {
 		
 		
 		assertEquals(serviceName, r.getHeaderString(HttpHeader.SERVICE_NAME));
-		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r.getHeaderString(HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.ResourceName.TEMPLATE, r.getHeaderString(HttpHeader.RESOURCE_NAME));
 		assertEquals(Constants.Rel.TEMPLATE, r.getHeaderString(HttpHeader.REL));
 		
 	}

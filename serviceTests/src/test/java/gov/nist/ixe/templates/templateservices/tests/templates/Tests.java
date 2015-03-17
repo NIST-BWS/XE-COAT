@@ -65,7 +65,7 @@ public abstract class Tests extends TemplateServicesTests {
 				.getTemplateLinks();
 
 		assertEquals(1, templates.size());
-		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, templates.get(0)
+		assertEquals(Constants.ResourceName.TEMPLATE, templates.get(0)
 				.getName());
 		assertEquals(Constants.Rel.TEMPLATE, templates.get(0).getRel());
 		assertEquals(BuildUri.getTemplateUri(serverRootUri, serviceName),

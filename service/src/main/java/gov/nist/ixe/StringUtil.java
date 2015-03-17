@@ -128,5 +128,20 @@ public class StringUtil {
 		return new StringBuilder(longestCommonPrefix(reverseStrs, max)).reverse().toString();
 
 	}
+	
+	public static String join(String[] strs, String delim) {
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < strs.length; i++) {
+			if (i != 0) {
+				builder.append(delim);
+			}
+			builder.append(strs[i]);
+		}
+		return builder.toString();
+	}
+	
+	public static String join(String[] strs) {
+		return join(strs, ", ");
+	}
 
 }

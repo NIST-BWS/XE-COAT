@@ -59,7 +59,7 @@ public abstract class Tests extends TemplateServicesTests {
 		assertEquals(2, processor_count_once_default_schema_and_config_are_set);
 
 		assertLinkEquals(
-				Constants.PROCESS_RESOURCE_NAME, 
+				Constants.ResourceName.PROCESS, 
 				Constants.Rel.PROCESS, 
 				BuildUri.getProcessUri(serverRootUri, serviceName),
 				processors.get(0));
@@ -70,7 +70,7 @@ public abstract class Tests extends TemplateServicesTests {
 				BuildUri.getNamedProcessUri(serverRootUri, serviceName, Constants.DEFAULT_CONFIGURATION_NAME),
 				processors.get(1));
 
-		assertEquals(Constants.PROCESS_RESOURCE_NAME, processors.get(0).getName());			
+		assertEquals(Constants.ResourceName.PROCESS, processors.get(0).getName());			
 		assertEquals(Constants.Rel.PROCESS, processors.get(0).getRel());
 		assertEquals(BuildUri.getProcessUri(serverRootUri, serviceName), processors.get(0).getUri());			
 
@@ -108,7 +108,7 @@ public abstract class Tests extends TemplateServicesTests {
 				BuildUri.getConfigUri(rootUri, serviceName, config1Name),
 				resources.get(1));
 		
-		assertLinkEquals(Constants.PROCESS_RESOURCE_NAME, 
+		assertLinkEquals(Constants.ResourceName.PROCESS, 
 				Constants.Rel.PROCESS, 
 				BuildUri.getProcessUri(rootUri, serviceName),
 				resources.get(2));
@@ -133,7 +133,7 @@ public abstract class Tests extends TemplateServicesTests {
 				BuildUri.getSchemaUri(rootUri, serviceName, schemaName),
 				resources.get(6));
 
-		assertLinkEquals(Constants.TEMPLATE_RESOURCE_NAME,
+		assertLinkEquals(Constants.ResourceName.TEMPLATE,
 				Constants.Rel.TEMPLATE, 
 				BuildUri.getTemplateUri(rootUri, serviceName),
 				resources.get(7));

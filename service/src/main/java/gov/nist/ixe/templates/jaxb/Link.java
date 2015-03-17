@@ -172,7 +172,7 @@ public class Link implements Serializable {
 		Link result = new Link();
 		result.setServiceName(serviceName);
 		result.setRel(Constants.Rel.PROCESS);
-		result.setName(Constants.PROCESS_RESOURCE_NAME);
+		result.setName(Constants.ResourceName.PROCESS);
 		result.setUri(BuildUri.getProcessUri(rootUri, serviceName));
 		return result;	
 	}
@@ -181,7 +181,7 @@ public class Link implements Serializable {
 		Link result = new Link();
 		result.setServiceName(serviceName);
 		result.setRel(Constants.Rel.PROCESS);
-		result.setName(Constants.PROCESS_RESOURCE_NAME);
+		result.setName(Constants.ResourceName.PROCESS);
 		result.setUri(BuildUri.getProcessPayloadUri(rootUri, serviceName));
 		return result;	
 	}
@@ -200,7 +200,7 @@ public class Link implements Serializable {
 		Link result = new Link();
 		result.setServiceName(serviceName);
 		result.setRel(Constants.Rel.TEMPLATE);
-		result.setName(Constants.TEMPLATE_RESOURCE_NAME);
+		result.setName(Constants.ResourceName.TEMPLATE);
 		result.setUri(BuildUri.getTemplateUri(rootUri, serviceName));
 		if (storage.supportsHistory()) {
 			result.setHistoryUri(BuildUri.getTemplateHistoryUri(rootUri, serviceName));

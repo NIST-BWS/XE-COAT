@@ -52,7 +52,7 @@ public class Hosted extends Tests {
 		Response r = ts.getTemplateHistoryAsResponse(serviceName);
 		assertEquals(Constants.Rel.TEMPLATE_HISTORY, r.getHeaderString(Constants.HttpHeader.REL));
 		assertEquals(serviceName, r.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
-		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.ResourceName.TEMPLATE, r.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
 	}
 	
 	
@@ -98,7 +98,7 @@ public class Hosted extends Tests {
 		
 		assertEquals(serviceName, r.getHeaderString(Constants.HttpHeader.SERVICE_NAME));
 		assertEquals(Constants.Rel.TEMPLATE_HISTORY, r.getHeaderString(Constants.HttpHeader.REL));
-		assertEquals(Constants.TEMPLATE_RESOURCE_NAME, r.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
+		assertEquals(Constants.ResourceName.TEMPLATE, r.getHeaderString(Constants.HttpHeader.RESOURCE_NAME));
 	}
 	
 	@Test

@@ -52,7 +52,7 @@ public abstract class Tests extends TemplateServicesTests {
 		ResourceList rl = upload(ts, serviceName, Constants.Rel.TEMPLATE, "ignored", Examples.DUMMY1);
 		assertEquals(1, rl.getResources().size());
 		assertLinkEquals(
-				Constants.TEMPLATE_RESOURCE_NAME, 
+				Constants.ResourceName.TEMPLATE, 
 				Constants.Rel.TEMPLATE, 
 				BuildUri.getTemplateUri(serverRootUri, serviceName),
 				rl.getResources().get(0));
