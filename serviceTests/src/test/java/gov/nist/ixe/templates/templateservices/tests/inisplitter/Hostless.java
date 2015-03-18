@@ -1,0 +1,19 @@
+package gov.nist.ixe.templates.templateservices.tests.inisplitter;
+
+import gov.nist.ixe.templates.templateservices.tests.HostlessTemplateServicesTestFixture;
+import gov.nist.ixe.templates.templateservices.tests.ITemplateServicesTestFixture;
+
+public class Hostless extends Tests {
+
+	private HostlessTemplateServicesTestFixture fixture;
+	
+	public ITemplateServicesTestFixture getTestFixture() {
+		if (fixture == null) {
+			fixture = new HostlessTemplateServicesTestFixture();
+		}
+		return fixture;
+	}
+	
+	// NOT YET USED
+	
+}
