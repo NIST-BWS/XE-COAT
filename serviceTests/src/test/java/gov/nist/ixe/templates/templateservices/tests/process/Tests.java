@@ -11,6 +11,7 @@ import gov.nist.ixe.templates.BuildUri;
 import gov.nist.ixe.templates.Constants;
 import gov.nist.ixe.templates.Constants.HttpHeader;
 import gov.nist.ixe.templates.exception.ResourceNotFoundException;
+import gov.nist.ixe.templates.exception.TemplateGenerationException;
 import gov.nist.ixe.templates.jaxb.Link;
 import gov.nist.ixe.templates.templateservices.tests.TemplateServicesTests;
 import gov.nist.ixe.templates.tests.Examples;
@@ -193,25 +194,41 @@ public abstract class Tests extends TemplateServicesTests {
 	}
 	
 
-//	@Test
-//	public void multipleRootElementsInMainSchemaAreForbidden() throws IOException  {
-//		
-//			String configName = "default.xml";
-//			String schemaName = "main.xsd";
-//			StringSource template = StringSourceFilePersistence.infer(new File("txt/dummy.vm"));
-//			StringSource schema = StringSourceFilePersistence.infer(new File("txt/multi-element.xsd"));
-//			StringSource config = StringSourceFilePersistence.infer(new File("txt/dummy.xml"));
-//			
-//			ts.createService(serviceName);
-//			setTemplate(ts, serviceName, template);
-//			setConfig(ts, serviceName, configName, config);
-//			setSchema(ts, serviceName, schemaName, schema);
-//			
-//			@SuppressWarnings("unused")
-//			StringSource result = processTemplate(ts, serviceName);
-//			
-//		
-//	}
+	@Test (expected=TemplateGenerationException.class)
+	public void MultipleRootElementsInMainSchemaAreForbidden() throws IOException, URISyntaxException  {
+		
+			String configName = "default.xml";
+			String schemaName = "main.xsd";
+			StringSource template = StringSourcePersistence.inferFromSystemResource("txt/dummy.vm");
+			StringSource schema = StringSourcePersistence.inferFromSystemResource("txt/multi-element.xsd");
+			StringSource config = StringSourcePersistence.inferFromSystemResource("txt/dummy.xml");
+			
+			ts.createService(serviceName);
+			setTemplate(ts, serviceName, template);
+			setConfig(ts, serviceName, configName, config);
+			setSchema(ts, serviceName, schemaName, schema);
+			
+			@SuppressWarnings("unused")
+			StringSource result = processTemplate(ts, serviceName);
+	}
+	
+	@Test (expected=TemplateGenerationException.class)
+	public void XsdFilesMustBeSchemas() throws IOException, URISyntaxException  {
+		
+			String configName = "default.xml";
+			String schemaName = "main.xsd";
+			StringSource template = StringSourcePersistence.inferFromSystemResource("txt/dummy.vm");
+			StringSource schema = StringSourcePersistence.inferFromSystemResource("txt/dummy.xml");
+			StringSource config = StringSourcePersistence.inferFromSystemResource("txt/dummy.xml");
+			
+			ts.createService(serviceName);
+			setTemplate(ts, serviceName, template);
+			setConfig(ts, serviceName, configName, config);
+			setSchema(ts, serviceName, schemaName, schema);
+			
+			@SuppressWarnings("unused")
+			StringSource result = processTemplate(ts, serviceName);
+	}
 
 
 }

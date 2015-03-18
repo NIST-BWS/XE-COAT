@@ -30,6 +30,8 @@ public class HostedTemplateServicesClient extends TemplateServicesClient
 		ArrayList<Object> testClass = new ArrayList<Object>();
 		
 		String className = description.getClassName();
+
+		// Strip the redundant text from the classname
 		String prefix = "gov.nist.ixe.";
 		if (className.startsWith(prefix)) {
 		    className = className.substring(prefix.length());
