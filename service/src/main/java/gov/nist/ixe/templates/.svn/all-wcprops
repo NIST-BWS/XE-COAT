@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 67
-/xe/!svn/ver/336/trunk/service/src/main/java/gov/nist/ixe/templates
+/xe/!svn/ver/348/trunk/service/src/main/java/gov/nist/ixe/templates
 END
 FileStorageProvider.java
 K 25
 svn:wc:ra_dav:version-url
 V 92
-/xe/!svn/ver/325/trunk/service/src/main/java/gov/nist/ixe/templates/FileStorageProvider.java
+/xe/!svn/ver/348/trunk/service/src/main/java/gov/nist/ixe/templates/FileStorageProvider.java
 END
 Constants.java
 K 25
@@ -25,7 +25,7 @@ XmlCodeGen.java
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/xe/!svn/ver/312/trunk/service/src/main/java/gov/nist/ixe/templates/XmlCodeGen.java
+/xe/!svn/ver/348/trunk/service/src/main/java/gov/nist/ixe/templates/XmlCodeGen.java
 END
 ServerHeaderFilter.java
 K 25
@@ -55,7 +55,7 @@ TemplateServicesClient.java
 K 25
 svn:wc:ra_dav:version-url
 V 95
-/xe/!svn/ver/336/trunk/service/src/main/java/gov/nist/ixe/templates/TemplateServicesClient.java
+/xe/!svn/ver/348/trunk/service/src/main/java/gov/nist/ixe/templates/TemplateServicesClient.java
 END
 IStorageProvider.java
 K 25

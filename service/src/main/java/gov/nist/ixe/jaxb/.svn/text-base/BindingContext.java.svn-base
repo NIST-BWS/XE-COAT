@@ -47,14 +47,14 @@ import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-public final class BindingContext {
+public class BindingContext {
 	private BindingContext() { }
 	
 	static {
 		contextMap = new HashMap<Class<?>, JAXBContext>();
 	}
 	
-	public final static Map<Class<?>, JAXBContext> contextMap;
+	final static Map<Class<?>, JAXBContext> contextMap;
 	
 	public static JAXBContext getBindingContext(Class<?> c) throws JAXBException {
 		if (!contextMap.containsKey(c))

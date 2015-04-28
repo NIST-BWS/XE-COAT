@@ -94,8 +94,11 @@ public class XmlCodeGen {
 	public static void compile(File start, String classpath) {
 		trace();
 		if (start.isDirectory()) {
-			for (File s : start.listFiles()) {
-				compile(s, classpath);
+			File[] files = start.listFiles();
+			if (files != null) {
+				for (File s : files) {
+					compile(s, classpath);
+				}
 			}
 		} else {
 			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();

@@ -210,15 +210,18 @@ public class FileStorageProvider implements IStorageProvider {
 	private File[] getResourceTombstoneFiles(String serviceName, String subDirName, String resourceName) {
 		ArrayList<File> resources = new ArrayList<File>();
 		File resourceDir = this.getServiceSubDir(serviceName, subDirName);
-		for (File f : resourceDir.listFiles()) {
+		File[] files = resourceDir.listFiles();
+		if (files != null) {
+			for (File f : files) {
 
-			if (isTombstonePath(f.getAbsolutePath())) {	
-				String extractedName = this.extractResourceName(f.getAbsolutePath());
-				if (extractedName != null && extractedName.equals(resourceName)) {
-					resources.add(getFakeFile(f));
+				if (isTombstonePath(f.getAbsolutePath())) {	
+					String extractedName = this.extractResourceName(f.getAbsolutePath());
+					if (extractedName != null && extractedName.equals(resourceName)) {
+						resources.add(getFakeFile(f));
+					}
 				}
-			}
 
+			}
 		}
 		return resources.toArray(new File[resources.size()]);
 	}

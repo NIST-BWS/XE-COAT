@@ -50,7 +50,6 @@ import gov.nist.ixe.templates.exception.ResourceNotEmptyException;
 import gov.nist.ixe.templates.exception.ResourceNotFoundException;
 import gov.nist.ixe.templates.exception.TemplateGenerationException;
 import gov.nist.ixe.templates.exception.TemplateServiceClientException;
-import gov.nist.ixe.templates.exception.TemplateServiceExceptionMapper;
 import gov.nist.ixe.templates.jaxb.RenameResult;
 import gov.nist.ixe.templates.jaxb.ResourceHistory;
 import gov.nist.ixe.templates.jaxb.ResourceList;

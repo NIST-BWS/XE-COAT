@@ -43,6 +43,7 @@ package gov.nist.ixe;
 
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class GetOpt {
@@ -154,10 +155,11 @@ public class GetOpt {
 		out.println("USAGE: ");
 		out.printf("java %s [OPTIONS]%n", programName);
 		
-		for (Character key : shortMap.keySet()) {
-			GetOpt.Parameter p = shortMap.get(key);
+		for (Entry<Character, Parameter> entry : shortMap.entrySet()) {
 			
-			out.printf("\t-%s", key);
+			GetOpt.Parameter p = shortMap.get(entry.getKey());
+			
+			out.printf("\t-%s", entry.getKey());
 			
 			out.printf(p.isExpectsValue() ? " <value>" : "\t");
 			

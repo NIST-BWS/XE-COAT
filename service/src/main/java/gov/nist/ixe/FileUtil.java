@@ -136,10 +136,13 @@ public class FileUtil {
 		if (source.isDirectory()) {			
 			if (!target.exists()) {
 				FileUtil.mkdir(target);	
+			}		
+			String[] sources = source.list();
+			if (sources != null) {
+				for (String child : sources) {
+					copyDirectory(new File(source, child), new File(target, child));
+				} 
 			}			
-			for (String child : source.list()) {
-				copyDirectory(new File(source, child), new File(target, child));
-			}
 		} else {			
 			InputStream is = null; 
 			OutputStream os = null;			

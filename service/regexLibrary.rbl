@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rxb:regexbuddy xmlns:rxb="http://www.regexbuddy.com/regexbuddy32.xsd" version="3.2">
+	<libraryfile>
+		<action id="CommaSplitter" freespacing="1" flavor="java">
+			<regex>,(&#13;&#10;(?=(?:[^']*'[^']*')*[^']*$)&#13;&#10;(?=(?:[^"]*"[^"]*")*[^"]*$)&#13;&#10;(?![^\(\)]*+\))&#13;&#10;(?![^\[\]]*+\])&#13;&#10;(?![^\{\]]*+\})&#13;&#10;(?![^&lt;>]*+>)&#13;&#10;)&#13;&#10;</regex>
+			<description>CommaSplitter</description>
+		</action>
+		<action id="LHS" freespacing="1" flavor="java">
+			<regex>(^\s*[^=\s]+\s*=)</regex>
+			<description>LHS</description>
+		</action>
+		<action id="SpaceSplitter" freespacing="1" flavor="java">
+			<regex>\ +(&#13;&#10;(?=(?:[^']*'[^']*')*[^']*$)&#13;&#10;(?=(?:[^"]*"[^"]*")*[^"]*$)&#13;&#10;(?![^\(\)]*+\))&#13;&#10;(?![^\[\]]*+\])&#13;&#10;(?![^\{\]]*+\})&#13;&#10;(?![^&lt;>]*+>)&#13;&#10;)&#13;&#10;</regex>
+			<description>SpaceSplitter</description>
+		</action>
+	</libraryfile>
+</rxb:regexbuddy>
