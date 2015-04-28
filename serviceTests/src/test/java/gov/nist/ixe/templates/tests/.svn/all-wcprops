@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/xe/!svn/ver/331/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests
+/xe/!svn/ver/347/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests
 END
 IStorageProviderTests.java
 K 25
@@ -9,17 +9,17 @@ svn:wc:ra_dav:version-url
 V 105
 /xe/!svn/ver/243/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/IStorageProviderTests.java
 END
-TestConstants.java
-K 25
-svn:wc:ra_dav:version-url
-V 97
-/xe/!svn/ver/290/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/TestConstants.java
-END
 EncodingUtilTests.java
 K 25
 svn:wc:ra_dav:version-url
 V 101
 /xe/!svn/ver/331/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/EncodingUtilTests.java
+END
+TestUri.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xe/!svn/ver/347/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/TestUri.java
 END
 JaxbXsdTests.java
 K 25

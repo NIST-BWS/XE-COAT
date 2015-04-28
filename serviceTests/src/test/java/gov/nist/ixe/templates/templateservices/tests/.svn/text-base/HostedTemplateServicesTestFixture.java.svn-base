@@ -4,7 +4,7 @@ import gov.nist.ixe.templates.ITemplateServices;
 import gov.nist.ixe.templates.JerseyUtil;
 import gov.nist.ixe.templates.TemplateServices;
 import gov.nist.ixe.templates.TemplateServicesClient;
-import gov.nist.ixe.templates.tests.TestConstants;
+import gov.nist.ixe.templates.tests.TestUri;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,12 +28,12 @@ public class HostedTemplateServicesTestFixture implements
 
 	@Override
 	public String getClientRootUri() {
-		return TestConstants.CLIENT_URI;
+		return TestUri.getClientUri();
 	}
 	
 	@Override
 	public String getServerRootUri() {
-		return TestConstants.SERVER_URI;
+		return TestUri.getServerUri();
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class HostedTemplateServicesTestFixture implements
 	@BeforeClass public static void beforeClass() {
 		
 		try {
-			grizzlyServer = JerseyUtil.createGrizzlyServer(new URI(TestConstants.SERVER_URI));
+			grizzlyServer = JerseyUtil.createGrizzlyServer(new URI(TestUri.getServerUri()));
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
@@ -65,6 +65,6 @@ public class HostedTemplateServicesTestFixture implements
 	
 	
 	private static TemplateServicesClient createClient() {
-		return new HostedTemplateServicesClient(TestConstants.CLIENT_URI);
+		return new HostedTemplateServicesClient(TestUri.getClientUri());
 	}
 }

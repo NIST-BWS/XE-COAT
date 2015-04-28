@@ -1,0 +1,7 @@
+<FizzBuzz>
+	<lines>8</lines>
+	<fizzText>Fro</fizzText>
+	<buzzText>bozz</buzzText>
+	<fizzFrequency>2</fizzFrequency>
+	<buzzFrequency>2</buzzFrequency>
+</FizzBuzz>

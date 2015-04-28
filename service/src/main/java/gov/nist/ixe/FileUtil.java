@@ -57,9 +57,12 @@ public class FileUtil {
 		
 		
 		if (start.isDirectory()) { 
-			for (File f : start.listFiles()) {
-				clear(f);
-			}		
+			File[] files = start.listFiles();
+			if (files != null) {
+				for (File f : files) {
+					clear(f);
+				}		
+			}
 		}
 		
 		if (!start.exists()) return;

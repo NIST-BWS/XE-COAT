@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 57
-/xe/!svn/ver/336/trunk/service/src/main/java/gov/nist/ixe
+/xe/!svn/ver/346/trunk/service/src/main/java/gov/nist/ixe
 END
 Logging.java
 K 25
@@ -19,7 +19,7 @@ FileUtil.java
 K 25
 svn:wc:ra_dav:version-url
 V 71
-/xe/!svn/ver/312/trunk/service/src/main/java/gov/nist/ixe/FileUtil.java
+/xe/!svn/ver/346/trunk/service/src/main/java/gov/nist/ixe/FileUtil.java
 END
 GetOpt.java
 K 25

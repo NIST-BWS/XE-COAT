@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 95
-/xe/!svn/ver/340/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests
+/xe/!svn/ver/347/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests
 END
 HostlessTemplateServicesTestFixture.java
 K 25
@@ -25,7 +25,7 @@ HostedTemplateServicesTestFixture.java
 K 25
 svn:wc:ra_dav:version-url
 V 134
-/xe/!svn/ver/324/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/HostedTemplateServicesTestFixture.java
+/xe/!svn/ver/347/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/HostedTemplateServicesTestFixture.java
 END
 ITemplateServicesTestFixture.java
 K 25
