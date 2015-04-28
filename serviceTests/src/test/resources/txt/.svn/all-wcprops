@@ -15,17 +15,17 @@ svn:wc:ra_dav:version-url
 V 76
 /xe/!svn/ver/338/trunk/serviceTests/src/test/resources/txt/multi-element.xsd
 END
-ucs2be.ini
-K 25
-svn:wc:ra_dav:version-url
-V 69
-/xe/!svn/ver/298/trunk/serviceTests/src/test/resources/txt/ucs2be.ini
-END
 sql-utf8.ini
 K 25
 svn:wc:ra_dav:version-url
 V 71
 /xe/!svn/ver/298/trunk/serviceTests/src/test/resources/txt/sql-utf8.ini
+END
+ucs2be.ini
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/xe/!svn/ver/298/trunk/serviceTests/src/test/resources/txt/ucs2be.ini
 END
 1startsWithNumber.ini
 K 25
