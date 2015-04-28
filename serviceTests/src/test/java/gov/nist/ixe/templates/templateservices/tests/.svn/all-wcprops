@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/xe/!svn/ver/340/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests
+END
+HostlessTemplateServicesTestFixture.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/xe/!svn/ver/312/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/HostlessTemplateServicesTestFixture.java
+END
+HostedTemplateServicesClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/xe/!svn/ver/339/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/HostedTemplateServicesClient.java
+END
+TemplateServicesTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/xe/!svn/ver/298/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/TemplateServicesTests.java
+END
+HostedTemplateServicesTestFixture.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/xe/!svn/ver/324/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/HostedTemplateServicesTestFixture.java
+END
+ITemplateServicesTestFixture.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/xe/!svn/ver/280/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/ITemplateServicesTestFixture.java
+END

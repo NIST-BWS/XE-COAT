@@ -1,0 +1,34 @@
+8
+
+dir
+344
+http://subversion/xe/trunk/serviceTests/src/test/resources
+http://subversion/xe
+
+
+
+2015-03-18T17:32:21.818580Z
+338
+rossm
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+20ebfffe-6d0d-4f1c-8308-87dccc4cd5db
+
+txt
+dir
+
+walkthrough
+dir
+

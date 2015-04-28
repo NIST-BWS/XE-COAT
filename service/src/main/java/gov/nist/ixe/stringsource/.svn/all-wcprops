@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/xe/!svn/ver/324/trunk/service/src/main/java/gov/nist/ixe/stringsource
+END
+StringSourceConverters.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/xe/!svn/ver/324/trunk/service/src/main/java/gov/nist/ixe/stringsource/StringSourceConverters.java
+END
+StringSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/xe/!svn/ver/286/trunk/service/src/main/java/gov/nist/ixe/stringsource/StringSource.java
+END
+StringSourceFilePersistenceException.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/xe/!svn/ver/315/trunk/service/src/main/java/gov/nist/ixe/stringsource/StringSourceFilePersistenceException.java
+END
+StringSourcePersistence.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/xe/!svn/ver/315/trunk/service/src/main/java/gov/nist/ixe/stringsource/StringSourcePersistence.java
+END

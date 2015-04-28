@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/xe/!svn/ver/312/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini/tests
+END
+IniSectionTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/xe/!svn/ver/300/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini/tests/IniSectionTests.java
+END
+ValueParseTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/xe/!svn/ver/309/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini/tests/ValueParseTests.java
+END
+ParseTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/xe/!svn/ver/243/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini/tests/ParseTests.java
+END
+BadKeyValueLineParseTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/xe/!svn/ver/297/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini/tests/BadKeyValueLineParseTests.java
+END
+GenerationTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/xe/!svn/ver/312/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini/tests/GenerationTests.java
+END
+InstanceGenerationTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/xe/!svn/ver/312/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini/tests/InstanceGenerationTests.java
+END
+SchemaInstanceGenerationTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xe/!svn/ver/312/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini/tests/SchemaInstanceGenerationTests.java
+END
+GoodKeyValueLineParseTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xe/!svn/ver/297/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini/tests/GoodKeyValueLineParseTests.java
+END

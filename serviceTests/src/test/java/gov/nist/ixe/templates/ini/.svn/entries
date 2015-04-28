@@ -1,0 +1,31 @@
+8
+
+dir
+344
+http://subversion/xe/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/ini
+http://subversion/xe
+
+
+
+2014-08-28T13:43:47.316517Z
+312
+rossm
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+20ebfffe-6d0d-4f1c-8308-87dccc4cd5db
+
+tests
+dir
+

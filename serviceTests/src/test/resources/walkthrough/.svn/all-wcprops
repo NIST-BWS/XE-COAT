@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/xe/!svn/ver/279/trunk/serviceTests/src/test/resources/walkthrough
+END
+main.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/xe/!svn/ver/275/trunk/serviceTests/src/test/resources/walkthrough/main.xsd
+END
+default.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/xe/!svn/ver/275/trunk/serviceTests/src/test/resources/walkthrough/default.xml
+END
+template.vm
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/xe/!svn/ver/275/trunk/serviceTests/src/test/resources/walkthrough/template.vm
+END

@@ -1,0 +1,43 @@
+8
+
+dir
+344
+http://subversion/xe/trunk/service/src/main/resources
+http://subversion/xe
+
+
+
+2014-08-28T18:35:02.146825Z
+314
+rossm
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+20ebfffe-6d0d-4f1c-8308-87dccc4cd5db
+
+VERSION
+file
+
+
+
+
+2015-04-28T20:00:19.000000Z
+1348fb55aca0b1ee913a87166ce0f362
+2014-01-02T14:20:56.142579Z
+255
+rossm
+
+templates
+dir
+

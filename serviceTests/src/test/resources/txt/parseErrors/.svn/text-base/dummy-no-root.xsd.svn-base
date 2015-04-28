@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:coat="http://xe.nist.gov/coat"	
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"	
+	targetNamespace="http://xe.nist.gov/coat" 
+	elementFormDefault="qualified">
+
+ <xs:complexType name="dummyxType">
+  <xs:sequence>
+      <xs:element name="planes" type="coat:planesType"/>
+      <xs:element name="trains" type="coat:trainsType"/>
+      <xs:element name="automobiles" type="coat:automobilesType"/>
+    </xs:sequence>
+ </xs:complexType>
+
+  <xs:complexType name="Array">
+   <xs:sequence>
+    <xs:element name="element" type="xs:anyType" maxOccurs="unbounded"/>
+   </xs:sequence>
+  </xs:complexType>
+ 
+  <xs:complexType name="DecimalArray">
+   <xs:sequence>
+    <xs:element name="element" type="xs:decimal" maxOccurs="unbounded"/>
+   </xs:sequence>
+  </xs:complexType>
+ 
+  <xs:complexType name="IntegerArray">
+   <xs:sequence>
+    <xs:element name="element" type="xs:int" maxOccurs="unbounded"/>
+   </xs:sequence>
+  </xs:complexType>
+ 
+  <xs:complexType name="planesType">
+   <xs:sequence>
+    <xs:element name="airport" type="xs:string"/>
+    <xs:element name="flight" type="xs:string"/>
+    <xs:element name="status" type="xs:string"/>
+   </xs:sequence>
+ </xs:complexType>
+
+  <xs:complexType name="trainsType">
+   <xs:sequence>
+    <xs:element name="name" type="xs:string"/>
+    <xs:element name="numbers" type="coat:IntegerArray"/>
+   </xs:sequence>
+ </xs:complexType>
+ 
+   <xs:complexType name="automobilesType">
+   <xs:sequence>
+    <xs:element name="costs" type="coat:DecimalArray"/>
+    <xs:element name="mixed" type="coat:Array"/>
+    <xs:element name="name" type="xs:string"/>
+    <xs:element name="runCommand" type="xs:string"/>
+   </xs:sequence>
+ </xs:complexType>
+ 
+</xs:schema>

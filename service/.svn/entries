@@ -1,0 +1,70 @@
+8
+
+dir
+344
+http://subversion/xe/trunk/service
+http://subversion/xe
+
+
+
+2015-03-18T19:51:10.550951Z
+341
+rossm
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+20ebfffe-6d0d-4f1c-8308-87dccc4cd5db
+
+.classpath
+file
+
+
+
+
+2015-04-28T20:00:19.000000Z
+2353e724bfaf722ceadfdcf1c076b1d0
+2014-08-01T14:36:25.782981Z
+288
+rossm
+
+.project
+file
+
+
+
+
+2015-04-28T20:00:19.000000Z
+24ad288abca46d6258cf1e0cd5c012cb
+2015-02-13T17:41:23.014217Z
+318
+rossm
+
+pom.xml
+file
+
+
+
+
+2015-04-28T20:00:19.000000Z
+bdecdd89d87e5a780ecca1f8cf65b7f1
+2013-12-18T20:02:03.867779Z
+237
+kmangold
+
+service
+dir
+
+src
+dir
+

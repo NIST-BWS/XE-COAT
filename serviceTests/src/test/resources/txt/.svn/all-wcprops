@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/xe/!svn/ver/338/trunk/serviceTests/src/test/resources/txt
+END
+dummy.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/dummy.xsd
+END
+multi-element.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/xe/!svn/ver/338/trunk/serviceTests/src/test/resources/txt/multi-element.xsd
+END
+ucs2be.ini
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/xe/!svn/ver/298/trunk/serviceTests/src/test/resources/txt/ucs2be.ini
+END
+sql-utf8.ini
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/xe/!svn/ver/298/trunk/serviceTests/src/test/resources/txt/sql-utf8.ini
+END
+1startsWithNumber.ini
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/xe/!svn/ver/299/trunk/serviceTests/src/test/resources/txt/1startsWithNumber.ini
+END
+utf8.ini
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/xe/!svn/ver/298/trunk/serviceTests/src/test/resources/txt/utf8.ini
+END
+ucs2be-first-line-is-header.ini
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/ucs2be-first-line-is-header.ini
+END
+mcrib.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/mcrib.jpg
+END
+SQLConfigForSccm.ini
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/xe/!svn/ver/299/trunk/serviceTests/src/test/resources/txt/SQLConfigForSccm.ini
+END
+sql.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/sql.xsd
+END
+schema0.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/schema0.xsd
+END
+sample-ini-file-from-ibm.ini
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/sample-ini-file-from-ibm.ini
+END
+policy-sha256-CAPolicy.inf
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/policy-sha256-CAPolicy.inf
+END
+root-CAPolicy.inf
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/root-CAPolicy.inf
+END
+template0.wm
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/template0.wm
+END
+empty.txt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/empty.txt
+END
+policy-sha1-CAPolicy.inf
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/policy-sha1-CAPolicy.inf
+END
+dummy.xml
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/dummy.xml
+END
+sql.vm
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/sql.vm
+END
+config0.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/config0.xml
+END
+sql.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/xe/!svn/ver/299/trunk/serviceTests/src/test/resources/txt/sql.xml
+END
+ansi.ini
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/xe/!svn/ver/299/trunk/serviceTests/src/test/resources/txt/ansi.ini
+END
+issuing-CAPolicy.inf
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/issuing-CAPolicy.inf
+END
+ucs2le.ini
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/xe/!svn/ver/298/trunk/serviceTests/src/test/resources/txt/ucs2le.ini
+END
+dummy.vm
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/dummy.vm
+END
+dummy.ini
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/dummy.ini
+END

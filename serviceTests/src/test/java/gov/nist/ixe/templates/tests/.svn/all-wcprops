@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/xe/!svn/ver/331/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests
+END
+IStorageProviderTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/xe/!svn/ver/243/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/IStorageProviderTests.java
+END
+TestConstants.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/xe/!svn/ver/290/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/TestConstants.java
+END
+EncodingUtilTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/xe/!svn/ver/331/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/EncodingUtilTests.java
+END
+JaxbXsdTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/xe/!svn/ver/284/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/JaxbXsdTests.java
+END
+Examples.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/xe/!svn/ver/267/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/Examples.java
+END
+StringSourceTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/xe/!svn/ver/248/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/StringSourceTests.java
+END
+BuildUriTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/xe/!svn/ver/293/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/BuildUriTests.java
+END
+VelocityUtilTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/xe/!svn/ver/243/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/VelocityUtilTests.java
+END
+FileStorageProviderTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/xe/!svn/ver/267/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/tests/FileStorageProviderTests.java
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/xe/!svn/ver/335/trunk/serviceTests/src/test/java/gov/nist/ixe/tests/stringutil
+END
+LongestCommonSuffixTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/xe/!svn/ver/322/trunk/serviceTests/src/test/java/gov/nist/ixe/tests/stringutil/LongestCommonSuffixTests.java
+END
+LongestCommonPrefixTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/xe/!svn/ver/320/trunk/serviceTests/src/test/java/gov/nist/ixe/tests/stringutil/LongestCommonPrefixTests.java
+END
+JoinTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/xe/!svn/ver/335/trunk/serviceTests/src/test/java/gov/nist/ixe/tests/stringutil/JoinTests.java
+END
+CapitalizeTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/xe/!svn/ver/243/trunk/serviceTests/src/test/java/gov/nist/ixe/tests/stringutil/CapitalizeTests.java
+END

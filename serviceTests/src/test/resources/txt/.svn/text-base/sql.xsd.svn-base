@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<xs:schema 
+	xmlns:coat="http://xe.nist.gov/coat/sql"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://xe.nist.gov/coat/sql"
+	elementFormDefault="qualified">
+
+ <xs:element name="SQLSERVER2008" type="coat:SQLSERVER2008Type"/>
+
+
+  <xs:complexType name="StringArray">
+   <xs:sequence>
+    <xs:element name="element" type="xs:string" maxOccurs="unbounded"/>
+   </xs:sequence>
+  </xs:complexType>
+ 
+  <xs:complexType name="SQLSERVER2008Type">
+   <xs:sequence>
+    <xs:element name="ACTION" type="xs:string"/>
+    <xs:element name="ADDCURRENTUSERASSQLADMIN" type="xs:string"/>
+    <xs:element name="AGTSVCACCOUNT" type="xs:string"/>
+    <xs:element name="AGTSVCSTARTUPTYPE" type="xs:string"/>
+    <xs:element name="ASBACKUPDIR" type="xs:string"/>
+    <xs:element name="ASCOLLATION" type="xs:string"/>
+    <xs:element name="ASCONFIGDIR" type="xs:string"/>
+    <xs:element name="ASDATADIR" type="xs:string"/>
+    <xs:element name="ASLOGDIR" type="xs:string"/>
+    <xs:element name="ASPROVIDERMSOLAP" type="xs:string"/>
+    <xs:element name="ASSVCSTARTUPTYPE" type="xs:string"/>
+    <xs:element name="ASTEMPDIR" type="xs:string"/>
+    <xs:element name="BROWSERSVCSTARTUPTYPE" type="xs:string"/>
+    <xs:element name="ENABLERANU" type="xs:string"/>
+    <xs:element name="ENU" type="xs:string"/>
+    <xs:element name="ERRORREPORTING" type="xs:string"/>
+    <xs:element name="FARMADMINPORT" type="xs:string"/>
+    <xs:element name="FEATURES" type="coat:StringArray"/>
+    <xs:element name="FILESTREAMLEVEL" type="xs:string"/>
+    <xs:element name="HELP" type="xs:string"/>
+    <xs:element name="IACCEPTSQLSERVERLICENSETERMS" type="xs:string"/>
+    <xs:element name="INDICATEPROGRESS" type="xs:string"/>
+    <xs:element name="INSTALLSHAREDDIR" type="xs:string"/>
+    <xs:element name="INSTALLSHAREDWOWDIR" type="xs:string"/>
+    <xs:element name="INSTANCEDIR" type="xs:string"/>
+    <xs:element name="INSTANCEID" type="xs:string"/>
+    <xs:element name="INSTANCENAME" type="xs:string"/>
+    <xs:element name="ISSVCACCOUNT" type="xs:string"/>
+    <xs:element name="ISSVCSTARTUPTYPE" type="xs:string"/>
+    <xs:element name="NPENABLED" type="xs:string"/>
+    <xs:element name="PID" type="xs:string"/>
+    <xs:element name="QUIET" type="xs:string"/>
+    <xs:element name="QUIETSIMPLE" type="xs:string"/>
+    <xs:element name="RSINSTALLMODE" type="xs:string"/>
+    <xs:element name="RSSVCACCOUNT" type="xs:string"/>
+    <xs:element name="RSSVCSTARTUPTYPE" type="xs:string"/>
+    <xs:element name="SQLCOLLATION" type="xs:string"/>
+    <xs:element name="SQLSVCACCOUNT" type="xs:string"/>
+    <xs:element name="SQLSVCSTARTUPTYPE" type="xs:string"/>
+    <xs:element name="SQLSYSADMINACCOUNTS" type="coat:StringArray"/>
+    <xs:element name="SQMREPORTING" type="xs:string"/>
+    <xs:element name="TCPENABLED" type="xs:string"/>
+    <xs:element name="X86" type="xs:string"/>
+   </xs:sequence>
+ </xs:complexType>
+
+
+</xs:schema>

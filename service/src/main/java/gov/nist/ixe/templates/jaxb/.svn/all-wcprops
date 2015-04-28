@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/xe/!svn/ver/334/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb
+END
+LinkComparator.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/xe/!svn/ver/313/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/LinkComparator.java
+END
+ServiceResources.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/xe/!svn/ver/309/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/ServiceResources.java
+END
+SchemaGen.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/xe/!svn/ver/322/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/SchemaGen.java
+END
+ResourceList.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xe/!svn/ver/284/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/ResourceList.java
+END
+ExceptionResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/xe/!svn/ver/243/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/ExceptionResult.java
+END
+RenameResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xe/!svn/ver/280/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/RenameResult.java
+END
+Link.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/xe/!svn/ver/334/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/Link.java
+END
+HistoricLink.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xe/!svn/ver/315/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/HistoricLink.java
+END
+TemplateGenerationError.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/xe/!svn/ver/289/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/TemplateGenerationError.java
+END
+ResourceHistory.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/xe/!svn/ver/288/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/ResourceHistory.java
+END
+ParseError.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/xe/!svn/ver/315/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/ParseError.java
+END
+package-info.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xe/!svn/ver/243/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/package-info.java
+END
+ServiceList.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/xe/!svn/ver/309/trunk/service/src/main/java/gov/nist/ixe/templates/jaxb/ServiceList.java
+END

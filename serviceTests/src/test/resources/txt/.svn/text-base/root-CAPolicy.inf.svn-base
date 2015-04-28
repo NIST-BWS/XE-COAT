@@ -1,0 +1,23 @@
+[Version]
+Signature="$Windows NT$"
+
+; From Windows Server 2008 PKI & Certificate Security from Microsoft Press
+; Implementing a Three-Tier CA Hierarchy (p. 121)
+
+[certsrv_server]
+RenewalKeyLength=2048 			; Root CA uses a key length of 2,048 bits
+
+RenewalValidityPeriodUnits=20		; Validity period of the root CA cert is 20 years
+RenewalValidityPeriod=years		; 
+
+CRLPeriod=weeks				; Base CRLs are published every 26 weeks
+CRLPeriodUnits=26 			;
+
+CRLOverlapPeriod=weeks			; Base CRLS are published with a 2 week overlap
+CRLOverlapUnits=2			;
+
+CRLDeltaPeriod=days			; Delta CRLs are disabled 			
+CRLDeltaPeriodUnits=0			;
+
+DiscreteSignatureAlgorithm=1		; Discrete signatures allow the use of CNG
+					; algorithms for hashing and signing

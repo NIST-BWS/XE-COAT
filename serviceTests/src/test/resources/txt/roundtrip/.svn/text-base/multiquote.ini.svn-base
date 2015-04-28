@@ -1,0 +1,24 @@
+; 
+; Simple ini file
+; Don't touch this! It will break tests if you do.
+;
+
+[planes] ; planes section comment
+airport = lax ; austraila?
+flight = "Oceanic 815"
+status = LOST
+
+[trains]
+name = "thomas" ; the tank engine
+numbers = 2, 4, 6, 8 ; pulling trains and shunting freight
+dqCollection = "a", "b", "c"
+sqCollection = 'a', 'b', 'c'
+parenCollection = (a) (b) (c) (d) (e)
+mixedCollection = "a", 'b', (c)
+nestedCollection = (a,b), (c,d), (e,f)
+
+[automobiles]
+name = "chitty chitty bang bang"
+costs = 100.0, 200.0, 300.0
+mixed = abc, 1, 4.5
+runCommand = c:\tmp\oooahh.exe

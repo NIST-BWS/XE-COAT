@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+#if ($m.MultipleSections)
+<$m.RootElementName 
+ xmlns="$m.TargetNamespace"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+#end
+#foreach ($section in $m.Sections)
+#if ($section.Elements.size() > 0)
+#if ($m.MultipleSections)
+ <$section.ElementName>
+#else
+ <$section.ElementName
+  xmlns="$m.TargetNamespace"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+#end
+#foreach ($element in $section.Elements)   
+#if ($element.IsMultivalued)
+#if ($element.Values.size() > 0)
+  <$element.ElementName>
+#foreach ($value in $element.Values)
+#if ($element.IsOfMixedTypes)
+   <element xsi:type="$value.Type">$value.EscapedValue</element>
+#else
+   <element>$value.EscapedValue</element>
+#end
+#end
+  </$element.ElementName>
+#else
+  <$element.ElementName/> 
+#end
+#else
+  <$element.ElementName>$element.EscapedSimpleValue</$element.ElementName>
+#end
+#end
+ </$section.ElementName>
+#else
+ <$section.ElementName/>
+#end
+#end
+#if ($m.MultipleSections)
+</$m.RootElementName>
+#end
+

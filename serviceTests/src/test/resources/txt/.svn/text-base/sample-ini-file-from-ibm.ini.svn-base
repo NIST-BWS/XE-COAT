@@ -1,0 +1,362 @@
+;-------------------------------------------------------------------------
+;
+;  Addin INI file sample.
+;
+;  The path that the Addin is installed to on the Host server
+;  will be used to identify that particular Addin.  The path name
+;  should be meaningful for that Addin, and it should be used
+;  consistently for that Addin when it is installed on more than
+;  one server.
+;
+;  All entries in the Addin Info section are required except for the
+;  list of FileGroups to use.  That way, an Addin can be used to just
+;  start a Setup program simply by specifying the Setup in one
+;  of the Program sections.
+;
+;  Files can be installed from any path to any path as defined by
+;  the following path symbols:
+;
+;    WINDRIVE[\path]          Windows drive with optional path
+;    CAEDRIVE[\path]          Client Access Express drive with optional path
+;    CAEPATH[\path]           Client Access path with optional path
+;    WINPATH[\path]           Windows path with optional path
+;    WINSYSPATH[\path]        Windows System path with optional path
+;    PROGRAMFILESPATH[\path]  Program Files path with optional path
+;    COMMONFILESPATH[\path]   Common Files path with optional path
+;    SRCPATH[\path]           Addin source path with optional path
+;    c:\whereever             A hardcoded path is OK too.
+;
+;--------------------------------------------------------------------------
+[Addin Info]                                    ; Section required
+ 
+; KeyName must match the directory in which the Addin is stored on the Host
+KeyName=AddinSample                             ; Unique registry identifier
+ 
+Name=Addin Sample                               ; Displayed on install panel
+                                                ; if current language not
+                                                ; found in this file
+ 
+Description=I am the Addin Sample               ; Displayed on install panel
+                                                ; if current language not
+                                                ; found in this file
+ 
+Version=1                                       ; Increment this to trigger
+                                                ; CheckVersion to initiate a
+                                                ; service or upgrade of this
+                                                ; Addin.  Only a Version
+                                                ; value is required.
+                                                ; Servicing
+                                                ; can be accomplished by
+                                                ; incrementing the Version
+                                                ; and adding/removing the
+                                                ; appropriate file groups
+ 
+FileGroup1=Update these                         ; Any number of user
+FileGroup2=Only add new                         ; defined file groups
+FileGroup3=More files
+FileGroup4=Remove these
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  Files to be installed
+;
+;--------------------------------------------------------------------------
+[Update these]
+TargetPath=CAEPATH\Addin1	                      ; Required
+ 
+OverwriteExisting=Y                             ; Optional. Default to Y
+ 
+NeverUninstall=Y                                ; Optional. Default to N
+ 
+File1=file1.ext                                 ; Default is SRCPATH
+ 
+File2=SRCPATH\Update\file2.ext                  ; Any number of files
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  More files to be installed
+;
+;--------------------------------------------------------------------------
+[Only add new]
+TargetPath=CAEPATH\Addin1
+OverwriteExisting=N
+File1=addfile.ext
+File2=SRCPATH\Update\addfile2.ext
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  More files to be installed
+;
+;--------------------------------------------------------------------------
+[More files]
+TargetPath=CAEPATH\Addin1\More
+File1=another.ext
+File2=more.ext
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  Files to be removed if they exist
+;
+;--------------------------------------------------------------------------
+[Remove these]
+TargetPath=CAEPATH\Addin1                       ; Required
+ 
+RemoveFiles=Y                                   ; The default is N.  If
+                                                ; RemoveFiles=Y the other
+                                                ; file group install
+                                                ; parameters are ignored, as
+                                                ; well as paths specified
+                                                ; in the file declarations.
+                                                ; This provides a way to
+                                                ; clean up files even if
+                                                ; those files were installed
+                                                ; with NeverUninstall=Y.
+ 
+File1=nomore.ext                                ; The files are in the target path
+ 
+File2=alldone.ext                               ; Any number of files
+                                                ; Paths are ignored on the
+                                                ; files specified.
+ 
+;-------------------------------------------------------------------------
+;
+;  Optional programs to be called before files are installed.
+;
+;--------------------------------------------------------------------------
+[PreInstallProgram1]
+Path=SRCPATH                    ; Required.  Any of the predefined path entries
+Program=whatever.exe            ; Required.  Only file name used
+CmdLine=                        ; Optional.  Whatever they want
+CheckReturnCode=Y               ; Optional.  Defaults to N.  Install of
+                                ; this addin will not continue if this is
+                                ; setup to Y and the return is non-zero.
+Wait=Y                          ; Optional.  Wait for program to terminate
+                                ; before continuing to execute.  The default
+                                ; is Y.  If CheckReturnCode=Y, then Wait=Y
+                                ; is used no matter what is specified here.
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  Optional programs to be called after files are installed.
+;
+;--------------------------------------------------------------------------
+[PostInstallProgram1]
+Path=CAEPATH\Addin1             ; Required.  Any of the predefined path entries
+Program=morestuff.exe           ; Required.  Only file name used
+CmdLine=                        ; Optional.  Whatever they want
+ 
+;-------------------------------------------------------------------------
+;
+;  Optional programs to be called before files are upgraded (Version changed).
+;
+;--------------------------------------------------------------------------
+[PreUpgradeProgram1]
+Path=SRCPATH                    ; Required.  Any of the predefined path entries
+Program=whatever.exe            ; Required.  Only file name used
+CmdLine=                        ; Optional.  Whatever they want
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  Optional programs to be called after files are upgraded (Version changed).
+;
+;--------------------------------------------------------------------------
+[PostUpgradeProgram1]
+Path=CAEPATH\Addin1             ; Required.  Any of the predefined path entries
+Program=morestuff.exe           ; Required.  Only file name used
+CmdLine=                        ; Optional.  Whatever they want
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  Programs to be called before files are uninstalled.
+;
+;--------------------------------------------------------------------------
+[UninstallProgram1]
+Path=CAEPATH\Addin1             ; Required.  Any of the predefined path entries
+Program=cleanup.exe             ; Required.  Only file name used
+CmdLine=                        ; Optional.  Whatever they want
+CheckReturnCode=N               ; Optional.  Defaults to No
+Wait=Y                          ; Optional.  Wait for program to terminate
+                                ; before continuing to execute.  The default
+                                ; is Y.  If CheckReturnCode=Y, then Wait=Y
+                                ; is used no matter what is specified here.
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  MRI sections optional sections used to specify the Addin Name and
+;  Description shown on the install panel.  The currently selected CAE
+;  language will be used, if a section is found that matches it.  Otherwise
+;  the DefaultName and DefaultDescription will be used.  This gives
+;  the administrator the capability of rolling out one Addin for
+;  multiple languages (at least as far as the Install panel goes).
+;
+;--------------------------------------------------------------------------
+[MRI2924]
+Name=Addin Sample
+Description=I am the Addin Sample
+ 
+[MRI2999]
+Name=LKASJ LKJDAS                       ; Name translated to MRI2999 language
+Description=LKAJASDJKSLAJSHSDH FLSH     ; Description translated to MRI2999 	
+						                       ;	language
+ 
+ 
+
+The following ADDIN.INI file can be used to install the IBM eNetwork Personal Communications 4.3 product as a Client Access Express Add-in: 
+
+;-------------------------------------------------------------------------
+;
+;  Client Access Express - PCOMM Add-in INI file.
+;
+;  The path that the Add-in is installed to on the Host server
+;  will be used to identify that particular Add-in.  The path name
+;  should be meaningful for that Add-in, and if should be used
+;  consistently for that Addin when it is installed on more than
+;  one server.
+;
+;  All entries in the Add-in Info section are required except for the
+;  list of FileGroups to use.  That way, an Add-in can be used to just
+;  start a Setup program simply by specifying the Setup in one
+;  of the Program sections.
+;
+;  Files can be installed from any path to any path as defined by
+;  the following path symbols:
+;
+;    WINDRIVE[\path]          Windows drive with optional path
+;    CAEDRIVE[\path]          Client Access Express drive with optional path
+;    CAEPATH[\path]           Client Access path with optional path
+;    WINPATH[\path]           Windows path with optional path
+;    WINSYSPATH[\path]        Windows System path with optional path
+;    PROGRAMFILESPATH[\path]  Program Files path with optional path
+;    COMMONFILESPATH[\path]   Common Files path with optional path
+;    SRCPATH[\path]           Addin source path with optional path
+;    c:\whereever             A hardcoded path is OK too.
+;
+;--------------------------------------------------------------------------
+ 
+;--------------------------------------------------------------------
+; IBM grants you a nonexclusive license to use this as an example
+; from which you can generate similar function tailored to your own
+; specific needs. This sample is  provided in the form of source
+; material which you may change and use.
+; If you change the source, it is recommended that you first copy the
+; source to a different directory.  This will ensure that your changes
+; are preserved when the tool kit contents are changed by IBM.
+;
+;                             DISCLAIMER
+;                             ----------
+;
+; This sample code is provided by IBM for illustrative purposes only.
+; These examples have not been thoroughly tested under all conditions.
+; IBM, therefore, cannot guarantee or imply reliability,
+; serviceability, or function of these programs.  All programs
+; contained herein are provided to you "AS IS" without any warranties
+; of any kind.  ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO THE
+; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+; PURPOSE, ARE EXPRESSLY DISCLAIMED.
+;
+; Your license to this sample code provides you no right or licenses to
+; any IBM patents.  IBM has no obligation to defend or indemnify against
+; any claim of infringement, including but not limited to: patents,
+; copyright, trade secret, or intellectual property rights of any kind.
+;
+;                             COPYRIGHT
+;                             ---------
+;            5769-XE1 (C) Copyright IBM CORP. 1999
+;            All rights reserved.
+;            US Government Users Restricted Rights -
+;            Use, duplication or disclosure restricted
+;            by GSA ADP Schedule Contract with IBM Corp.
+;            Licensed Material - Property of IBM
+;--------------------------------------------------------------------
+ 
+;--------------------------------------------------------------------------
+;
+;  Addin Info
+;
+;  KeyName     should match the directory the Add-in is stored into on the
+; 		  	       Host.
+;  Name        is the name of the Add-in if an MRI29xx section is not  provided.
+;  Description is the description of the Add-in if an MRI29xx section is not
+;              provided.
+;  Version     is initially set to 1.  It should be incremented with each new
+;              release.
+;
+;--------------------------------------------------------------------------
+[Addin Info]
+ 
+KeyName=PCOMM
+Name=eNetwork Personal Communications 4.3
+Description=eNetwork Personal Communications 4.3
+Version=1
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  Optional programs to be called before files are installed.
+;
+;  Path            the path where the program should be run from.
+;  Program         the program to run.
+;  CmdLine         command line parameters passed to the program.
+;  CheckReturnCode specifies whether to check the return of the called program.
+;  Wait            specifies whether to wait for execution to complete
+;                  before continuing.
+;
+;  NOTE: InstallShield SETUP programs should not be passed the -SMS command
+;        line parameter.  Doing so will hang the Client Access Express
+;        install.  Also, InstallShield SETUP programs are only in memory
+;        long enough to uncompress and start the real install program.
+;        It is not possible to launch an InstallShield SETUP program and
+;        suspend the Client Access Express install until the launched
+;        install has finished.
+;
+;--------------------------------------------------------------------------
+[PreInstallProgram1]
+Path=SRCPATH\enu\disk1
+Program=setup.exe
+CmdLine=
+CheckReturnCode=N
+Wait=Y
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  MRI sections optional sections used to specify the Addin Name and
+;  Description shown on the install panel.  The currently selected CAE
+;  language will be used, if a section is found that matches it.  Otherwise
+;  the Name and Description will be used.  This gives an administrator the
+;  capability of rolling out one Add-in for multiple languages (at least
+;  as far as the Install panel goes).
+;
+;--------------------------------------------------------------------------
+[MRI2924]
+Name=eNetwork Personal Communications 4.3
+Description=eNetwork Personal Communications 4.3
+ 
+ 
+;-------------------------------------------------------------------------
+;
+;  Uninstall program to be called by the Client Access Express
+;  uninstall program which will uninstall eNetwork Personal
+;  Communications
+;  
+;  Note: This will only work if eNetwork Personal Communications
+;  is installed to the default location
+;  (C:\Program Files\Personal Communications) on the PC.
+;
+;--------------------------------------------------------------------------
+[UninstallProgram1]
+Path=WINPATH
+Program=pcsunist.exe
+CmdLine=C:\WINDOWS\UNINST.EXE -fC:\Progra~1\Person~1\DelsL1.isu -y
+CheckReturnCode=N
+Wait=Y
+ 
+

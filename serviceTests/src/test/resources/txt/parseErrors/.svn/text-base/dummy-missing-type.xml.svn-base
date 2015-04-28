@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<dummy 
+ xmlns="http://xe.nist.gov/coat"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+ <planes>
+  <airport>lax</airport>
+  <flight>Oceanic 815</flight>
+  <status>LOST</status>
+ </planes>
+ <automobiles>
+  <costs>
+   <element>100.0</element>
+   <element>200.0</element>
+   <element>300.0</element>
+  </costs>
+  <mixed>
+   <element xsi:type="xs:string">abc</element>
+   <element xsi:type="xs:int">1</element>
+   <element xsi:type="xs:decimal">4.5</element>
+  </mixed>
+  <name>chitty chitty bang bang</name>
+  <runCommand>c:\tmp\oooahh.exe</runCommand>
+ </automobiles>
+</dummy>
+

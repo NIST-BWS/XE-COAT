@@ -1,0 +1,6 @@
+[section1]
+key1=&
+key2=& &amp ; remember, after the semi-colon, it's a comment! :)
+key3="" '' <> <>
+
+[section2]

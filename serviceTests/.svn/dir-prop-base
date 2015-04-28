@@ -1,0 +1,16 @@
+K 10
+svn:ignore
+V 79
+target
+*~
+*.log
+.settings
+.wtpmodules
+.idea
+*.ipr
+*.iws
+*.iml
+.git
+.gitignores
+
+END

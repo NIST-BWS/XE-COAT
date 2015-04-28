@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/xe/!svn/ver/336/trunk/service/src/main/java/gov/nist/ixe/templates
+END
+FileStorageProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/xe/!svn/ver/325/trunk/service/src/main/java/gov/nist/ixe/templates/FileStorageProvider.java
+END
+Constants.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/xe/!svn/ver/336/trunk/service/src/main/java/gov/nist/ixe/templates/Constants.java
+END
+CodeGenException.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/xe/!svn/ver/313/trunk/service/src/main/java/gov/nist/ixe/templates/CodeGenException.java
+END
+XmlCodeGen.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/xe/!svn/ver/312/trunk/service/src/main/java/gov/nist/ixe/templates/XmlCodeGen.java
+END
+ServerHeaderFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xe/!svn/ver/326/trunk/service/src/main/java/gov/nist/ixe/templates/ServerHeaderFilter.java
+END
+UnicodeBOMInputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/xe/!svn/ver/315/trunk/service/src/main/java/gov/nist/ixe/templates/UnicodeBOMInputStream.java
+END
+SimpleLoggingFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/xe/!svn/ver/259/trunk/service/src/main/java/gov/nist/ixe/templates/SimpleLoggingFilter.java
+END
+CorsFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/xe/!svn/ver/334/trunk/service/src/main/java/gov/nist/ixe/templates/CorsFilter.java
+END
+TemplateServicesClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/xe/!svn/ver/336/trunk/service/src/main/java/gov/nist/ixe/templates/TemplateServicesClient.java
+END
+IStorageProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/xe/!svn/ver/293/trunk/service/src/main/java/gov/nist/ixe/templates/IStorageProvider.java
+END
+HistoryInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/xe/!svn/ver/268/trunk/service/src/main/java/gov/nist/ixe/templates/HistoryInfo.java
+END
+ITemplateServices.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xe/!svn/ver/324/trunk/service/src/main/java/gov/nist/ixe/templates/ITemplateServices.java
+END
+VelocityUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/xe/!svn/ver/295/trunk/service/src/main/java/gov/nist/ixe/templates/VelocityUtil.java
+END
+StorageProviderFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/xe/!svn/ver/318/trunk/service/src/main/java/gov/nist/ixe/templates/StorageProviderFactory.java
+END
+EntryPoint.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/xe/!svn/ver/323/trunk/service/src/main/java/gov/nist/ixe/templates/EntryPoint.java
+END
+BuildUri.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/xe/!svn/ver/319/trunk/service/src/main/java/gov/nist/ixe/templates/BuildUri.java
+END
+SchemaCompilerErrorListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/xe/!svn/ver/313/trunk/service/src/main/java/gov/nist/ixe/templates/SchemaCompilerErrorListener.java
+END
+TemplateServicesUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/xe/!svn/ver/304/trunk/service/src/main/java/gov/nist/ixe/templates/TemplateServicesUtil.java
+END
+StringSourceUriPair.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/xe/!svn/ver/312/trunk/service/src/main/java/gov/nist/ixe/templates/StringSourceUriPair.java
+END
+TemplateServices.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/xe/!svn/ver/336/trunk/service/src/main/java/gov/nist/ixe/templates/TemplateServices.java
+END
+Version.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/xe/!svn/ver/286/trunk/service/src/main/java/gov/nist/ixe/templates/Version.java
+END
+JerseyUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/xe/!svn/ver/292/trunk/service/src/main/java/gov/nist/ixe/templates/JerseyUtil.java
+END

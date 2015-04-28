@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/xe/!svn/ver/315/trunk/service/src/main/java/gov/nist/ixe/templates/ini
+END
+XmlSectionElement.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/xe/!svn/ver/314/trunk/service/src/main/java/gov/nist/ixe/templates/ini/XmlSectionElement.java
+END
+XmlSection.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/xe/!svn/ver/243/trunk/service/src/main/java/gov/nist/ixe/templates/ini/XmlSection.java
+END
+XmlArrayType.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/xe/!svn/ver/309/trunk/service/src/main/java/gov/nist/ixe/templates/ini/XmlArrayType.java
+END
+XmlValue.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/xe/!svn/ver/311/trunk/service/src/main/java/gov/nist/ixe/templates/ini/XmlValue.java
+END
+XmlFragment.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/xe/!svn/ver/243/trunk/service/src/main/java/gov/nist/ixe/templates/ini/XmlFragment.java
+END
+XmlTopLevel.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/xe/!svn/ver/243/trunk/service/src/main/java/gov/nist/ixe/templates/ini/XmlTopLevel.java
+END
+KeyValueLine.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/xe/!svn/ver/315/trunk/service/src/main/java/gov/nist/ixe/templates/ini/KeyValueLine.java
+END
+Generator.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/xe/!svn/ver/312/trunk/service/src/main/java/gov/nist/ixe/templates/ini/Generator.java
+END
+Parse.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/xe/!svn/ver/243/trunk/service/src/main/java/gov/nist/ixe/templates/ini/Parse.java
+END
+Values.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/xe/!svn/ver/309/trunk/service/src/main/java/gov/nist/ixe/templates/ini/Values.java
+END
+XmlModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/xe/!svn/ver/314/trunk/service/src/main/java/gov/nist/ixe/templates/ini/XmlModel.java
+END
+KeyValueLineValuesSplitterStyle.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/xe/!svn/ver/301/trunk/service/src/main/java/gov/nist/ixe/templates/ini/KeyValueLineValuesSplitterStyle.java
+END
+IniSection.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/xe/!svn/ver/309/trunk/service/src/main/java/gov/nist/ixe/templates/ini/IniSection.java
+END

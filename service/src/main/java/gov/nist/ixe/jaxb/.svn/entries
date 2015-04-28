@@ -1,0 +1,40 @@
+8
+
+dir
+344
+http://subversion/xe/trunk/service/src/main/java/gov/nist/ixe/jaxb
+http://subversion/xe
+
+
+
+2014-08-28T12:50:29.141135Z
+309
+rossm
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+20ebfffe-6d0d-4f1c-8308-87dccc4cd5db
+
+BindingContext.java
+file
+
+
+
+
+2015-04-28T20:00:19.000000Z
+962b7b6b427237ddb1f1b6f08b76de45
+2014-08-28T12:50:29.141135Z
+309
+rossm
+

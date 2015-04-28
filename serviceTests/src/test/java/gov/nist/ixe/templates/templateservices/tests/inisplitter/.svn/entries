@@ -1,0 +1,67 @@
+8
+
+dir
+344
+http://subversion/xe/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/inisplitter
+http://subversion/xe
+
+
+
+2015-03-18T17:47:40.745652Z
+340
+rossm
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+20ebfffe-6d0d-4f1c-8308-87dccc4cd5db
+
+Hosted.java
+file
+
+
+
+
+2015-04-28T20:00:19.000000Z
+97c71127016cd1dadb0fe4271a907b2a
+2015-03-18T17:47:40.745652Z
+340
+rossm
+
+Hostless.java
+file
+
+
+
+
+2015-04-28T20:00:19.000000Z
+69d6aea748d4b6fff65836b3dd888c35
+2015-03-18T17:47:40.745652Z
+340
+rossm
+
+Tests.java
+file
+
+
+
+
+2015-04-28T20:00:19.000000Z
+6dcc21f3bd2e9f7d937c8e31fce5b608
+2015-03-18T17:47:40.745652Z
+340
+rossm
+
+roundtrips
+dir
+

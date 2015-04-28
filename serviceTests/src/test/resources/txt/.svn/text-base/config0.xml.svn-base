@@ -1,0 +1,5 @@
+<Machine>
+	<Hostname>hostname0</Hostname>
+	<Dhcp>true</Dhcp>
+	<IPAddress>127.0.0.1</IPAddress>
+</Machine>

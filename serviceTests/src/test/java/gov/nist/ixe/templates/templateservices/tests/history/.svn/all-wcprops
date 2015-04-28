@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/xe/!svn/ver/334/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/history
+END
+Hosted.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/xe/!svn/ver/334/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/history/Hosted.java
+END
+Tests.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xe/!svn/ver/334/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/history/Tests.java
+END
+Hostless.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xe/!svn/ver/243/trunk/serviceTests/src/test/java/gov/nist/ixe/templates/templateservices/tests/history/Hostless.java
+END

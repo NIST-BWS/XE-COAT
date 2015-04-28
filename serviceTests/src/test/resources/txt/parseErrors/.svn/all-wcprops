@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/xe/!svn/ver/252/trunk/serviceTests/src/test/resources/txt/parseErrors
+END
+dummy.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy.xml
+END
+dummy-missing-type.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy-missing-type.xsd
+END
+dummy.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy.xsd
+END
+dummy-no-root.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy-no-root.xsd
+END
+dummy-missing-bracket.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy-missing-bracket.xml
+END
+dummy-multi-root.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy-multi-root.xsd
+END
+dummy-missing-bracket.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy-missing-bracket.xsd
+END
+dummy-missing-bracket.vm
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy-missing-bracket.vm
+END
+dummy.vm
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy.vm
+END
+dummy.ini
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy.ini
+END
+dummy-missing-type.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/dummy-missing-type.xml
+END
+empty.txt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/xe/!svn/ver/243/trunk/serviceTests/src/test/resources/txt/parseErrors/empty.txt
+END
